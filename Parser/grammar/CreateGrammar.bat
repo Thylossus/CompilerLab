@@ -1,0 +1,1 @@
+java -jar ..\lib\antlr.jar -package com.compilerlab.parser -o ..\src\com\compilerlab\parser -no-listener -visitor Demo.g4
