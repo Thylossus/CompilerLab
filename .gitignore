@@ -1,3 +1,6 @@
+*~
+.DS_Store    
+
 *.class
 
 # Mobile Tools for Java (J2ME)
@@ -14,6 +17,7 @@ hs_err_pid*
 /Compiler/build/
 /Parser/build/
 /Parser/dist/
+<<<<<<< HEAD
 
 #Latex Helper Files#
 *.aux
@@ -21,3 +25,10 @@ hs_err_pid*
 *.out
 *.synctex.gz
 *.toc
+=======
+/Compiler/.DS_Store
+/Compiler/lib/.DS_Store
+/Parser/.DS_Store
+/.DS_Store
+/Specification/.texpadtmp
+>>>>>>> 8e39b3b93023d84f727de56332c14cef866e4a95
