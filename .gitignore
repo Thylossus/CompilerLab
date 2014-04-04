@@ -18,6 +18,8 @@ hs_err_pid*
 /Compiler/build/
 /Parser/build/
 /Parser/dist/
-Compiler/.DS_Store
-Compiler/lib/.DS_Store
-Parser/.DS_Store
+/Compiler/.DS_Store
+/Compiler/lib/.DS_Store
+/Parser/.DS_Store
+/.DS_Store
+/Specification/.texpadtmp
