@@ -1,13 +1,13 @@
 boolean main() {
 	int i = 3;					
-		//Assign 5 to variable i
+		//Assign 3 to variable i
 	int j;						
 		//Declare variable j
 	
 	while (i != 0) {			
 		//Start while loop; repeat if i is not equal to 0
 		j = 2;					
-			//Assign 3 to j
+			//Assign 2 to j
 		while (j > 0) {			
 			//Start while loop; repeat if j is greater than 0
 			j = j - 1;			
