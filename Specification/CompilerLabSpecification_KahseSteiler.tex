@@ -1,0 +1,145 @@
+\documentclass[12pt,a4paper,titlepage,oneside,final]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{varioref}
+\usepackage{listings}
+\lstset{
+	frame=single,
+	breaklines=true,
+	keepspaces=true,
+	language=C,
+	tabsize=2
+}
+\usepackage{hyperref}
+\author{Tobias Kahse, Frank Steiler}
+\title{Compiler Lab\\Specification\\~\\Simplified C}
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\pagebreak
+
+\section{Introduction}
+This document specifies the programming language \emph{Simplified C}. As its name indicates the syntax is based on C, but the range of functions is reduced.
+
+The source code is parsed by ANTLRv4, converted into JVM assembly language code, and finally compiled to Java byte code using Jasmin. However, the compiler is designed to easily exchange the assembly code instructions and thus, compiling source code for various systems is possible.
+
+\section{General Description}
+As mentioned in the introduction the range of functions of the programming language \emph{Simplified C} is reduced in comparison with C. \emph{Simplified C} supports the following functions:
+
+\begin{itemize}
+\item Usage of (unsigned) integer and boolean data types
+\item Conversion of integer to boolean and boolean to integer values
+\item Variable declaration and assignment
+\item Distinction between global and local variables (scopes)
+\item Basic integer and boolean calculations
+\item While and doWhile loops
+\item Case distinction with if/then/else
+\item Printing to the system's standard output
+\item Functions
+\end{itemize}
+
+Furthermore the compiler will be capable of calculating .limit stack correctly and parsing source code to an abstract class representation.
+
+\section{Detailed Description}
+Within this section all functions of \emph{Simplified C} are described in detail. Sample code snippets are going to specify how the syntax will look like.
+
+\subsection{General Source Code Structure}
+\label{subsec:sourcecodestructure}
+Every \emph{Simplified C} program must provide a main function. This function will be used as an entry point for the program. The main function will always return a boolean value, which indicates whether the execution was successful or not. Global variables have to be defined at the beginning of the source code.
+
+\subsection{Output to stdout}
+Boolean and integer values can be printed to the system's standard output using the function \texttt{println}. Boolean values will be printed as either true or false. The usage of \texttt{println} is specified in all following code snippets.
+
+\subsection{Variables}
+\emph{Simplified C} supports two different data types, unsigned integer and boolean. The values can be stored within variables. Each variable has to be declared with an data type. The syntax for variable declaration, initialisation, and assignment can be found in all following code snippets, e.g. Listing \vref{cs:typeconversion}.
+
+\subsection{Type Conversion}
+It is possible to convert integer to boolean and boolean to integer values. To convert a value use the operator \texttt{(int)} respectively \texttt{(boolean)}. Keep in mind that the conversion from integer to boolean is lossy. 
+
+Every integer greater than zero is converted to the boolean value true and zero is converted into false. The boolean value true is converted to 1 and false is converted to 0.
+\lstinputlisting[caption={Code Sample: Type Conversion},label=cs:typeconversion]{CodeSamples/TypeConversion.sc}
+
+\subsection{Basic Calculations}
+\emph{Simplified C} supports the following basic integer and boolean calculations:
+
+\begin{itemize}
+\item Addition
+\item Subtraction
+\item Multiplication
+\item Division
+\item Logical AND
+\item Logical OR
+\end{itemize}
+
+The result of each basic calculation can be assigned to a variable of the appropriate type. Furthermore function parameters can be the result of basic calculations.
+
+For all calculations the known precedence rules (e.g. multiplication and division first, then addition and subtraction) apply.
+
+Examples for basic calculations can be found in listing \vref{cs:basiccalculations}.
+
+\lstinputlisting[caption={Code Sample: Basic Calculations},label=cs:basiccalculations]{CodeSamples/BasicCalc.sc}
+
+\subsection{Case Distinction}
+\label{subsec:casedistinction}
+For case distinctions the commands \texttt{if} and \texttt{else} can be used. The command \texttt{elseif} is not supported. The bodies of the cases have to be surrounded by curly braces. This is done to avoid the Dangling-Else problem when parsing the source code. Furthermore case distinctions can be cascaded infinitely. The condition can be composed of every supported boolean resulting calculation. Integer values can be compared by using comparison operators. Only two integers can be compared at the same time. The following comparison operators can be used:
+
+\begin{itemize}
+\item Equals (\texttt{==})
+\item Unequal (\texttt{!=})
+\item Greater than (\texttt{>})
+\item Less than (\texttt{<})
+\item Greater equal (\texttt{>=})
+\item Less equal (\texttt{<=})
+\end{itemize}
+
+Furthermore multiple boolean values or comparison results can be combined by using the earlier defined boolean operators AND and OR.
+
+Examples for case distinction can be found in listing \vref{cs:casedistinction}.
+
+\lstinputlisting[caption={Code Sample: Case Distinction},label=cs:casedistinction]{CodeSamples/CaseDistinction.sc}
+
+\subsection{Loops}
+\emph{Simplified C} supports two types of loops, while and doWhile. The while loop is, as in C, a head-controlled loop. On the other hand doWhile is a tail-controlled loop. The control conditions are as defined in section \vref{subsec:casedistinction}. Furthermore loops can also be cascaded infinitely.
+
+
+Examples for while loops can be found in listing \vref{cs:while}.
+
+\lstinputlisting[caption={Code Sample: While},label=cs:while]{CodeSamples/While.sc}
+
+Examples for doWhile loops can be found in listing \vref{cs:dowhile}.
+
+\lstinputlisting[caption={Code Sample: DoWhile},label=cs:dowhile]{CodeSamples/DoWhile.sc}
+
+\subsection{Functions}
+Each function consists of a function head and a function body. The function head starts with the data type of the return value. If the function is not supposed to have a return value the head starts with the key word \texttt{void}. The next part of the head is the function name, which is followed by a list of parameters in parenthesis. It is also possible that this list is empty.
+
+The function body is surrounded by curly braces, consists of a list of statements, and has to end with a return statement. Nevertheless, return statements can also occur within the body. However, the last statement of a function always has to be a return statement.
+
+Every function can be called within a function body. This includes the function itself (recursion).
+
+
+Examples for functions can be found in listing \vref{cs:functions}.
+
+\lstinputlisting[caption={Code Sample: Functions},label=cs:functions]{CodeSamples/Functions.sc}
+
+\subsection{Scopes}
+In \emph{Simplified C} a distinction between global and local variables is made. As discussed in section \vref{subsec:sourcecodestructure} global variables have to be defined at the beginning of the source code. Global variables can be used in every function. On top of that functions can overwrite global variables locally and have their own local variables. After a global variable was overwritten locally, the variable cannot be accessed within the function any more.
+
+Examples for scopes can be found in listing \vref{cs:scopes}.
+
+\lstinputlisting[caption={Code Sample: Scopes},label=cs:scopes]{CodeSamples/Scopes.sc}
+
+\subsection{Calculation of .limit stack}
+In JVM assembly code it is required to calculate the maximum stack size for each function. This is done to use the memory most efficiently by ensuring that no memory is allocated unnecessarily.
+
+The compiler for \emph{Simplified C} will set the maximum stack size to the smallest possible amount.
+
+\subsection{Visitor}
+The compiler will use a visitor function to parse the source code. This function converts the parsed tokens into an abstract class representation. This representation consists of classes, which can be used to generate JVM assembly code. This code can than be compiled to Java byte code by Jasmin. Converting the tokens into an abstract class representation rather than a direct conversion into assembly code provides greater flexibility. This enables the user to switch between different assembly language libraries or to apply post-processing. Thus, the compiler can be extended fairly easy.
+
+\end{document}
