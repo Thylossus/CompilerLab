@@ -4,7 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -15,3 +14,10 @@ hs_err_pid*
 /Compiler/build/
 /Parser/build/
 /Parser/dist/
+
+#Latex Helper Files#
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.toc
