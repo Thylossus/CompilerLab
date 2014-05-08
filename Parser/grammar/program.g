@@ -61,31 +61,17 @@ boolExpr
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
-<<<<<<< HEAD
 	| '(boolean)' intExpr
-=======
-<<<<<<< HEAD
-    | BOOLVALUE
-    | ID
-=======
->>>>>>> eab0958f3dbcddc0a01225393ce9ca71bf8e95e1
 	| ID '(' (expr (',' expr)*)? ')' 
 	| BOOLVALUE
 	| ID
->>>>>>> dfc970dd201b63563631d11ec20a3eba3a65981f
     ;
 	
 dataType
-<<<<<<< HEAD
 	: 'boolean'
 	| 'int'
 	| 'void'
 	;
-=======
-    : 'boolean'
-    | 'int'
-    ;
->>>>>>> eab0958f3dbcddc0a01225393ce9ca71bf8e95e1
 	
 ID		: [a-zA-Z][a-zA-Z_0-9]*;
 VALUE	: '0'|[1-9][0-9]* | 'false' | 'true';
