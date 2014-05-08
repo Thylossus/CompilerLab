@@ -8,7 +8,7 @@ program
     ;
 
 function 
-    : dataType ID '(' paramList ')' '{' decl* (stmnt ';')* 'return' expr ';''}'
+    : dataType ID '(' paramList ')' '{' decl* (stmnt)* 'return' expr ';''}'
     ;
 
 paramList 
@@ -16,7 +16,7 @@ paramList
     ;
 
 globalDecl
-	: dataType ID ('=' VALUE)? ';'
+	: dataType ID ('=' value)? ';'
 	;
 
 decl
@@ -25,13 +25,13 @@ decl
 
 stmnt 
     : '{' (stmnt ';')* '}' 
-    | ID '=' (expr | boolExpr)    
+    | ID '=' (expr | boolExpr) ';'
     | 'if' '(' boolExpr ')' stmnt                 
     | 'if' '(' boolExpr ')' stmnt 'else' stmnt
     | 'while' '(' boolExpr ')' stmnt
 	| 'do' stmnt 'while' '(' boolExpr ')' ';'
-	| 'return' expr
-    | expr           
+	| 'return' expr ';'
+    | expr ';'
     ;
 
 expr
@@ -73,8 +73,12 @@ dataType
 	| 'void'
 	;
 	
+value
+	: BOOLVALUE
+	| NUMBER
+	;
+	
 ID		: [a-zA-Z][a-zA-Z_0-9]*;
-VALUE	: '0'|[1-9][0-9]* | 'false' | 'true';
 BOOLVALUE: 'false' | 'true';
 NUMBER	: '0'|[1-9][0-9]*;
 COMMENT : '//' ~('\n')* -> skip;

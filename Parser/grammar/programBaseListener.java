@@ -94,6 +94,19 @@ public class programBaseListener implements programListener {
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterValue(@NotNull programParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitValue(@NotNull programParser.ValueContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterParamList(@NotNull programParser.ParamListContext ctx) { }
 	/**
 	 * {@inheritDoc}
