@@ -61,17 +61,18 @@ boolExpr
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
-	| BOOLVALUE
-	| ID
+    | BOOLVALUE
+    | ID
     ;
 	
 dataType
-	: 'boolean'
-	| 'int'
-	;
+    : 'boolean'
+    | 'int'
+    ;
 	
 ID		: [a-zA-Z][a-zA-Z_0-9]*;
 VALUE	: '0'|[1-9][0-9]* | 'false' | 'true';
 BOOLVALUE: 'false' | 'true';
 NUMBER	: '0'|[1-9][0-9]*;
+COMMENT : '//' ~('\n')* -> skip;
 WS    	: [ \v\t\n\r] -> skip;
