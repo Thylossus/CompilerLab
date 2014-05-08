@@ -8,7 +8,7 @@ program
     ;
 
 function 
-    : dataType ID '(' paramList ')' '{' decl* (stmnt ';')* '}'
+    : dataType ID '(' paramList ')' '{' decl* (stmnt ';')* 'return' expr ';''}'
     ;
 
 paramList 
@@ -29,24 +29,22 @@ stmnt
     | 'if' '(' boolExpr ')' stmnt                 
     | 'if' '(' boolExpr ')' stmnt 'else' stmnt
     | 'while' '(' boolExpr ')' stmnt
-	| 'do'
-    | 'return' expr    
+	| 'do' stmnt 'while' '(' boolExpr ')' ';'
+	| 'return' expr
     | expr           
     ;
 
 expr
 	: intExpr
 	| boolExpr
-	| '(int)' boolExpr
-	| '(boolean)' intExpr
 	;
- 	
 
 intExpr
 	: intExpr '+' intExpr
 	| intExpr '-' intExpr
 	| intExpr '*' intExpr
 	| intExpr '/' intExpr
+	| '(int)' boolExpr
 	| '(' intExpr ')'
 	| NUMBER
 	| ID '(' (expr (',' expr)*)? ')' 
@@ -54,24 +52,32 @@ intExpr
 	;
 	
 boolExpr 
-    : expr '==' expr     
-    | expr '!=' expr     
-    | expr '<=' expr     
-    | expr '>=' expr     
-    | expr '<'  expr      
-    | expr '>'  expr     
+    : intExpr '==' intExpr     
+    | intExpr '!=' intExpr     
+    | intExpr '<=' intExpr     
+    | intExpr '>=' intExpr     
+    | intExpr '<'  intExpr      
+    | intExpr '>'  intExpr     
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
+<<<<<<< HEAD
     | ID '(' (expr (',' expr)*)? ')' 
     | BOOLVALUE
     | ID
+=======
+	| '(boolean)' intExpr
+	| ID '(' (expr (',' expr)*)? ')' 
+	| BOOLVALUE
+	| ID
+>>>>>>> 357a630c7e7a735c0beac7517b02631148c96409
     ;
 	
 dataType
-    : 'boolean'
-    | 'int'
-    ;
+	: 'boolean'
+	| 'int'
+	| 'void'
+	;
 	
 ID		: [a-zA-Z][a-zA-Z_0-9]*;
 VALUE	: '0'|[1-9][0-9]* | 'false' | 'true';
