@@ -19,6 +19,13 @@ public interface programVisitor<T> extends ParseTreeVisitor<T> {
 	T visitGlobalDecl(@NotNull programParser.GlobalDeclContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link programParser#intExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntExpr(@NotNull programParser.IntExprContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link programParser#dataType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

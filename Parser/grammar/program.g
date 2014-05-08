@@ -61,16 +61,12 @@ boolExpr
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
-<<<<<<< HEAD
+
+    | '(boolean)' intExpr
     | ID '(' (expr (',' expr)*)? ')' 
     | BOOLVALUE
     | ID
-=======
-	| '(boolean)' intExpr
-	| ID '(' (expr (',' expr)*)? ')' 
-	| BOOLVALUE
-	| ID
->>>>>>> 357a630c7e7a735c0beac7517b02631148c96409
+
     ;
 	
 dataType
