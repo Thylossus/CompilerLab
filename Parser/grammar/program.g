@@ -61,10 +61,12 @@ boolExpr
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
-	| '(boolean)' intExpr
-	| ID '(' (expr (',' expr)*)? ')' 
-	| BOOLVALUE
-	| ID
+
+    | '(boolean)' intExpr
+    | ID '(' (expr (',' expr)*)? ')' 
+    | BOOLVALUE
+    | ID
+
     ;
 	
 dataType
