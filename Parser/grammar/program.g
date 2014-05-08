@@ -1,4 +1,4 @@
-grammar Program;
+grammar program;
 
 start   : program
         ;
@@ -8,7 +8,7 @@ program
     ;
 
 function 
-    : dataType ID '(' paramList ')' '{' decl* (stmnt)* 'return' expr ';''}'
+    : dataType ID '(' paramList ')' '{' decl* (stmnt)* 'return' expr? ';''}'
     ;
 
 paramList 
