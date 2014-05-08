@@ -52,12 +52,12 @@ intExpr
 	;
 	
 boolExpr 
-    : expr '==' expr     
-    | expr '!=' expr     
-    | expr '<=' expr     
-    | expr '>=' expr     
-    | expr '<'  expr      
-    | expr '>'  expr     
+    : intExpr '==' intExpr     
+    | intExpr '!=' intExpr     
+    | intExpr '<=' intExpr     
+    | intExpr '>=' intExpr     
+    | intExpr '<'  intExpr      
+    | intExpr '>'  intExpr     
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 

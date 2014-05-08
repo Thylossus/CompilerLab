@@ -1,4 +1,4 @@
-// Generated from program.g by ANTLR 4.2.1
+// Generated from program.g by ANTLR 4.1
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -17,6 +17,17 @@ public interface programListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitGlobalDecl(@NotNull programParser.GlobalDeclContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link programParser#intExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntExpr(@NotNull programParser.IntExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link programParser#intExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntExpr(@NotNull programParser.IntExprContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link programParser#dataType}.
