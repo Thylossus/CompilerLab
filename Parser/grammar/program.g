@@ -24,12 +24,10 @@ decl
     ;
 
 stmnt 
-    : '{' (stmnt ';')* '}' 
-    | ID '=' (expr | boolExpr) ';'
-    | 'if' '(' boolExpr ')' stmnt                 
-    | 'if' '(' boolExpr ')' stmnt 'else' stmnt
-    | 'while' '(' boolExpr ')' stmnt
-	| 'do' stmnt 'while' '(' boolExpr ')' ';'
+    : ID '=' (expr | boolExpr) ';'                
+    | 'if' '(' boolExpr ')' '{' (stmnt)* '}' ('else' '{' (stmnt)* '}')?
+    | 'while' '(' boolExpr ')' '{' (stmnt)* '}'
+	| 'do' '{' (stmnt)* '}' 'while' '(' boolExpr ')' ';'
 	| 'return' expr ';'
     | expr ';'
     ;
@@ -61,7 +59,6 @@ boolExpr
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
-
     | '(boolean)' intExpr
     | ID '(' (expr (',' expr)*)? ')' 
     | BOOLVALUE
