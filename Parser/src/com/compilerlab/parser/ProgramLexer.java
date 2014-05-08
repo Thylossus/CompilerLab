@@ -1,4 +1,5 @@
-// Generated from program.g by ANTLR 4.1
+// Generated from Program.g by ANTLR 4.2.1
+package com.compilerlab.parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -9,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class programLexer extends Lexer {
+public class ProgramLexer extends Lexer {
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -40,13 +41,13 @@ public class programLexer extends Lexer {
 	};
 
 
-	public programLexer(CharStream input) {
+	public ProgramLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "program.g"; }
+	public String getGrammarFileName() { return "Program.g"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
@@ -55,32 +56,16 @@ public class programLexer extends Lexer {
 	public String[] getRuleNames() { return ruleNames; }
 
 	@Override
+	public String getSerializedATN() { return _serializedATN; }
+
+	@Override
 	public String[] getModeNames() { return modeNames; }
 
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	@Override
-	public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
-		switch (ruleIndex) {
-		case 33: COMMENT_action((RuleContext)_localctx, actionIndex); break;
-
-		case 34: WS_action((RuleContext)_localctx, actionIndex); break;
-		}
-	}
-	private void WS_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 1: skip();  break;
-		}
-	}
-	private void COMMENT_action(RuleContext _localctx, int actionIndex) {
-		switch (actionIndex) {
-		case 0: skip();  break;
-		}
-	}
-
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\2%\u00db\b\1\4\2\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\2%\u00db\b\1\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -95,10 +80,9 @@ public class programLexer extends Lexer {
 		"\3\36\3\37\3\37\3 \3 \7 \u00b3\n \f \16 \u00b6\13 \3!\3!\3!\3!\3!\3!\3"+
 		"!\3!\3!\5!\u00c1\n!\3\"\3\"\3\"\7\"\u00c6\n\"\f\"\16\"\u00c9\13\"\5\""+
 		"\u00cb\n\"\3#\3#\3#\3#\7#\u00d1\n#\f#\16#\u00d4\13#\3#\3#\3$\3$\3$\3$"+
-		"\2%\3\3\1\5\4\1\7\5\1\t\6\1\13\7\1\r\b\1\17\t\1\21\n\1\23\13\1\25\f\1"+
-		"\27\r\1\31\16\1\33\17\1\35\20\1\37\21\1!\22\1#\23\1%\24\1\'\25\1)\26\1"+
-		"+\27\1-\30\1/\31\1\61\32\1\63\33\1\65\34\1\67\35\19\36\1;\37\1= \1?!\1"+
-		"A\"\1C#\1E$\2G%\3\3\2\b\4\2C\\c|\6\2\62;C\\aac|\3\2\63;\3\2\62;\3\2\f"+
+		"\2\2%\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21\n\23\13\25\f\27\r\31\16\33\17\35"+
+		"\20\37\21!\22#\23%\24\'\25)\26+\27-\30/\31\61\32\63\33\65\34\67\359\36"+
+		";\37= ?!A\"C#E$G%\3\2\b\4\2C\\c|\6\2\62;C\\aac|\3\2\63;\3\2\62;\3\2\f"+
 		"\f\7\2\13\f\17\17\"\"^^xx\u00df\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2"+
 		"\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2\23\3\2"+
 		"\2\2\2\25\3\2\2\2\2\27\3\2\2\2\2\31\3\2\2\2\2\33\3\2\2\2\2\35\3\2\2\2"+
@@ -145,9 +129,9 @@ public class programLexer extends Lexer {
 		"\n\6\2\2\u00d0\u00cf\3\2\2\2\u00d1\u00d4\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d2"+
 		"\u00d3\3\2\2\2\u00d3\u00d5\3\2\2\2\u00d4\u00d2\3\2\2\2\u00d5\u00d6\b#"+
 		"\2\2\u00d6F\3\2\2\2\u00d7\u00d8\t\7\2\2\u00d8\u00d9\3\2\2\2\u00d9\u00da"+
-		"\b$\3\2\u00daH\3\2\2\2\b\2\u00b4\u00c0\u00c7\u00ca\u00d2";
+		"\b$\2\2\u00daH\3\2\2\2\b\2\u00b4\u00c0\u00c7\u00ca\u00d2\3\b\2\2";
 	public static final ATN _ATN =
-		ATNSimulator.deserialize(_serializedATN.toCharArray());
+		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
 		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {
