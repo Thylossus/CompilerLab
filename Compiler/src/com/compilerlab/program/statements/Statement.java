@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
-package com.compilerlab.program;
+package com.compilerlab.program.statements;
+
+import com.compilerlab.program.Compileable;
 
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class Statement extends ProgramComponent{
+public abstract class Statement implements Compileable{
 
 }

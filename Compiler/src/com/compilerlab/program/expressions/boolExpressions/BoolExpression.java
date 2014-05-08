@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
-package com.compilerlab.program;
+package com.compilerlab.program.expressions.boolExpressions;
+
+import com.compilerlab.program.expressions.Expression;
 
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class ProgramComponent {
+public abstract class BoolExpression extends Expression{
 
 }

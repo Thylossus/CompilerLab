@@ -3,17 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.compilerlab.program;
 
-package com.compilerlab.compiler;
-
-import com.compilerlab.parser.ProgramBaseVisitor;
-import com.compilerlab.program.Compileable;
+import com.compilerlab.jasmin.Command;
+import java.util.List;
 
 /**
- * Visit a single program component.
+ *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class ComponentVisitor extends ProgramBaseVisitor<Compileable>{
+public interface Compileable {
 
+    @Override
+    public String toString();
+
+    public List<Command> compile();
+
+    public int getStackSize();
 }

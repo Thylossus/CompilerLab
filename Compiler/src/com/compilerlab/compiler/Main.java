@@ -39,7 +39,7 @@ public class Main {
         //Find global Variables and definitions
         HashMap<String, Value> globalVariables = Finder.findGlobalVariables(tree);
         Set<String> functionDefinitions = Finder.findFunctionDefinitions(tree);
-        Collection<Function> functionList = (Collection<Function>)new ListVisitor().visit(tree);
+        Collection<Function> functionList = (Collection<Function>)new ListVisitor(globalVariables, functionDefinitions).visit(tree);
         
         Program program = new Program(globalVariables, functionList);
         

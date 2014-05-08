@@ -6,11 +6,29 @@
 
 package com.compilerlab.program;
 
+import com.compilerlab.jasmin.Command;
+import java.util.List;
+
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class Function extends ProgramComponent{
+public class Function implements Compileable{
+
+    @Override
+    public List<Command> compile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getStackSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
