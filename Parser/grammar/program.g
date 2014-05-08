@@ -63,14 +63,9 @@ boolExpr
     | '!' boolExpr            
     | boolExpr '&&' boolExpr 
     | boolExpr '||' boolExpr 
-<<<<<<< HEAD
+    | ID '(' (expr (',' expr)*)? ')' 
     | BOOLVALUE
     | ID
-=======
-	| ID '(' (expr (',' expr)*)? ')' 
-	| BOOLVALUE
-	| ID
->>>>>>> dfc970dd201b63563631d11ec20a3eba3a65981f
     ;
 	
 dataType
