@@ -54,6 +54,13 @@ public interface programVisitor<T> extends ParseTreeVisitor<T> {
 	T visitProgram(@NotNull programParser.ProgramContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link programParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue(@NotNull programParser.ValueContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link programParser#paramList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
