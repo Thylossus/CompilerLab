@@ -2,6 +2,12 @@ package com.compilerlab.compiler;
 
 import com.compilerlab.parser.ProgramLexer;
 import com.compilerlab.parser.ProgramParser;
+import com.compilerlab.program.Function;
+import com.compilerlab.program.Program;
+import com.compilerlab.program.values.Value;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -29,8 +35,14 @@ public class Main {
         
         //TODO: Replace by results of abstract syntax tree!
         ParseTree tree = parser.program();
-        //TODO: Change Object to class of abstract syntax tree
-        Object program = new Visitor().visit(tree);
+        
+        //Find global Variables and definitions
+        HashMap<String, Value> globalVariables = Finder.findGlobalVariables(tree);
+        Set<String> functionDefinitions = Finder.findFunctionDefinitions(tree);
+        Collection<Function> functionList = (Collection<Function>)new ListVisitor().visit(tree);
+        
+        Program program = new Program(globalVariables, functionList);
+        
         return "";
     }
 }
