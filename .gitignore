@@ -37,3 +37,4 @@ hs_err_pid*
 *.bat
 *.bat
 Parser/grammar/CreateGrammar.bat
+/Compiler/dist/
