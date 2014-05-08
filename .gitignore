@@ -35,3 +35,5 @@ hs_err_pid*
 /Specification/.texpadtmp
 >>>>>>> 8e39b3b93023d84f727de56332c14cef866e4a95
 *.bat
+*.bat
+Parser/grammar/CreateGrammar.bat
