@@ -1,4 +1,4 @@
-grammar program;
+grammar Program;
 
 start   : program
         ;

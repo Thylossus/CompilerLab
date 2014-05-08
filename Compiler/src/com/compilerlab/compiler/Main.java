@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 public class Main {
 
@@ -32,5 +33,4 @@ public class Main {
         Object program = new Visitor().visit(tree);
         return "";
     }
-    
 }

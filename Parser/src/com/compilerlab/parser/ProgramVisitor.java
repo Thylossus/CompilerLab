@@ -1,4 +1,4 @@
-// Generated from Program.g by ANTLR 4.2.1
+// Generated from /Uni/4. Semester/CompilerLab/CompilerLab/Parser/grammar/Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;

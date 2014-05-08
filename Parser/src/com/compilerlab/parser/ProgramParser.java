@@ -1,4 +1,4 @@
-// Generated from Program.g by ANTLR 4.2.1
+// Generated from /Uni/4. Semester/CompilerLab/CompilerLab/Parser/grammar/Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -784,17 +784,10 @@ public class ProgramParser extends Parser {
 						{
 						_localctx = new IntExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_intExpr);
-<<<<<<< HEAD:Parser/grammar/programParser.java
 						setState(188);
-						if (!(9 >= _localctx._p)) throw new FailedPredicateException(this, "9 >= $_p");
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(189); match(18);
 						setState(190); intExpr(10);
-=======
-						setState(186);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(187); match(18);
-						setState(188); intExpr(10);
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
 						}
 						break;
 
@@ -802,17 +795,10 @@ public class ProgramParser extends Parser {
 						{
 						_localctx = new IntExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_intExpr);
-<<<<<<< HEAD:Parser/grammar/programParser.java
 						setState(191);
-						if (!(8 >= _localctx._p)) throw new FailedPredicateException(this, "8 >= $_p");
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(192); match(3);
 						setState(193); intExpr(9);
-=======
-						setState(189);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(190); match(3);
-						setState(191); intExpr(9);
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
 						}
 						break;
 
@@ -820,17 +806,10 @@ public class ProgramParser extends Parser {
 						{
 						_localctx = new IntExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_intExpr);
-<<<<<<< HEAD:Parser/grammar/programParser.java
 						setState(194);
-						if (!(7 >= _localctx._p)) throw new FailedPredicateException(this, "7 >= $_p");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(195); match(2);
 						setState(196); intExpr(8);
-=======
-						setState(192);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(193); match(2);
-						setState(194); intExpr(8);
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
 						}
 						break;
 
@@ -838,17 +817,10 @@ public class ProgramParser extends Parser {
 						{
 						_localctx = new IntExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_intExpr);
-<<<<<<< HEAD:Parser/grammar/programParser.java
 						setState(197);
-						if (!(6 >= _localctx._p)) throw new FailedPredicateException(this, "6 >= $_p");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(198); match(28);
 						setState(199); intExpr(7);
-=======
-						setState(195);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(196); match(28);
-						setState(197); intExpr(7);
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
 						}
 						break;
 					}
@@ -1040,17 +1012,10 @@ public class ProgramParser extends Parser {
 						{
 						_localctx = new BoolExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_boolExpr);
-<<<<<<< HEAD:Parser/grammar/programParser.java
 						setState(251);
-						if (!(6 >= _localctx._p)) throw new FailedPredicateException(this, "6 >= $_p");
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(252); match(24);
 						setState(253); boolExpr(7);
-=======
-						setState(249);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(250); match(24);
-						setState(251); boolExpr(7);
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
 						}
 						break;
 
@@ -1058,17 +1023,10 @@ public class ProgramParser extends Parser {
 						{
 						_localctx = new BoolExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_boolExpr);
-<<<<<<< HEAD:Parser/grammar/programParser.java
 						setState(254);
-						if (!(5 >= _localctx._p)) throw new FailedPredicateException(this, "5 >= $_p");
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(255); match(25);
 						setState(256); boolExpr(6);
-=======
-						setState(252);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(253); match(25);
-						setState(254); boolExpr(6);
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
 						}
 						break;
 					}
@@ -1199,11 +1157,7 @@ public class ProgramParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-<<<<<<< HEAD:Parser/grammar/programParser.java
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3%\u010d\4\2\t\2\4"+
-=======
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3%\u010b\4\2\t\2\4"+
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3%\u010d\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\3\2\3\2\3\3\7\3\36\n\3\f\3\16\3!\13\3\3\3\7\3$\n\3"+
 		"\f\3\16\3\'\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\60\n\4\f\4\16\4\63\13"+
@@ -1219,24 +1173,23 @@ public class ProgramParser extends Parser {
 		"\3\n\5\n\u00bd\n\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\n"+
 		"\u00cb\n\n\f\n\16\n\u00ce\13\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
 		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13"+
-<<<<<<< HEAD:Parser/grammar/programParser.java
 		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\7\13\u00f2"+
 		"\n\13\f\13\16\13\u00f5\13\13\5\13\u00f7\n\13\3\13\3\13\3\13\5\13\u00fc"+
 		"\n\13\3\13\3\13\3\13\3\13\3\13\3\13\7\13\u0104\n\13\f\13\16\13\u0107\13"+
-		"\13\3\f\3\f\3\r\3\r\3\r\2\16\2\4\6\b\n\f\16\20\22\24\26\30\2\4\5\2\n\n"+
-		"\r\r\21\21\3\2\"#\u012d\2\32\3\2\2\2\4\37\3\2\2\2\6(\3\2\2\2\bL\3\2\2"+
-		"\2\nN\3\2\2\2\fV\3\2\2\2\16\u00a0\3\2\2\2\20\u00a4\3\2\2\2\22\u00bc\3"+
-		"\2\2\2\24\u00fb\3\2\2\2\26\u0108\3\2\2\2\30\u010a\3\2\2\2\32\33\5\4\3"+
-		"\2\33\3\3\2\2\2\34\36\5\n\6\2\35\34\3\2\2\2\36!\3\2\2\2\37\35\3\2\2\2"+
-		"\37 \3\2\2\2 %\3\2\2\2!\37\3\2\2\2\"$\5\6\4\2#\"\3\2\2\2$\'\3\2\2\2%#"+
-		"\3\2\2\2%&\3\2\2\2&\5\3\2\2\2\'%\3\2\2\2()\5\26\f\2)*\7!\2\2*+\7\7\2\2"+
-		"+,\5\b\5\2,-\7\23\2\2-\61\7\16\2\2.\60\5\f\7\2/.\3\2\2\2\60\63\3\2\2\2"+
-		"\61/\3\2\2\2\61\62\3\2\2\2\62\67\3\2\2\2\63\61\3\2\2\2\64\66\5\16\b\2"+
-		"\65\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29\67\3\2"+
-		"\2\2:<\7\26\2\2;=\5\20\t\2<;\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\7\30\2\2?@"+
-		"\7\20\2\2@\7\3\2\2\2AB\5\26\f\2BI\7!\2\2CD\7\3\2\2DE\5\26\f\2EF\7!\2\2"+
-		"FH\3\2\2\2GC\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JM\3\2\2\2KI\3\2\2\2"+
-		"LA\3\2\2\2LM\3\2\2\2M\t\3\2\2\2NO\5\26\f\2OR\7!\2\2PQ\7\27\2\2QS\5\30"+
+		"\13\3\f\3\f\3\r\3\r\3\r\2\4\22\24\16\2\4\6\b\n\f\16\20\22\24\26\30\2\4"+
+		"\5\2\n\n\r\r\21\21\3\2\"#\u012d\2\32\3\2\2\2\4\37\3\2\2\2\6(\3\2\2\2\b"+
+		"L\3\2\2\2\nN\3\2\2\2\fV\3\2\2\2\16\u00a0\3\2\2\2\20\u00a4\3\2\2\2\22\u00bc"+
+		"\3\2\2\2\24\u00fb\3\2\2\2\26\u0108\3\2\2\2\30\u010a\3\2\2\2\32\33\5\4"+
+		"\3\2\33\3\3\2\2\2\34\36\5\n\6\2\35\34\3\2\2\2\36!\3\2\2\2\37\35\3\2\2"+
+		"\2\37 \3\2\2\2 %\3\2\2\2!\37\3\2\2\2\"$\5\6\4\2#\"\3\2\2\2$\'\3\2\2\2"+
+		"%#\3\2\2\2%&\3\2\2\2&\5\3\2\2\2\'%\3\2\2\2()\5\26\f\2)*\7!\2\2*+\7\7\2"+
+		"\2+,\5\b\5\2,-\7\23\2\2-\61\7\16\2\2.\60\5\f\7\2/.\3\2\2\2\60\63\3\2\2"+
+		"\2\61/\3\2\2\2\61\62\3\2\2\2\62\67\3\2\2\2\63\61\3\2\2\2\64\66\5\16\b"+
+		"\2\65\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29\67\3"+
+		"\2\2\2:<\7\26\2\2;=\5\20\t\2<;\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\7\30\2\2"+
+		"?@\7\20\2\2@\7\3\2\2\2AB\5\26\f\2BI\7!\2\2CD\7\3\2\2DE\5\26\f\2EF\7!\2"+
+		"\2FH\3\2\2\2GC\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2JM\3\2\2\2KI\3\2\2"+
+		"\2LA\3\2\2\2LM\3\2\2\2M\t\3\2\2\2NO\5\26\f\2OR\7!\2\2PQ\7\27\2\2QS\5\30"+
 		"\r\2RP\3\2\2\2RS\3\2\2\2ST\3\2\2\2TU\7\30\2\2U\13\3\2\2\2VW\5\26\f\2W"+
 		"Z\7!\2\2XY\7\27\2\2Y[\5\20\t\2ZX\3\2\2\2Z[\3\2\2\2[\\\3\2\2\2\\]\7\30"+
 		"\2\2]\r\3\2\2\2^_\7!\2\2_b\7\27\2\2`c\5\20\t\2ac\5\24\13\2b`\3\2\2\2b"+
@@ -1267,112 +1220,35 @@ public class ProgramParser extends Parser {
 		"\2\2\u00b8\u00b9\3\2\2\2\u00b9\u00ba\3\2\2\2\u00ba\u00bd\7\23\2\2\u00bb"+
 		"\u00bd\7!\2\2\u00bc\u00a6\3\2\2\2\u00bc\u00a9\3\2\2\2\u00bc\u00ad\3\2"+
 		"\2\2\u00bc\u00ae\3\2\2\2\u00bc\u00bb\3\2\2\2\u00bd\u00cc\3\2\2\2\u00be"+
-		"\u00bf\6\n\2\3\u00bf\u00c0\7\24\2\2\u00c0\u00cb\5\22\n\2\u00c1\u00c2\6"+
-		"\n\3\3\u00c2\u00c3\7\5\2\2\u00c3\u00cb\5\22\n\2\u00c4\u00c5\6\n\4\3\u00c5"+
-		"\u00c6\7\4\2\2\u00c6\u00cb\5\22\n\2\u00c7\u00c8\6\n\5\3\u00c8\u00c9\7"+
-		"\36\2\2\u00c9\u00cb\5\22\n\2\u00ca\u00be\3\2\2\2\u00ca\u00c1\3\2\2\2\u00ca"+
-		"\u00c4\3\2\2\2\u00ca\u00c7\3\2\2\2\u00cb\u00ce\3\2\2\2\u00cc\u00ca\3\2"+
-		"\2\2\u00cc\u00cd\3\2\2\2\u00cd\23\3\2\2\2\u00ce\u00cc\3\2\2\2\u00cf\u00d0"+
-		"\b\13\1\2\u00d0\u00d1\7 \2\2\u00d1\u00fc\5\24\13\2\u00d2\u00d3\5\22\n"+
-		"\2\u00d3\u00d4\7\35\2\2\u00d4\u00d5\5\22\n\2\u00d5\u00fc\3\2\2\2\u00d6"+
-		"\u00d7\5\22\n\2\u00d7\u00d8\7\13\2\2\u00d8\u00d9\5\22\n\2\u00d9\u00fc"+
-		"\3\2\2\2\u00da\u00db\5\22\n\2\u00db\u00dc\7\f\2\2\u00dc\u00dd\5\22\n\2"+
-		"\u00dd\u00fc\3\2\2\2\u00de\u00df\5\22\n\2\u00df\u00e0\7\37\2\2\u00e0\u00e1"+
-		"\5\22\n\2\u00e1\u00fc\3\2\2\2\u00e2\u00e3\5\22\n\2\u00e3\u00e4\7\t\2\2"+
-		"\u00e4\u00e5\5\22\n\2\u00e5\u00fc\3\2\2\2\u00e6\u00e7\5\22\n\2\u00e7\u00e8"+
-		"\7\34\2\2\u00e8\u00e9\5\22\n\2\u00e9\u00fc\3\2\2\2\u00ea\u00eb\7\31\2"+
-		"\2\u00eb\u00fc\5\22\n\2\u00ec\u00ed\7!\2\2\u00ed\u00f6\7\7\2\2\u00ee\u00f3"+
-		"\5\20\t\2\u00ef\u00f0\7\3\2\2\u00f0\u00f2\5\20\t\2\u00f1\u00ef\3\2\2\2"+
-		"\u00f2\u00f5\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4\u00f7"+
-		"\3\2\2\2\u00f5\u00f3\3\2\2\2\u00f6\u00ee\3\2\2\2\u00f6\u00f7\3\2\2\2\u00f7"+
-		"\u00f8\3\2\2\2\u00f8\u00fc\7\23\2\2\u00f9\u00fc\7\"\2\2\u00fa\u00fc\7"+
-		"!\2\2\u00fb\u00cf\3\2\2\2\u00fb\u00d2\3\2\2\2\u00fb\u00d6\3\2\2\2\u00fb"+
-		"\u00da\3\2\2\2\u00fb\u00de\3\2\2\2\u00fb\u00e2\3\2\2\2\u00fb\u00e6\3\2"+
-		"\2\2\u00fb\u00ea\3\2\2\2\u00fb\u00ec\3\2\2\2\u00fb\u00f9\3\2\2\2\u00fb"+
-		"\u00fa\3\2\2\2\u00fc\u0105\3\2\2\2\u00fd\u00fe\6\13\6\3\u00fe\u00ff\7"+
-		"\32\2\2\u00ff\u0104\5\24\13\2\u0100\u0101\6\13\7\3\u0101\u0102\7\33\2"+
-		"\2\u0102\u0104\5\24\13\2\u0103\u00fd\3\2\2\2\u0103\u0100\3\2\2\2\u0104"+
-		"\u0107\3\2\2\2\u0105\u0103\3\2\2\2\u0105\u0106\3\2\2\2\u0106\25\3\2\2"+
-		"\2\u0107\u0105\3\2\2\2\u0108\u0109\t\2\2\2\u0109\27\3\2\2\2\u010a\u010b"+
-		"\t\3\2\2\u010b\31\3\2\2\2\35\37%\61\67<ILRZbnw{\u0085\u008f\u00a0\u00a4"+
-		"\u00b5\u00b8\u00bc\u00ca\u00cc\u00f3\u00f6\u00fb\u0103\u0105";
-=======
-		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\7\13\u00f0\n\13\f\13\16"+
-		"\13\u00f3\13\13\5\13\u00f5\n\13\3\13\3\13\3\13\5\13\u00fa\n\13\3\13\3"+
-		"\13\3\13\3\13\3\13\3\13\7\13\u0102\n\13\f\13\16\13\u0105\13\13\3\f\3\f"+
-		"\3\r\3\r\3\r\2\4\22\24\16\2\4\6\b\n\f\16\20\22\24\26\30\2\4\5\2\n\n\r"+
-		"\r\21\21\3\2\"#\u012a\2\32\3\2\2\2\4\37\3\2\2\2\6(\3\2\2\2\bJ\3\2\2\2"+
-		"\nL\3\2\2\2\fT\3\2\2\2\16\u009e\3\2\2\2\20\u00a2\3\2\2\2\22\u00ba\3\2"+
-		"\2\2\24\u00f9\3\2\2\2\26\u0106\3\2\2\2\30\u0108\3\2\2\2\32\33\5\4\3\2"+
-		"\33\3\3\2\2\2\34\36\5\n\6\2\35\34\3\2\2\2\36!\3\2\2\2\37\35\3\2\2\2\37"+
-		" \3\2\2\2 %\3\2\2\2!\37\3\2\2\2\"$\5\6\4\2#\"\3\2\2\2$\'\3\2\2\2%#\3\2"+
-		"\2\2%&\3\2\2\2&\5\3\2\2\2\'%\3\2\2\2()\5\26\f\2)*\7!\2\2*+\7\7\2\2+,\5"+
-		"\b\5\2,-\7\23\2\2-\61\7\16\2\2.\60\5\f\7\2/.\3\2\2\2\60\63\3\2\2\2\61"+
-		"/\3\2\2\2\61\62\3\2\2\2\62\67\3\2\2\2\63\61\3\2\2\2\64\66\5\16\b\2\65"+
-		"\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29\67\3\2\2"+
-		"\2:;\7\26\2\2;<\5\20\t\2<=\7\30\2\2=>\7\20\2\2>\7\3\2\2\2?@\5\26\f\2@"+
-		"G\7!\2\2AB\7\3\2\2BC\5\26\f\2CD\7!\2\2DF\3\2\2\2EA\3\2\2\2FI\3\2\2\2G"+
-		"E\3\2\2\2GH\3\2\2\2HK\3\2\2\2IG\3\2\2\2J?\3\2\2\2JK\3\2\2\2K\t\3\2\2\2"+
-		"LM\5\26\f\2MP\7!\2\2NO\7\27\2\2OQ\5\30\r\2PN\3\2\2\2PQ\3\2\2\2QR\3\2\2"+
-		"\2RS\7\30\2\2S\13\3\2\2\2TU\5\26\f\2UX\7!\2\2VW\7\27\2\2WY\5\20\t\2XV"+
-		"\3\2\2\2XY\3\2\2\2YZ\3\2\2\2Z[\7\30\2\2[\r\3\2\2\2\\]\7!\2\2]`\7\27\2"+
-		"\2^a\5\20\t\2_a\5\24\13\2`^\3\2\2\2`_\3\2\2\2ab\3\2\2\2bc\7\30\2\2c\u009f"+
-		"\3\2\2\2de\7\b\2\2ef\7\7\2\2fg\5\24\13\2gh\7\23\2\2hl\7\16\2\2ik\5\16"+
-		"\b\2ji\3\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2mo\3\2\2\2nl\3\2\2\2oy\7\20"+
-		"\2\2pq\7\17\2\2qu\7\16\2\2rt\5\16\b\2sr\3\2\2\2tw\3\2\2\2us\3\2\2\2uv"+
-		"\3\2\2\2vx\3\2\2\2wu\3\2\2\2xz\7\20\2\2yp\3\2\2\2yz\3\2\2\2z\u009f\3\2"+
-		"\2\2{|\7\6\2\2|}\7\7\2\2}~\5\24\13\2~\177\7\23\2\2\177\u0083\7\16\2\2"+
-		"\u0080\u0082\5\16\b\2\u0081\u0080\3\2\2\2\u0082\u0085\3\2\2\2\u0083\u0081"+
-		"\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0086\3\2\2\2\u0085\u0083\3\2\2\2\u0086"+
-		"\u0087\7\20\2\2\u0087\u009f\3\2\2\2\u0088\u0089\7\22\2\2\u0089\u008d\7"+
-		"\16\2\2\u008a\u008c\5\16\b\2\u008b\u008a\3\2\2\2\u008c\u008f\3\2\2\2\u008d"+
-		"\u008b\3\2\2\2\u008d\u008e\3\2\2\2\u008e\u0090\3\2\2\2\u008f\u008d\3\2"+
-		"\2\2\u0090\u0091\7\20\2\2\u0091\u0092\7\6\2\2\u0092\u0093\7\7\2\2\u0093"+
-		"\u0094\5\24\13\2\u0094\u0095\7\23\2\2\u0095\u0096\7\30\2\2\u0096\u009f"+
-		"\3\2\2\2\u0097\u0098\7\26\2\2\u0098\u0099\5\20\t\2\u0099\u009a\7\30\2"+
-		"\2\u009a\u009f\3\2\2\2\u009b\u009c\5\20\t\2\u009c\u009d\7\30\2\2\u009d"+
-		"\u009f\3\2\2\2\u009e\\\3\2\2\2\u009ed\3\2\2\2\u009e{\3\2\2\2\u009e\u0088"+
-		"\3\2\2\2\u009e\u0097\3\2\2\2\u009e\u009b\3\2\2\2\u009f\17\3\2\2\2\u00a0"+
-		"\u00a3\5\22\n\2\u00a1\u00a3\5\24\13\2\u00a2\u00a0\3\2\2\2\u00a2\u00a1"+
-		"\3\2\2\2\u00a3\21\3\2\2\2\u00a4\u00a5\b\n\1\2\u00a5\u00a6\7\25\2\2\u00a6"+
-		"\u00bb\5\24\13\2\u00a7\u00a8\7\7\2\2\u00a8\u00a9\5\22\n\2\u00a9\u00aa"+
-		"\7\23\2\2\u00aa\u00bb\3\2\2\2\u00ab\u00bb\7#\2\2\u00ac\u00ad\7!\2\2\u00ad"+
-		"\u00b6\7\7\2\2\u00ae\u00b3\5\20\t\2\u00af\u00b0\7\3\2\2\u00b0\u00b2\5"+
-		"\20\t\2\u00b1\u00af\3\2\2\2\u00b2\u00b5\3\2\2\2\u00b3\u00b1\3\2\2\2\u00b3"+
-		"\u00b4\3\2\2\2\u00b4\u00b7\3\2\2\2\u00b5\u00b3\3\2\2\2\u00b6\u00ae\3\2"+
-		"\2\2\u00b6\u00b7\3\2\2\2\u00b7\u00b8\3\2\2\2\u00b8\u00bb\7\23\2\2\u00b9"+
-		"\u00bb\7!\2\2\u00ba\u00a4\3\2\2\2\u00ba\u00a7\3\2\2\2\u00ba\u00ab\3\2"+
-		"\2\2\u00ba\u00ac\3\2\2\2\u00ba\u00b9\3\2\2\2\u00bb\u00ca\3\2\2\2\u00bc"+
-		"\u00bd\f\13\2\2\u00bd\u00be\7\24\2\2\u00be\u00c9\5\22\n\f\u00bf\u00c0"+
-		"\f\n\2\2\u00c0\u00c1\7\5\2\2\u00c1\u00c9\5\22\n\13\u00c2\u00c3\f\t\2\2"+
-		"\u00c3\u00c4\7\4\2\2\u00c4\u00c9\5\22\n\n\u00c5\u00c6\f\b\2\2\u00c6\u00c7"+
-		"\7\36\2\2\u00c7\u00c9\5\22\n\t\u00c8\u00bc\3\2\2\2\u00c8\u00bf\3\2\2\2"+
-		"\u00c8\u00c2\3\2\2\2\u00c8\u00c5\3\2\2\2\u00c9\u00cc\3\2\2\2\u00ca\u00c8"+
-		"\3\2\2\2\u00ca\u00cb\3\2\2\2\u00cb\23\3\2\2\2\u00cc\u00ca\3\2\2\2\u00cd"+
-		"\u00ce\b\13\1\2\u00ce\u00cf\7 \2\2\u00cf\u00fa\5\24\13\t\u00d0\u00d1\5"+
-		"\22\n\2\u00d1\u00d2\7\35\2\2\u00d2\u00d3\5\22\n\2\u00d3\u00fa\3\2\2\2"+
-		"\u00d4\u00d5\5\22\n\2\u00d5\u00d6\7\13\2\2\u00d6\u00d7\5\22\n\2\u00d7"+
-		"\u00fa\3\2\2\2\u00d8\u00d9\5\22\n\2\u00d9\u00da\7\f\2\2\u00da\u00db\5"+
-		"\22\n\2\u00db\u00fa\3\2\2\2\u00dc\u00dd\5\22\n\2\u00dd\u00de\7\37\2\2"+
-		"\u00de\u00df\5\22\n\2\u00df\u00fa\3\2\2\2\u00e0\u00e1\5\22\n\2\u00e1\u00e2"+
-		"\7\t\2\2\u00e2\u00e3\5\22\n\2\u00e3\u00fa\3\2\2\2\u00e4\u00e5\5\22\n\2"+
-		"\u00e5\u00e6\7\34\2\2\u00e6\u00e7\5\22\n\2\u00e7\u00fa\3\2\2\2\u00e8\u00e9"+
-		"\7\31\2\2\u00e9\u00fa\5\22\n\2\u00ea\u00eb\7!\2\2\u00eb\u00f4\7\7\2\2"+
-		"\u00ec\u00f1\5\20\t\2\u00ed\u00ee\7\3\2\2\u00ee\u00f0\5\20\t\2\u00ef\u00ed"+
-		"\3\2\2\2\u00f0\u00f3\3\2\2\2\u00f1\u00ef\3\2\2\2\u00f1\u00f2\3\2\2\2\u00f2"+
-		"\u00f5\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f4\u00ec\3\2\2\2\u00f4\u00f5\3\2"+
-		"\2\2\u00f5\u00f6\3\2\2\2\u00f6\u00fa\7\23\2\2\u00f7\u00fa\7\"\2\2\u00f8"+
-		"\u00fa\7!\2\2\u00f9\u00cd\3\2\2\2\u00f9\u00d0\3\2\2\2\u00f9\u00d4\3\2"+
-		"\2\2\u00f9\u00d8\3\2\2\2\u00f9\u00dc\3\2\2\2\u00f9\u00e0\3\2\2\2\u00f9"+
-		"\u00e4\3\2\2\2\u00f9\u00e8\3\2\2\2\u00f9\u00ea\3\2\2\2\u00f9\u00f7\3\2"+
-		"\2\2\u00f9\u00f8\3\2\2\2\u00fa\u0103\3\2\2\2\u00fb\u00fc\f\b\2\2\u00fc"+
-		"\u00fd\7\32\2\2\u00fd\u0102\5\24\13\t\u00fe\u00ff\f\7\2\2\u00ff\u0100"+
-		"\7\33\2\2\u0100\u0102\5\24\13\b\u0101\u00fb\3\2\2\2\u0101\u00fe\3\2\2"+
-		"\2\u0102\u0105\3\2\2\2\u0103\u0101\3\2\2\2\u0103\u0104\3\2\2\2\u0104\25"+
-		"\3\2\2\2\u0105\u0103\3\2\2\2\u0106\u0107\t\2\2\2\u0107\27\3\2\2\2\u0108"+
-		"\u0109\t\3\2\2\u0109\31\3\2\2\2\34\37%\61\67GJPX`luy\u0083\u008d\u009e"+
-		"\u00a2\u00b3\u00b6\u00ba\u00c8\u00ca\u00f1\u00f4\u00f9\u0101\u0103";
->>>>>>> 33034999202719ff4f1301f7268044f570c4f12b:Parser/src/com/compilerlab/parser/ProgramParser.java
+		"\u00bf\f\13\2\2\u00bf\u00c0\7\24\2\2\u00c0\u00cb\5\22\n\f\u00c1\u00c2"+
+		"\f\n\2\2\u00c2\u00c3\7\5\2\2\u00c3\u00cb\5\22\n\13\u00c4\u00c5\f\t\2\2"+
+		"\u00c5\u00c6\7\4\2\2\u00c6\u00cb\5\22\n\n\u00c7\u00c8\f\b\2\2\u00c8\u00c9"+
+		"\7\36\2\2\u00c9\u00cb\5\22\n\t\u00ca\u00be\3\2\2\2\u00ca\u00c1\3\2\2\2"+
+		"\u00ca\u00c4\3\2\2\2\u00ca\u00c7\3\2\2\2\u00cb\u00ce\3\2\2\2\u00cc\u00ca"+
+		"\3\2\2\2\u00cc\u00cd\3\2\2\2\u00cd\23\3\2\2\2\u00ce\u00cc\3\2\2\2\u00cf"+
+		"\u00d0\b\13\1\2\u00d0\u00d1\7 \2\2\u00d1\u00fc\5\24\13\t\u00d2\u00d3\5"+
+		"\22\n\2\u00d3\u00d4\7\35\2\2\u00d4\u00d5\5\22\n\2\u00d5\u00fc\3\2\2\2"+
+		"\u00d6\u00d7\5\22\n\2\u00d7\u00d8\7\13\2\2\u00d8\u00d9\5\22\n\2\u00d9"+
+		"\u00fc\3\2\2\2\u00da\u00db\5\22\n\2\u00db\u00dc\7\f\2\2\u00dc\u00dd\5"+
+		"\22\n\2\u00dd\u00fc\3\2\2\2\u00de\u00df\5\22\n\2\u00df\u00e0\7\37\2\2"+
+		"\u00e0\u00e1\5\22\n\2\u00e1\u00fc\3\2\2\2\u00e2\u00e3\5\22\n\2\u00e3\u00e4"+
+		"\7\t\2\2\u00e4\u00e5\5\22\n\2\u00e5\u00fc\3\2\2\2\u00e6\u00e7\5\22\n\2"+
+		"\u00e7\u00e8\7\34\2\2\u00e8\u00e9\5\22\n\2\u00e9\u00fc\3\2\2\2\u00ea\u00eb"+
+		"\7\31\2\2\u00eb\u00fc\5\22\n\2\u00ec\u00ed\7!\2\2\u00ed\u00f6\7\7\2\2"+
+		"\u00ee\u00f3\5\20\t\2\u00ef\u00f0\7\3\2\2\u00f0\u00f2\5\20\t\2\u00f1\u00ef"+
+		"\3\2\2\2\u00f2\u00f5\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4"+
+		"\u00f7\3\2\2\2\u00f5\u00f3\3\2\2\2\u00f6\u00ee\3\2\2\2\u00f6\u00f7\3\2"+
+		"\2\2\u00f7\u00f8\3\2\2\2\u00f8\u00fc\7\23\2\2\u00f9\u00fc\7\"\2\2\u00fa"+
+		"\u00fc\7!\2\2\u00fb\u00cf\3\2\2\2\u00fb\u00d2\3\2\2\2\u00fb\u00d6\3\2"+
+		"\2\2\u00fb\u00da\3\2\2\2\u00fb\u00de\3\2\2\2\u00fb\u00e2\3\2\2\2\u00fb"+
+		"\u00e6\3\2\2\2\u00fb\u00ea\3\2\2\2\u00fb\u00ec\3\2\2\2\u00fb\u00f9\3\2"+
+		"\2\2\u00fb\u00fa\3\2\2\2\u00fc\u0105\3\2\2\2\u00fd\u00fe\f\b\2\2\u00fe"+
+		"\u00ff\7\32\2\2\u00ff\u0104\5\24\13\t\u0100\u0101\f\7\2\2\u0101\u0102"+
+		"\7\33\2\2\u0102\u0104\5\24\13\b\u0103\u00fd\3\2\2\2\u0103\u0100\3\2\2"+
+		"\2\u0104\u0107\3\2\2\2\u0105\u0103\3\2\2\2\u0105\u0106\3\2\2\2\u0106\25"+
+		"\3\2\2\2\u0107\u0105\3\2\2\2\u0108\u0109\t\2\2\2\u0109\27\3\2\2\2\u010a"+
+		"\u010b\t\3\2\2\u010b\31\3\2\2\2\35\37%\61\67<ILRZbnw{\u0085\u008f\u00a0"+
+		"\u00a4\u00b5\u00b8\u00bc\u00ca\u00cc\u00f3\u00f6\u00fb\u0103\u0105";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
