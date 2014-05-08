@@ -1,4 +1,4 @@
-// Generated from program.g by ANTLR 4.2.1
+// Generated from Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class programLexer extends Lexer {
+public class ProgramLexer extends Lexer {
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -41,13 +41,13 @@ public class programLexer extends Lexer {
 	};
 
 
-	public programLexer(CharStream input) {
+	public ProgramLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "program.g"; }
+	public String getGrammarFileName() { return "Program.g"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
