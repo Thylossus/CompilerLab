@@ -30,7 +30,7 @@ int faculty(int n) {
 			//Return the product of n and the faculty of n-1
 	}										
 		//End of else body
-	
+	return 0;
 }											
 	//End of function body
 
