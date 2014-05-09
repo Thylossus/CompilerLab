@@ -1,4 +1,4 @@
-package com.compilerlab.compiler;
+package com.compilerlab.parser.test;
 
 import jasmin.ClassFile;
 import java.io.File;
@@ -26,13 +26,20 @@ import org.junit.runners.Parameterized;
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
 @RunWith(Parameterized.class)
-public class CompilerTest {
+public class ParserTest {
 
     private Path tempDir;
     private String code;
     private String expectedText;
 
-    public CompilerTest(String code, String expectedText) {
+    @Parameterized.Parameters
+    public static Collection<Object[]> provide_code_expectedText() {
+        return Arrays.asList(new Object[][]{
+            {"int main(){println(42); return;}", "42" + System.lineSeparator()}
+        });
+    }   
+    
+    public ParserTest(String code, String expectedText) {
         this.code = code;
         this.expectedText = expectedText;
     }
@@ -71,7 +78,9 @@ public class CompilerTest {
     }
 
     private String compileAndRun(String code) throws Exception {
-        code = Main.compile(new ANTLRInputStream(code));
+        
+        
+        //code = Main.compile(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
         classFile.readJasmin(new StringReader(code), "", false);
         Path outputPath = this.tempDir.resolve(classFile.getClassName() + ".class");
@@ -89,14 +98,7 @@ public class CompilerTest {
         try (InputStream in = process.getInputStream()) {
             return new Scanner(in).useDelimiter("\\A").next();
         }
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> provide_code_expectedText() {
-        return Arrays.asList(new Object[][]{
-            {"int main(){println(42)}", "42" + System.lineSeparator()}
-        });
-    }
+    }  
 
     private void deleteRecursive(File file) {
         if (file.isDirectory()) {
