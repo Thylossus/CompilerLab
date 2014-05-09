@@ -13,7 +13,6 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
@@ -23,26 +22,26 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         ANTLRInputStream input = new ANTLRFileStream("test_source.txt");
-        
+
         System.out.println(compile(input));
-        
+
     }
-    
+
     public static String compile(ANTLRInputStream input) {
         ProgramLexer lexer = new ProgramLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ProgramParser parser = new ProgramParser(tokens);
-        
+
         //TODO: Replace by results of abstract syntax tree!
         ParseTree tree = parser.program();
-        
+
         //Find global Variables and definitions
         HashMap<String, Value> globalVariables = Finder.findGlobalVariables(tree);
         Set<String> functionDefinitions = Finder.findFunctionDefinitions(tree);
-        Collection<Function> functionList = (Collection<Function>)new ListVisitor(globalVariables, functionDefinitions).visit(tree);
-        
+        Collection<Function> functionList = (Collection<Function>) new ListVisitor(globalVariables, functionDefinitions).visit(tree);
+
         Program program = new Program(globalVariables, functionList);
-        
-        return "";
+
+        return program.compile();
     }
 }

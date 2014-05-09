@@ -3,30 +3,57 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.values;
 
-import java.util.HashMap;
+import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.LDC;
+import com.compilerlab.program.Compilable;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Abstract representation of a value, which is either boolean or int.
+ *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
-public abstract class Value {
+public abstract class Value implements Compilable {
 
-    private final int index;
-    protected final HashMap<String, Value> globalVariables;
-    protected final HashMap<String, Value> localVariables;
-    
-    protected Value(int index, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        this.index = index;
-        this.globalVariables = globalVariables;
-        this.localVariables = localVariables;
+    private int index;
+
+    protected Value() {
+        this.index = -1;
     }
-    
-    
+
+    protected Value(int index) {
+        this.index = index;
+    }
+
     public int getIndex() {
         return this.index;
     }
-    
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public abstract String toString();
+
+    public abstract int toInteger();
+    public abstract boolean toBoolean();
+
+    @Override
+    public int getStackSize() {
+        //The value loads an integer value onto the stack, thus it uses one stack frame!
+        return 1;
+    }
+
+    @Override
+    public List<Command> compile() {
+        //Load integer representation of the value onto the stack
+        return Collections.singletonList(
+                (Command) new LDC(this.toInteger())
+        );
+    }
+
 }

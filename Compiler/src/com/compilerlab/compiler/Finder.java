@@ -7,6 +7,7 @@
 package com.compilerlab.compiler;
 
 import com.compilerlab.parser.ProgramBaseVisitor;
+import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,8 +38,18 @@ public class Finder {
         
         new ProgramBaseVisitor<Void>() {
 
-            //visit function definition
-            //override visitFunctionDefinition
+            @Override
+            public Void visitGlobalDecl(ProgramParser.GlobalDeclContext ctx) {
+                
+                String identifier = ctx.varName.getText();
+                //TODO: get the value!
+                Value value = null;
+                
+                globalVariables.put(identifier, value);
+                
+                return null;
+            }
+
             
         }.visit(tree);
         
