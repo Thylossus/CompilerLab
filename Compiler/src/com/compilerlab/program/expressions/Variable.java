@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.compilerlab.program;
+package com.compilerlab.program.expressions;
 
 import com.compilerlab.jasmin.Command;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class Function implements Compilable{
+public class Variable extends Expression{
 
     @Override
     public List<Command> compile() {

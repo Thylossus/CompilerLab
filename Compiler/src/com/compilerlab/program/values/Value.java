@@ -12,4 +12,10 @@ package com.compilerlab.program.values;
  */
 public abstract class Value {
 
+    protected int index;
+    
+    public int getIndex() {
+        return this.index;
+    }
+    
 }

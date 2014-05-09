@@ -1,6 +1,6 @@
 package com.compilerlab.program.expressions;
 
-import javax.script.Compilable;
+import com.compilerlab.program.Compilable;
 
 /**
  *

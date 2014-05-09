@@ -13,7 +13,7 @@ import java.util.List;
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public interface Compileable {
+public interface Compilable {
 
     @Override
     public String toString();

@@ -13,7 +13,7 @@ package com.compilerlab.program.values;
 public class Int extends Value{
     private int value;
 
-    public Int(int value) {
+    public Int(int value, int index) {
         this.value = value;
     }
     

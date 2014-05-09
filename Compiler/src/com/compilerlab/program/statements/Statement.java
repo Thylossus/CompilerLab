@@ -6,13 +6,13 @@
 
 package com.compilerlab.program.statements;
 
-import com.compilerlab.program.Compileable;
+import com.compilerlab.program.Compilable;
 
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public abstract class Statement implements Compileable{
+public abstract class Statement implements Compilable {
 
 }

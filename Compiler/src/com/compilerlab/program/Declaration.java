@@ -14,7 +14,7 @@ import java.util.List;
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class Declaration implements Compileable{
+public class Declaration implements Compilable{
 
     @Override
     public List<Command> compile() {

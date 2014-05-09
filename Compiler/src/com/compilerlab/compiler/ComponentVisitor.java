@@ -7,13 +7,14 @@
 package com.compilerlab.compiler;
 
 import com.compilerlab.parser.ProgramBaseVisitor;
-import com.compilerlab.program.Compileable;
+import com.compilerlab.program.Compilable;
+import java.util.Collection;
 
 /**
  * Visit a single program component.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class ComponentVisitor extends ProgramBaseVisitor<Compileable>{
+public class ComponentVisitor extends ProgramBaseVisitor<Compilable>{
 
 }
