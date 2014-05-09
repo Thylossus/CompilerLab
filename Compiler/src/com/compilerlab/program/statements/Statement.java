@@ -7,6 +7,8 @@
 package com.compilerlab.program.statements;
 
 import com.compilerlab.program.Compilable;
+import com.compilerlab.program.values.Value;
+import java.util.HashMap;
 
 /**
  *
@@ -14,5 +16,11 @@ import com.compilerlab.program.Compilable;
  * @version
  */
 public abstract class Statement implements Compilable {
-
+    protected final HashMap<String, Value> globalVariables;
+    protected final HashMap<String, Value> localVariables;
+    
+    protected Statement(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+        this.globalVariables = globalVariables;
+        this.localVariables = localVariables;
+    }
 }

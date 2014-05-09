@@ -6,6 +6,8 @@
 
 package com.compilerlab.program.values;
 
+import java.util.HashMap;
+
 /**
  * Representation of a boolean value.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
@@ -13,9 +15,12 @@ package com.compilerlab.program.values;
 public class Bool extends Value{
     private boolean value;
 
-    public Bool(boolean value) {
+    public Bool(boolean value, int index, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+        super(index, globalVariables, localVariables);
         this.value = value;
     }
+
+    
     
     
 }

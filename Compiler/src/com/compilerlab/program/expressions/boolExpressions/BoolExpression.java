@@ -7,6 +7,8 @@
 package com.compilerlab.program.expressions.boolExpressions;
 
 import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Value;
+import java.util.HashMap;
 
 /**
  *
@@ -15,4 +17,8 @@ import com.compilerlab.program.expressions.Expression;
  */
 public abstract class BoolExpression extends Expression{
 
+    protected BoolExpression(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+        super(globalVariables, localVariables);
+    }
+    
 }

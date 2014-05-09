@@ -7,6 +7,8 @@
 package com.compilerlab.program.expressions.boolExpressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.program.values.Value;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,6 +17,10 @@ import java.util.List;
  * @version
  */
 public class Negation extends BoolExpression {
+
+    public Negation(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+        super(globalVariables, localVariables);
+    }
 
     @Override
     public List<Command> compile() {

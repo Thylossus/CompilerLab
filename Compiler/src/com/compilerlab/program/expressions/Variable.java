@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.expressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.program.values.Value;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,7 +15,11 @@ import java.util.List;
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @version
  */
-public class Variable extends Expression{
+public class Variable extends Expression {
+
+    public Variable(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+        super(globalVariables, localVariables);
+    }
 
     @Override
     public List<Command> compile() {
@@ -25,7 +30,7 @@ public class Variable extends Expression{
     public int getStackSize() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String toString() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
