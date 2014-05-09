@@ -42,11 +42,13 @@ decl
     ;
 
 stmnt 
-    : ID '=' (expr | boolExpr) ';' #Assignment                
-    | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' ('else' '{' (stmnt)* '}')? #IfElse
+    : ID '=' expr ';' #Assignment  
+    | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' #If
+    | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' 'else' '{' (stmnt)* '}' #IfElse
     | 'while' '(' whileCondition=boolExpr ')' '{' (stmnt)* '}' #While
     | 'do' '{' (stmnt)* '}' 'while' '(' doWhileCondition=boolExpr ')' ';' #DoWhile
     | 'return' expr ';' #Return
+    | 'println' '(' argument=expr ')' ';' #Println
     | expr ';' #ExprCall
     ;
 

@@ -32,13 +32,6 @@ public class CompilerTest {
     private String code;
     private String expectedText;
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> provide_code_expectedText() {
-        return Arrays.asList(new Object[][]{
-            {"int main(){println(42); return;}", "42" + System.lineSeparator()}
-        });
-    }   
-    
     public CompilerTest(String code, String expectedText) {
         this.code = code;
         this.expectedText = expectedText;
@@ -96,7 +89,14 @@ public class CompilerTest {
         try (InputStream in = process.getInputStream()) {
             return new Scanner(in).useDelimiter("\\A").next();
         }
-    }  
+    }
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> provide_code_expectedText() {
+        return Arrays.asList(new Object[][]{
+            {"int main(){println(42)}", "42" + System.lineSeparator()}
+        });
+    }
 
     private void deleteRecursive(File file) {
         if (file.isDirectory()) {

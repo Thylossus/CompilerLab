@@ -14,7 +14,7 @@ import java.util.Set;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
- * Finds function definitions and global declarations.
+ * Finds function definitions and global declarations. Works as preprocessor.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
 public class Finder {
