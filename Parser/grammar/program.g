@@ -34,11 +34,11 @@ paramList
     ;
 
 globalDecl
-	: dataType ID ('=' (BOOLVALUE | NUMBER))? ';'
+	: varName=dataType ID ('=' (BOOLVALUE | NUMBER))? ';'
 	;
 
 decl
-    : dataType ID ('=' expr)? ';'  
+    : varName=dataType ID ('=' varExpr=expr)? ';'  
     ;
 
 stmnt 
@@ -56,15 +56,14 @@ expr
     ;
 
 intExpr
-	: leftAddition=intExpr '+' rightAddition=intExpr #Addition
+	: leftDivision=intExpr '/' rightDivision=intExpr #Division
+        | leftMultiplication=intExpr '*' rightMultiplication=intExpr #Multiplication
+	| leftAddition=intExpr '+' rightAddition=intExpr #Addition
 	| leftSubstraction=intExpr '-' rightSubstraction=intExpr #Substraction
-	| leftMultiplication=intExpr '*' rightMultiplication=intExpr #Multiplication
-	| leftDivision=intExpr '/' rightDivision=intExpr #Division
 	| '(int)' castValue=boolExpr #IntCast
 	| '(' intExpr ')' #IntBrackets
 	| value=NUMBER #NumericValue
-	| functionName=ID '(' (expr (',' expr)*)? ')' #FunctionCallInt
-	| variableName=ID #IntVariable
+        | generalExpr #generalExprCallInt
 	;
 	
 boolExpr 
@@ -79,9 +78,13 @@ boolExpr
     | leftOr=boolExpr '||' rightOr=boolExpr #Or
     | '(boolean)' castValue=intExpr #BoolCast
     | '(' boolExpr ')' #BoolBrackets
-    | functionName=ID '(' (expr (',' expr)*)? ')' #FunctionCallBool
     | BOOLVALUE #BoolValue
-    | variableName=ID #BoolVariable
+    | generalExpr #generalExprCallBool
+    ;
+
+generalExpr
+    : functionName=ID '(' (expr (',' expr)*)? ')' #FunctionCall
+    | variableName=ID #Variable
     ;
 	
 dataType
@@ -94,4 +97,4 @@ ID          : [a-zA-Z][a-zA-Z_0-9]*;
 BOOLVALUE   : 'false' | 'true';
 NUMBER      : '0'|[1-9][0-9]*;
 COMMENT     : '//' ~('\n')* -> skip;
-WS          : [\v\t\n\r] -> skip;
+WS          : [ \v\t\n\r] -> skip;
