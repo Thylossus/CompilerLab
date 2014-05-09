@@ -12,53 +12,25 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#globalDecl}.
+	 * Visit a parse tree produced by {@link ProgramParser#DoWhile}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGlobalDecl(@NotNull ProgramParser.GlobalDeclContext ctx);
+	T visitDoWhile(@NotNull ProgramParser.DoWhileContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#intExpr}.
+	 * Visit a parse tree produced by {@link ProgramParser#LessThan}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntExpr(@NotNull ProgramParser.IntExprContext ctx);
+	T visitLessThan(@NotNull ProgramParser.LessThanContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#dataType}.
+	 * Visit a parse tree produced by {@link ProgramParser#Assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDataType(@NotNull ProgramParser.DataTypeContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ProgramParser#start}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStart(@NotNull ProgramParser.StartContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ProgramParser#stmnt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStmnt(@NotNull ProgramParser.StmntContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ProgramParser#program}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProgram(@NotNull ProgramParser.ProgramContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ProgramParser#value}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitValue(@NotNull ProgramParser.ValueContext ctx);
+	T visitAssignment(@NotNull ProgramParser.AssignmentContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#paramList}.
@@ -75,11 +47,109 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitExpr(@NotNull ProgramParser.ExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#boolExpr}.
+	 * Visit a parse tree produced by {@link ProgramParser#NumericValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoolExpr(@NotNull ProgramParser.BoolExprContext ctx);
+	T visitNumericValue(@NotNull ProgramParser.NumericValueContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BoolCast}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolCast(@NotNull ProgramParser.BoolCastContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#IntVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntVariable(@NotNull ProgramParser.IntVariableContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BiggerThan}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBiggerThan(@NotNull ProgramParser.BiggerThanContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#IntDataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntDataType(@NotNull ProgramParser.IntDataTypeContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(@NotNull ProgramParser.FunctionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#FunctionCallInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallInt(@NotNull ProgramParser.FunctionCallIntContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#globalDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobalDecl(@NotNull ProgramParser.GlobalDeclContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#ExprCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprCall(@NotNull ProgramParser.ExprCallContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#LessEqual}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLessEqual(@NotNull ProgramParser.LessEqualContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#While}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile(@NotNull ProgramParser.WhileContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#VoidDataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVoidDataType(@NotNull ProgramParser.VoidDataTypeContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BiggerEqual}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBiggerEqual(@NotNull ProgramParser.BiggerEqualContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Addition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddition(@NotNull ProgramParser.AdditionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BoolBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolBrackets(@NotNull ProgramParser.BoolBracketsContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#decl}.
@@ -89,9 +159,128 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitDecl(@NotNull ProgramParser.DeclContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#function}.
+	 * Visit a parse tree produced by {@link ProgramParser#Multiplication}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction(@NotNull ProgramParser.FunctionContext ctx);
+	T visitMultiplication(@NotNull ProgramParser.MultiplicationContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BooleanDataType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanDataType(@NotNull ProgramParser.BooleanDataTypeContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#IntBrackets}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntBrackets(@NotNull ProgramParser.IntBracketsContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Unequal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnequal(@NotNull ProgramParser.UnequalContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Not}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNot(@NotNull ProgramParser.NotContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#IfElse}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfElse(@NotNull ProgramParser.IfElseContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#start}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStart(@NotNull ProgramParser.StartContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(@NotNull ProgramParser.ProgramContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Substraction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubstraction(@NotNull ProgramParser.SubstractionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#IntCast}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntCast(@NotNull ProgramParser.IntCastContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Or}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOr(@NotNull ProgramParser.OrContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Division}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivision(@NotNull ProgramParser.DivisionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Return}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn(@NotNull ProgramParser.ReturnContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#FunctionCallBool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallBool(@NotNull ProgramParser.FunctionCallBoolContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Equals}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquals(@NotNull ProgramParser.EqualsContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#And}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnd(@NotNull ProgramParser.AndContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BoolVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolVariable(@NotNull ProgramParser.BoolVariableContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#BoolValue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolValue(@NotNull ProgramParser.BoolValueContext ctx);
 }
