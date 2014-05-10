@@ -3,38 +3,87 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.expressions.boolExpressions;
 
+import com.compilerlab.jasmin.BIPUSH;
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.GOTO;
+import com.compilerlab.jasmin.IF_ICMPLE;
+import com.compilerlab.jasmin.LABEL;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Bool;
+import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Evaluate the boolean expression "left <= right"
+ * @auth
  *
- * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
+ * or Tobias Kahse <tobias.kahse@outlook.com>
  */
 public class LessEqual extends BoolExpression {
 
-    public LessEqual(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public LessEqual(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(globalVariables, localVariables, left, right);
+
+        //Typechecking and calculation of result
+        if (this.typechecking()) {
+            boolean result = this.left.getValue().toBoolean() && this.right.getValue().toBoolean();
+
+            this.value = new Bool(globalVariables, localVariables, result);
+        } else {
+            throw new RuntimeException("Type mismatch!");
+        }
     }
 
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+        commands.addAll(this.left.compile());
+        commands.addAll(this.right.compile());
+
+        //The evaluated results of both expressions are on the 
+        //top of the stack. Now use if_icmple to evaluate if the left value
+        //is smaller than or equal to the right value.
+        //After comparing both values the result has to be put onto
+        //the stack. Depending on the comparison either 1 or 0 is
+        //pushed onto the stack. Two labels will be used to
+        //access the different push commands.
+        //Furthermore BIPUSH will be used instead of LDC because
+        //it is more efficient than LDC and the pushed values 
+        //are small (they are either 1 or 0).
+        LABEL cmdLabelTrue = new LABEL();
+        LABEL cmdLabelNext = new LABEL();
+        BIPUSH cmdBipushTrue = new BIPUSH(1);
+        BIPUSH cmdBipushFalse = new BIPUSH(0);
+        IF_ICMPLE cmdIfIcmple = new IF_ICMPLE(cmdLabelTrue.getLabel());
+        GOTO cmdGoto = new GOTO(cmdLabelNext.getLabel());
+
+        commands.add(cmdIfIcmple);
+        commands.add(cmdBipushFalse);
+        commands.add(cmdGoto);
+        commands.add(cmdLabelTrue);
+        commands.add(cmdBipushTrue);
+        commands.add(cmdLabelNext);
+
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Override
-    public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Math.max(this.left.getStackSize(), this.right.getStackSize() + 1);
     }
 
+    @Override
+    public String toString() {
+        return this.left.toString() + " <= " + this.right.toString();
+    }
+
+    @Override
+    protected final boolean typechecking() {
+        return this.left.getValue() instanceof Int && this.right.getValue() instanceof Int;
+    }
 }

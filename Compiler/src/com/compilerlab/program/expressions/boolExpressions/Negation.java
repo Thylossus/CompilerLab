@@ -3,38 +3,69 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.expressions.boolExpressions;
 
+import com.compilerlab.jasmin.BIPUSH;
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.ISUB;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Evaluate the boolean expression "!expression"
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class Negation extends BoolExpression {
 
-    public Negation(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Negation(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression expression) {
+        //Only the "left" expression is used
+        super(globalVariables, localVariables, expression, null);
+
+        //Typechecking and calculation of result
+        if (this.typechecking()) {
+            boolean result = !this.left.getValue().toBoolean();
+
+            this.value = new Bool(globalVariables, localVariables, result);
+        } else {
+            throw new RuntimeException("Type mismatch!");
+        }
     }
 
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+        //Put 1 (equivalent to true) onto the stack
+        commands.add(new BIPUSH(1));
+        //Put result of expression onto the stack
+        commands.addAll(this.left.compile());
+        //Subtract expression result from 1. 
+        //If expression evaluated as false (i.e. 0) 1 (i.e. true)
+        //will remain on the stack. Otherwise 0 is on the stack.
+        //Hence, the result is the negation of the evaluated expression.
+        commands.add(new ISUB());
+
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Add 1 to the expression's stack size because bipush adds a value to the stack.
+        return this.left.getStackSize() + 1;
     }
-    
+
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "!" + this.left.toString();
+    }
+
+    @Override
+    protected final boolean typechecking() {
+        return this.left.getValue() instanceof Bool && this.right.getValue() instanceof Bool;
     }
 
 }

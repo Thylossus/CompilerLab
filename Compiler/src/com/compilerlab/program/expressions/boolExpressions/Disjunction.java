@@ -3,38 +3,61 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.expressions.boolExpressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.IOR;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Evaluate the boolean expression "left || right"
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class Disjunction extends BoolExpression {
 
-    public Disjunction(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Disjunction(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(globalVariables, localVariables, left, right);
+
+        //Typechecking and calculation of result
+        if (this.typechecking()) {
+            boolean result = this.left.getValue().toBoolean() || this.right.getValue().toBoolean();
+
+            this.value = new Bool(globalVariables, localVariables, result);
+        } else {
+            throw new RuntimeException("Type mismatch!");
+        }
     }
 
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+        commands.addAll(this.left.compile());
+        commands.addAll(this.right.compile());
+
+        commands.add(new IOR());
+
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Math.max(this.left.getStackSize(), this.right.getStackSize() + 1);
     }
-    
+
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.left.toString() + " || " + this.right.toString();
+    }
+
+    @Override
+    protected final boolean typechecking() {
+        return this.left.getValue() instanceof Bool && this.right.getValue() instanceof Bool;
     }
 
 }

@@ -1,7 +1,8 @@
 package com.compilerlab.jasmin;
 
 /**
- * Push the given value onto the stack
+ * Push the given value (one-byte signed int) onto the stack.
+ * Use for small values because it is more efficient than ldc.
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
