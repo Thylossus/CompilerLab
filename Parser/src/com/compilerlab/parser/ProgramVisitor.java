@@ -159,6 +159,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitLocalDeclaration(@NotNull ProgramParser.LocalDeclarationContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ProgramParser#exprList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprList(@NotNull ProgramParser.ExprListContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Multiplication}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -297,6 +304,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEquals(@NotNull ProgramParser.EqualsContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#simpleDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimpleDecl(@NotNull ProgramParser.SimpleDeclContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#If}.

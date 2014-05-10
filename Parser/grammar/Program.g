@@ -26,30 +26,34 @@ program
     ;
 
 function 
-    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' decl* (stmnt)* 'return' returnExpr=expr? ';' '}'
+    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' localDelaration+=localDecl* (statements+=stmnt)* 'return' returnExpr=expr? ';' '}'
     ;
 
 paramList 
-    : (dataType ID (',' dataType ID)*)?
+    : (declarations+=simpleDecl (',' declarations+=simpleDecl)*)?
     ;
 
 globalDecl
-	: varType=dataType varName=ID ';' #GlobalDeclaration
+	: simpleDecl #GlobalDeclaration
         | varType=dataType varName=ID '=' value=BOOLVALUE ';' #GlobalDeclarationAssignmentBool
         | varType=dataType varName=ID '=' value=NUMBER ';' #GlobalDeclarationAssignmentInt
 	;
 
-decl
-    : varType=dataType varName=ID';' #LocalDeclaration 
+simpleDecl
+    : varType=dataType varName=ID';'
+    ;
+
+localDecl
+    : simpleDecl #LocalDeclaration 
     | varType=dataType varName=ID '=' varExpr=expr ';' #LocalDeclarationAssignment 
     ;
 
 stmnt 
     : varName=ID '=' varExpr=expr ';' #Assignment  
-    | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' #If
-    | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' 'else' '{' (stmnt)* '}' #IfElse
-    | 'while' '(' whileCondition=boolExpr ')' '{' (stmnt)* '}' #While
-    | 'do' '{' (stmnt)* '}' 'while' '(' doWhileCondition=boolExpr ')' ';' #DoWhile
+    | 'if' '(' ifCondition=boolExpr ')' '{' (ifStatements+=stmnt)* '}' #If
+    | 'if' '(' ifCondition=boolExpr ')' '{' (ifStatements+=stmnt)* '}' 'else' '{' (elseStatements+=stmnt)* '}' #IfElse
+    | 'while' '(' whileCondition=boolExpr ')' '{' (whileStatements+=stmnt)* '}' #While
+    | 'do' '{' (doWhileStatements+=stmnt)* '}' 'while' '(' doWhileCondition=boolExpr ')' ';' #DoWhile
     | 'return' returnExpr=expr ';' #Return
     | 'println' '(' argument=expr ')' ';' #Println
     | expr ';' #ExprCall
@@ -88,8 +92,12 @@ boolExpr
     ;
 
 generalExpr
-    : functionName=ID '(' (expr (',' expr)*)? ')' #FunctionCall
+    : functionName=ID '(' arguments=exprList ')' #FunctionCall
     | variableName=ID #Variable
+    ;
+
+exprList
+    : (expressions+=expr (',' expressions+=expr)*)?
     ;
 	
 dataType
