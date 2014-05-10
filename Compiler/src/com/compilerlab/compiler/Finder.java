@@ -10,8 +10,6 @@ import com.compilerlab.parser.ProgramBaseVisitor;
 import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
@@ -20,8 +18,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
  */
 public class Finder {
 
-    public static Set<String> findFunctionDefinitions(ParseTree tree) {
-        final Set<String> definedFunctions = new HashSet<>();
+    public static HashMap<String, Class<? extends Value>> findFunctionDefinitions(ParseTree tree) {
+        final HashMap<String, Class<? extends Value>> definedFunctions = new HashMap<>();
         
         new ProgramBaseVisitor<Void>() {
 

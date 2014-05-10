@@ -25,6 +25,18 @@ public class Variable extends Expression {
     public Variable(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, String identifier) {
         super(globalVariables, localVariables);
         this.identifier = identifier;
+        
+        if (this.localVariables.get(this.identifier) != null) {
+            //Variable is within local variables
+            this.value = this.localVariables.get(this.identifier);
+        } else if (this.globalVariables.get(this.identifier) != null) {
+            //Variable is not a local variable, but a global variable
+            this.value = this.globalVariables.get(this.identifier);
+        } else {
+            //Variable is not defined
+            //TODO (optional): replace by useful error message!
+            throw new RuntimeException("Variable <" + this.identifier + "> is undefined!");
+        }
     }
 
     @Override

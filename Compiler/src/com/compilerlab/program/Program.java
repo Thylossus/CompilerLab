@@ -26,18 +26,48 @@ public class Program {
 
     private final HashMap<String, Value> globalVariables;
     private final Collection<Function> functions;
+    private final HashMap<String, Class<? extends Value>> functionDefinitions;
     private final String programName;
+    private static Program program;
 
-    public Program(HashMap<String, Value> globalVariables, Collection<Function> functions) {
-        this.globalVariables = globalVariables;
-        this.functions = functions;
-        this.programName = "Program";
+    public static Program getProgram() {
+        return Program.program;
     }
 
-    public Program(HashMap<String, Value> globalVariables, Collection<Function> functions, String programName) {
+    public Program(HashMap<String, Value> globalVariables, Collection<Function> functions, HashMap<String, Class<? extends Value>> functionDefinitions) {
         this.globalVariables = globalVariables;
         this.functions = functions;
+        this.functionDefinitions = functionDefinitions;
+        this.programName = "Program";
+        this.init();
+    }
+
+    public Program(HashMap<String, Value> globalVariables, Collection<Function> functions, HashMap<String, Class<? extends Value>> functionDefinitions, String programName) {
+        this.globalVariables = globalVariables;
+        this.functions = functions;
+        this.functionDefinitions = functionDefinitions;
         this.programName = programName;
+        this.init();
+    }
+
+    private void init() {
+        Program.program = this;
+    }
+
+    public HashMap<String, Value> getGlobalVariables() {
+        return globalVariables;
+    }
+
+    public Collection<Function> getFunctions() {
+        return functions;
+    }
+
+    public HashMap<String, Class<? extends Value>> getFunctionDefinitions() {
+        return functionDefinitions;
+    }
+
+    public String getProgramName() {
+        return programName;
     }
 
     public String compile() {

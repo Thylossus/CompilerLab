@@ -6,34 +6,95 @@
 package com.compilerlab.program.expressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.INVOKE;
+import com.compilerlab.program.Program;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class FunctionCall extends Expression {
 
-    public FunctionCall(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+    private final String identifier;
+    private final List<Expression> parameters;
+    
+    public FunctionCall(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, String identifier, List<Expression> parameters) {
         super(globalVariables, localVariables);
+        this.identifier = identifier;
+        this.parameters = parameters;
     }
 
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+         //Get the full function identifier
+        StringBuilder sb = new StringBuilder();
+        sb.append(Program.getProgram().getProgramName());
+        sb.append("/");
+        sb.append(this.identifier);
+        sb.append("(");
+        
+        Iterator<Expression> paramIterator = this.parameters.iterator();
+        
+        while (paramIterator.hasNext()) {
+            commands.addAll(paramIterator.next().compile());
+            sb.append("I");
+            if (paramIterator.hasNext()) {
+                sb.append(",");
+            }
+        }
+        
+        sb.append(")");
+        
+        //Get return value (either I or V) from list of function definitions.
+        //The vistitor has already checked functionDefinitions.contains(this.identifier).
+        if (Program.getProgram().getFunctionDefinitions().get(this.identifier) != null) {
+            sb.append("I");
+        } else {
+            sb.append("V");
+        }
+        
+        commands.add(new INVOKE(sb.toString()));
+        
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int stackSize = 0;
+        
+        for (int i = 0; i < this.parameters.size(); i++) {
+            stackSize = Math.max(stackSize, i + parameters.get(i).getStackSize());
+        }
+        
+        return Math.max(stackSize, 1);
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(this.identifier);
+        sb.append("(");
+        
+        Iterator<Expression> paramIterator = this.parameters.iterator();
+        
+        while (paramIterator.hasNext()) {
+            sb.append(paramIterator.next().toString());
+            
+            if (paramIterator.hasNext()) {
+                sb.append(", ");
+            }
+        }
+        
+        sb.append(")");
+        
+        return sb.toString();
     }
 
 }
