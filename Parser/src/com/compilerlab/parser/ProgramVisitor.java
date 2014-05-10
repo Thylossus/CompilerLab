@@ -1,4 +1,4 @@
-// Generated from Program.g by ANTLR 4.2.1
+// Generated from /Uni/4. Semester/CompilerLab/CompilerLab/Parser/grammar/Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -40,13 +40,6 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitLessThan(@NotNull ProgramParser.LessThanContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#GlobalDeclarationAssignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGlobalDeclarationAssignment(@NotNull ProgramParser.GlobalDeclarationAssignmentContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#paramList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -68,18 +61,18 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitBoolCast(@NotNull ProgramParser.BoolCastContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpr(@NotNull ProgramParser.ExprContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#NumericValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumericValue(@NotNull ProgramParser.NumericValueContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr(@NotNull ProgramParser.ExprContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#BiggerThan}.
@@ -173,6 +166,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitMultiplication(@NotNull ProgramParser.MultiplicationContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ProgramParser#GlobalDeclarationAssignmentBool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobalDeclarationAssignmentBool(@NotNull ProgramParser.GlobalDeclarationAssignmentBoolContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Variable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -213,6 +213,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionCall(@NotNull ProgramParser.FunctionCallContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#GlobalDeclarationAssignmentInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobalDeclarationAssignmentInt(@NotNull ProgramParser.GlobalDeclarationAssignmentIntContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Not}.

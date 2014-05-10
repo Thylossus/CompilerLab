@@ -35,7 +35,8 @@ paramList
 
 globalDecl
 	: varType=dataType varName=ID ';' #GlobalDeclaration
-        | varType=dataType varName=ID '=' (BOOLVALUE | NUMBER) ';' #GlobalDeclarationAssignment
+        | varType=dataType varName=ID '=' value=BOOLVALUE ';' #GlobalDeclarationAssignmentBool
+        | varType=dataType varName=ID '=' value=NUMBER ';' #GlobalDeclarationAssignmentInt
 	;
 
 decl
@@ -81,7 +82,7 @@ boolExpr
     | leftAnd=boolExpr '&&' rightAnd=boolExpr #And
     | leftOr=boolExpr '||' rightOr=boolExpr #Or
     | '(boolean)' castValue=intExpr #BoolCast
-    | '(' boolExpr ')' #BoolBrackets
+    | '(' bracketsExpr=boolExpr ')' #BoolBrackets
     | value=BOOLVALUE #BoolValue
     | generalExpr #generalExprCallBool
     ;

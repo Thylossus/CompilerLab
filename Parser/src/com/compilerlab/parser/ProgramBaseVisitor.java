@@ -1,4 +1,4 @@
-// Generated from Program.g by ANTLR 4.2.1
+// Generated from /Uni/4. Semester/CompilerLab/CompilerLab/Parser/grammar/Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -50,14 +50,6 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGlobalDeclarationAssignment(@NotNull ProgramParser.GlobalDeclarationAssignmentContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitParamList(@NotNull ProgramParser.ParamListContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -82,7 +74,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExpr(@NotNull ProgramParser.ExprContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNumericValue(@NotNull ProgramParser.NumericValueContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -90,7 +82,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNumericValue(@NotNull ProgramParser.NumericValueContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExpr(@NotNull ProgramParser.ExprContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -202,6 +194,14 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitGlobalDeclarationAssignmentBool(@NotNull ProgramParser.GlobalDeclarationAssignmentBoolContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitVariable(@NotNull ProgramParser.VariableContext ctx) { return visitChildren(ctx); }
 
 	/**
@@ -243,6 +243,14 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitFunctionCall(@NotNull ProgramParser.FunctionCallContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitGlobalDeclarationAssignmentInt(@NotNull ProgramParser.GlobalDeclarationAssignmentIntContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
