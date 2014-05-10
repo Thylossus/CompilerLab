@@ -6,6 +6,7 @@
 package com.compilerlab.program;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.FIELD_DIRECTIVE;
 import com.compilerlab.jasmin.INVOKE;
 import com.compilerlab.jasmin.LIMIT;
 import com.compilerlab.jasmin.METHOD_FOOTER;
@@ -73,6 +74,17 @@ public class Program {
     public String compile() {
         List<Command> commands = new LinkedList();
 
+        //Build field declarations for global variables
+        List<Command> fieldDeclarations = new LinkedList();
+
+        for (String key : this.globalVariables.keySet()) {
+            if (this.globalVariables.get(key) != null) {
+                fieldDeclarations.add(new FIELD_DIRECTIVE(key, this.globalVariables.get(key).toInteger()));
+            } else {
+                fieldDeclarations.add(new FIELD_DIRECTIVE(key));
+            }
+        }
+
         //Build main method
         Command cmdMethodHeadMain = new METHOD_HEAD_MAIN();
         //TODO: check limit and stack calculation.
@@ -102,6 +114,13 @@ public class Program {
         sb.append(this.programName);
         sb.append("\n");
         sb.append(".super java/lang/Object\n\n");
+        
+        //Append field declarations
+        for (Command command : fieldDeclarations) {
+            sb.append(command.toString());
+            sb.append("\n");
+        }
+        
         sb.append(".method public <init>()V\n");
         sb.append("\taload 0\n");
         sb.append("\tinvokenonvirtual java/lang/Object/<init>()V\n");
