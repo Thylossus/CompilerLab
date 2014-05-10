@@ -7,8 +7,9 @@ package com.compilerlab.program.values;
 
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.LDC;
-import com.compilerlab.program.Compilable;
+import com.compilerlab.program.expressions.Expression;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,15 +17,17 @@ import java.util.List;
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
-public abstract class Value implements Compilable {
+public abstract class Value extends Expression {
 
     private int index;
 
-    protected Value() {
+    protected Value(HashMap<String,Value> globalVariables, HashMap<String, Value> localVariables) {
+        super(globalVariables, localVariables);
         this.index = -1;
     }
 
-    protected Value(int index) {
+    protected Value(HashMap<String,Value> globalVariables, HashMap<String, Value> localVariables, int index) {
+        super(globalVariables, localVariables);
         this.index = index;
     }
 
@@ -54,6 +57,11 @@ public abstract class Value implements Compilable {
         return Collections.singletonList(
                 (Command) new LDC(this.toInteger())
         );
+    }
+    
+    @Override
+    public Value getValue() {
+        return this;
     }
 
 }

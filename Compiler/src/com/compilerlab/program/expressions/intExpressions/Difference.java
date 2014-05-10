@@ -7,37 +7,32 @@
 package com.compilerlab.program.expressions.intExpressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.ISUB;
 import com.compilerlab.program.expressions.Expression;
 import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Calculate the difference "left - right"
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class Difference extends IntExpression{
 
-    private final Expression left;
-    private final Expression right;
-    
     public Difference(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables);
-        this.left = left;
-        this.right = right;
+        super(globalVariables, localVariables, left, right);
         
-        //Typechecking
-        if (this.left.getValue() instanceof Int
-                && this.right.getValue() instanceof Int) {
+        //Typechecking and calculation of result
+        if (this.typechecking()) {
             Integer result = this.left.getValue().toInteger() - this.left.getValue().toInteger();
             
             if (result < 0) {
                 throw new RuntimeException("Integer out of bounds (signed integers are not supported)!");
             }
             
-            this.value = new Int(result);
+            this.value = new Int(globalVariables, localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }
@@ -45,7 +40,13 @@ public class Difference extends IntExpression{
 
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+        commands.addAll(this.left.compile());
+        commands.addAll(this.right.compile());
+        
+        commands.add(new ISUB());
+        
+        return commands;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class Difference extends IntExpression{
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.left.toString() + " - " + this.right.toString();
     }
 
 }

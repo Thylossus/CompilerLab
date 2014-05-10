@@ -65,12 +65,12 @@ public class Function implements Compilable {
         
         //Print new line for better formating? TODO: decide!
         
-        //Calculate limit local
+        //Calculate limit local and set local variables
         for (String param : this.parameters.keySet()) {
             if (this.parameters.get(param) == Bool.class) {
-                localVariables.put(param, new Bool(limitLocals));
+                localVariables.put(param, new Bool(this.globalVariables, localVariables, limitLocals));
             } else {
-                localVariables.put(param, new Int(limitLocals));
+                localVariables.put(param, new Int(this.globalVariables, localVariables, limitLocals));
             }
             
             limitLocals++;
@@ -78,9 +78,9 @@ public class Function implements Compilable {
         
         for (Declaration declaration : this.delarations) {
             if (declaration.getType() == Bool.class) {
-                localVariables.put(declaration.getIdentifier(), new Bool(limitLocals, ((Bool)declaration.getValue()).getValue()));
+                localVariables.put(declaration.getIdentifier(), new Bool(this.globalVariables, localVariables, limitLocals, ((Bool)declaration.getValue()).getBooleanValue()));
             } else {
-                localVariables.put(declaration.getIdentifier(), new Int(limitLocals, ((Int)declaration.getValue()).getValue()));
+                localVariables.put(declaration.getIdentifier(), new Int(this.globalVariables, localVariables, limitLocals, ((Int)declaration.getValue()).getIntValue()));
             }
             
             limitLocals++;
