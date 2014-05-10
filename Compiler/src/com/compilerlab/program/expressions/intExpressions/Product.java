@@ -7,28 +7,52 @@
 package com.compilerlab.program.expressions.intExpressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.IMUL;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Int;
+import com.compilerlab.program.values.Value;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Calculate the product "left * right"
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class Product extends IntExpression{
 
+    public Product(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(globalVariables, localVariables, left, right);
+        
+        //Typechecking and calculation of result
+        if (this.typechecking()) {
+            Integer result = this.left.getValue().toInteger() * this.left.getValue().toInteger();
+            
+            this.value = new Int(globalVariables, localVariables, result);
+        } else {
+            throw new RuntimeException("Type mismatch!");
+        }
+    }
+
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+        commands.addAll(this.left.compile());
+        commands.addAll(this.right.compile());
+        
+        commands.add(new IMUL());
+        
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Math.max(this.left.getStackSize(), this.right.getStackSize() + 1);
     }
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.left.toString() + " * " + this.right.toString();
     }
 
 }

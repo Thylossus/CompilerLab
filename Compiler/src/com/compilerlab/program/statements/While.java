@@ -3,10 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.statements;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.GOTO;
+import com.compilerlab.jasmin.IFEQ;
+import com.compilerlab.jasmin.LABEL;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Value;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,19 +23,65 @@ import java.util.List;
  */
 public class While extends Statement {
 
+    private final Expression condition;
+    private final Collection<Statement> statements;
+
+    public While(Expression condition, Collection<Statement> statements, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+        super(globalVariables, localVariables);
+        this.condition = condition;
+        this.statements = statements;
+    }
+
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = new LinkedList<>();
+        
+        LABEL cmdLabelStart = new LABEL();
+        LABEL cmdLabelEnd = new LABEL();
+        IFEQ cmdIfeq = new IFEQ(cmdLabelEnd.getLabel());
+        GOTO cmdGoto = new GOTO(cmdLabelStart.getLabel());
+        
+        //Start of the loop
+        commands.add(cmdLabelStart);
+        //Loop head (checking the condition)
+        commands.addAll(this.condition.compile());
+        commands.add(cmdIfeq);
+        //Loop body
+        for (Statement statement : this.statements) {
+            commands.addAll(statement.compile());
+        }
+        commands.add(cmdGoto);  //Go back to the loops head.
+        //End of the loop
+        commands.add(cmdLabelEnd);
+        
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int stackSize = 0;
+        for (Statement statement : this.statements) {
+            stackSize = Math.max(stackSize, statement.getStackSize());
+        }
+        return Math.max(stackSize, this.condition.getStackSize());
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("while (");
+        sb.append(this.condition.toString());
+        sb.append(") {\n");
+        
+        for (Statement statement : this.statements) {
+            sb.append(statement.toString());
+            sb.append("\n");
+        }
+        
+        sb.append("}");
+        
+        return sb.toString();
     }
-    
+
 }

@@ -7,28 +7,40 @@
 package com.compilerlab.program.statements;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.POP;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Value;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Execute a expression but discard the result (using the POP command).
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class ExpressionStatement extends Statement {
 
+    private final Expression expression;
+    
+    public ExpressionStatement(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression expression) {
+        super(globalVariables, localVariables);
+        this.expression = expression;
+    }
+
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Command> commands = this.expression.compile();
+        commands.add(new POP());
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.expression.getStackSize();
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.expression.toString() + ";";
     }
 
 }
