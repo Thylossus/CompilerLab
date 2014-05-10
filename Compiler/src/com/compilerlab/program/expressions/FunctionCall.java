@@ -8,6 +8,8 @@ package com.compilerlab.program.expressions;
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.INVOKE;
 import com.compilerlab.program.Program;
+import com.compilerlab.program.values.Bool;
+import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +29,17 @@ public class FunctionCall extends Expression {
         super(globalVariables, localVariables);
         this.identifier = identifier;
         this.parameters = parameters;
+        
+        //Set value for typechecking
+        if (Program.getProgram().getFunctionDefinitions().get(this.identifier) != null) {
+            if (Program.getProgram().getFunctionDefinitions().get(this.identifier) == Int.class) {
+                this.value = new Int(globalVariables, localVariables);
+            } else {
+                this.value = new Bool(globalVariables, localVariables);
+            }
+        } else {
+            this.value = null;
+        }
     }
 
     @Override

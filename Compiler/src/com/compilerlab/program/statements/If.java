@@ -3,38 +3,86 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.statements;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.IFEQ;
+import com.compilerlab.jasmin.LABEL;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Value;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 /**
+ * Case distinction without alternative (else) path.
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
  */
 public class If extends Statement {
 
-    public If(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
+    private final Expression condition;
+    private final Collection<Statement> statements;
+
+    public If(Expression condition, Collection<Statement> statements, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
         super(globalVariables, localVariables);
+        this.condition = condition;
+        this.statements = statements;
+
+        if (!(this.condition.getValue() instanceof Bool)) {
+            throw new RuntimeException("Type mismatch!");
+        }
     }
 
     @Override
     public List<Command> compile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Evaluate condition
+        List<Command> commands = this.condition.compile();
+        
+        LABEL cmdLabelElse = new LABEL();
+        //Check evaluated condition
+        //ifeq jups to the specified label if the top of the stack is 0!
+        IFEQ cmdIfeq = new IFEQ(cmdLabelElse.getLabel());
+        
+        commands.add(cmdIfeq);
+        
+        for (Statement statement : this.statements) {
+            commands.addAll(statement.compile());
+        }
+        
+        commands.add(cmdLabelElse);
+        
+        return commands;
     }
 
     @Override
     public int getStackSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int stackSize = 0;
+        
+        for (Statement statement : this.statements) {
+            stackSize = Math.max(stackSize, statement.getStackSize());
+        }
+        
+        return Math.max(stackSize, this.condition.getStackSize());
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("if (");
+        sb.append(this.condition.toString());
+        sb.append(") {\n");
+        
+        for (Statement statement : this.statements) {
+            sb.append(statement.toString());
+            sb.append("\n");
+        }
+        
+        sb.append("}");
+        
+        return sb.toString();
     }
 
 }

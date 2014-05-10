@@ -70,7 +70,7 @@ public class Assign extends Statement {
 
     @Override
     public String toString() {
-        return this.identifier + " = " + this.expression.toString();
+        return this.identifier + " = " + this.expression.toString() + ";";
     }
 
 }

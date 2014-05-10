@@ -36,6 +36,8 @@ public class Finder {
         
         new ProgramBaseVisitor<Void>() {
 
+            private int index = 0;
+            
             @Override
             public Void visitGlobalDecl(ProgramParser.GlobalDeclContext ctx) {
                 
@@ -44,6 +46,8 @@ public class Finder {
                 Value value = null;
                 
                 globalVariables.put(identifier, value);
+                
+                index++;
                 
                 return null;
             }

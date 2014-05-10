@@ -7,7 +7,6 @@ import com.compilerlab.program.Program;
 import com.compilerlab.program.values.Value;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -32,7 +31,6 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ProgramParser parser = new ProgramParser(tokens);
 
-        //TODO: Replace by results of abstract syntax tree!
         ParseTree tree = parser.program();
 
         //Find global Variables and definitions
