@@ -44,8 +44,8 @@ public class Finder {
 
             @Override
             public Void visitGlobalDeclaration(ProgramParser.GlobalDeclarationContext ctx) {
-                String type = ctx.varType.getText();
-                String identifier = ctx.varName.getText();
+                String type = ctx.simpleDecl().varName.getText();
+                String identifier = ctx.simpleDecl().varName.getText();
 
                 Value val;
 
@@ -72,7 +72,7 @@ public class Finder {
             @Override
             public Void visitGlobalDeclarationAssignmentBool(ProgramParser.GlobalDeclarationAssignmentBoolContext ctx) {
                 String identifier = ctx.varName.getText();
-                String value = ctx.value.getText();
+                String value = ctx.varValue.getText();
 
                 globalVariables.put(identifier, new Bool(null, this.index, Boolean.valueOf(value)));
 
@@ -84,7 +84,7 @@ public class Finder {
             @Override
             public Void visitGlobalDeclarationAssignmentInt(ProgramParser.GlobalDeclarationAssignmentIntContext ctx) {
                 String identifier = ctx.varName.getText();
-                String value = ctx.value.getText();
+                String value = ctx.varValue.getText();
 
                 globalVariables.put(identifier, new Int(null, this.index, Integer.valueOf(value)));
 
