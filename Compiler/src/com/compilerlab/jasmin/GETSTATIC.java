@@ -1,35 +1,36 @@
 package com.compilerlab.jasmin;
 
 /**
- * Push an object onto the stack. The instruction has the pattern FIELDNAME
- * TYPE; where FIELDNAME is the field of a class and TYPE is the field's data
- * type. The instruction has to be terminated with an semi-colon.
- *
- * Example: java/lang/System/out Ljava/io/PrintStream;
- *
- * This pushes the field java.lang.System.out of the type java.io.PrintStream
- * onto the stack.
+ * Push a value from a field/global variable to the stack.
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
 public class GETSTATIC extends Command {
 
-    private final String instruction;
+    private final String className;
+    private final String fieldName;
+    private final String descriptor;
 
     /**
      * Use this constructor for the default instruction: "java/lang/System/out
      * Ljava/io/PrintStream;"
      */
     public GETSTATIC() {
-        this.instruction = "java/lang/System/out Ljava/io/PrintStream;";
+        this.className = "java/lang/System";
+        this.fieldName = "out";
+        this.descriptor = "Ljava/io/PrintStream";
     }
 
-    public GETSTATIC(String instruction) {
-        this.instruction = instruction;
+    public GETSTATIC(String className, String fieldName) {
+        this.className = className;
+        this.fieldName = fieldName;
+        this.descriptor = "I";
     }
+
+    
 
     @Override
     public String toString() {
-        return "getstatic " + this.instruction;
+        return "getstatic " + this.className + "/" + this.fieldName + " " + this.descriptor;
     }
 }

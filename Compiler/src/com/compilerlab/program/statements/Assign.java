@@ -9,6 +9,8 @@ package com.compilerlab.program.statements;
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.ISTORE;
 import com.compilerlab.jasmin.POP;
+import com.compilerlab.jasmin.PUTSTATIC;
+import com.compilerlab.program.Program;
 import com.compilerlab.program.expressions.Expression;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
@@ -49,11 +51,7 @@ public class Assign extends Statement {
             
         } else if (this.globalVariables.containsKey(this.identifier)) {
             //Store value in global variables
-            this.globalVariables.put(this.identifier, this.expression.getValue());
-            
-            //Remove the value on the top of the stack that would have been stored
-            //in the local variables, if the accessed variable was a local variable.
-            commands.add(new POP());
+            commands.add(new PUTSTATIC(Program.getProgram().getProgramName(), this.identifier));
         } else {
             throw new RuntimeException("Variable <" + this.identifier + "> undefined!");
         }

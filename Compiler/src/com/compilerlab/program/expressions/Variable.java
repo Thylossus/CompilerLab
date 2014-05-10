@@ -6,8 +6,10 @@
 package com.compilerlab.program.expressions;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.GETSTATIC;
 import com.compilerlab.jasmin.ILOAD;
 import com.compilerlab.jasmin.LDC;
+import com.compilerlab.program.Program;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -48,9 +50,7 @@ public class Variable extends Expression {
             commands.add(new ILOAD(this.localVariables.get(this.identifier).getIndex()));
         } else if (this.globalVariables.get(this.identifier) != null) {
             //Variable is not a local variable, but a global variable
-            //In case of a local variable just push its value onto the stack
-            //because it is not stored in the local variables
-            commands.add(new LDC(this.globalVariables.get(this.identifier).toInteger()));
+            commands.add(new GETSTATIC(Program.getProgram().getProgramName(), this.identifier));
         } else {
             //Variable is not defined
             //TODO (optional): replace by useful error message!
