@@ -29,11 +29,11 @@ public class ProgramParser extends Parser {
 	};
 	public static final int
 		RULE_start = 0, RULE_program = 1, RULE_function = 2, RULE_paramList = 3, 
-		RULE_globalDecl = 4, RULE_simpleDecl = 5, RULE_localDecl = 6, RULE_stmnt = 7, 
+		RULE_simpleDecl = 4, RULE_globalDecl = 5, RULE_localDecl = 6, RULE_stmnt = 7, 
 		RULE_expr = 8, RULE_intExpr = 9, RULE_boolExpr = 10, RULE_generalExpr = 11, 
 		RULE_exprList = 12, RULE_dataType = 13;
 	public static final String[] ruleNames = {
-		"start", "program", "function", "paramList", "globalDecl", "simpleDecl", 
+		"start", "program", "function", "paramList", "simpleDecl", "globalDecl", 
 		"localDecl", "stmnt", "expr", "intExpr", "boolExpr", "generalExpr", "exprList", 
 		"dataType"
 	};
@@ -339,6 +339,46 @@ public class ProgramParser extends Parser {
 		return _localctx;
 	}
 
+	public static class SimpleDeclContext extends ParserRuleContext {
+		public DataTypeContext varType;
+		public Token varName;
+		public TerminalNode ID() { return getToken(ProgramParser.ID, 0); }
+		public DataTypeContext dataType() {
+			return getRuleContext(DataTypeContext.class,0);
+		}
+		public SimpleDeclContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_simpleDecl; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitSimpleDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final SimpleDeclContext simpleDecl() throws RecognitionException {
+		SimpleDeclContext _localctx = new SimpleDeclContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_simpleDecl);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(77); ((SimpleDeclContext)_localctx).varType = dataType();
+			setState(78); ((SimpleDeclContext)_localctx).varName = match(ID);
+			setState(79); match(22);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static class GlobalDeclContext extends ParserRuleContext {
 		public GlobalDeclContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -353,7 +393,7 @@ public class ProgramParser extends Parser {
 	public static class GlobalDeclarationAssignmentBoolContext extends GlobalDeclContext {
 		public DataTypeContext varType;
 		public Token varName;
-		public Token value;
+		public Token varValue;
 		public TerminalNode ID() { return getToken(ProgramParser.ID, 0); }
 		public TerminalNode BOOLVALUE() { return getToken(ProgramParser.BOOLVALUE, 0); }
 		public DataTypeContext dataType() {
@@ -380,7 +420,7 @@ public class ProgramParser extends Parser {
 	public static class GlobalDeclarationAssignmentIntContext extends GlobalDeclContext {
 		public DataTypeContext varType;
 		public Token varName;
-		public Token value;
+		public Token varValue;
 		public TerminalNode ID() { return getToken(ProgramParser.ID, 0); }
 		public TerminalNode NUMBER() { return getToken(ProgramParser.NUMBER, 0); }
 		public DataTypeContext dataType() {
@@ -396,15 +436,15 @@ public class ProgramParser extends Parser {
 
 	public final GlobalDeclContext globalDecl() throws RecognitionException {
 		GlobalDeclContext _localctx = new GlobalDeclContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_globalDecl);
+		enterRule(_localctx, 10, RULE_globalDecl);
 		try {
-			setState(90);
+			setState(94);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				_localctx = new GlobalDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(77); simpleDecl();
+				setState(81); simpleDecl();
 				}
 				break;
 
@@ -412,11 +452,11 @@ public class ProgramParser extends Parser {
 				_localctx = new GlobalDeclarationAssignmentBoolContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(78); ((GlobalDeclarationAssignmentBoolContext)_localctx).varType = dataType();
-				setState(79); ((GlobalDeclarationAssignmentBoolContext)_localctx).varName = match(ID);
-				setState(80); match(21);
-				setState(81); ((GlobalDeclarationAssignmentBoolContext)_localctx).value = match(BOOLVALUE);
-				setState(82); match(22);
+				setState(82); ((GlobalDeclarationAssignmentBoolContext)_localctx).varType = dataType();
+				setState(83); ((GlobalDeclarationAssignmentBoolContext)_localctx).varName = match(ID);
+				setState(84); match(21);
+				setState(85); ((GlobalDeclarationAssignmentBoolContext)_localctx).varValue = match(BOOLVALUE);
+				setState(86); match(22);
 				}
 				break;
 
@@ -424,53 +464,13 @@ public class ProgramParser extends Parser {
 				_localctx = new GlobalDeclarationAssignmentIntContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(84); ((GlobalDeclarationAssignmentIntContext)_localctx).varType = dataType();
-				setState(85); ((GlobalDeclarationAssignmentIntContext)_localctx).varName = match(ID);
-				setState(86); match(21);
-				setState(87); ((GlobalDeclarationAssignmentIntContext)_localctx).value = match(NUMBER);
-				setState(88); match(22);
+				setState(88); ((GlobalDeclarationAssignmentIntContext)_localctx).varType = dataType();
+				setState(89); ((GlobalDeclarationAssignmentIntContext)_localctx).varName = match(ID);
+				setState(90); match(21);
+				setState(91); ((GlobalDeclarationAssignmentIntContext)_localctx).varValue = match(NUMBER);
+				setState(92); match(22);
 				}
 				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class SimpleDeclContext extends ParserRuleContext {
-		public DataTypeContext varType;
-		public Token varName;
-		public TerminalNode ID() { return getToken(ProgramParser.ID, 0); }
-		public DataTypeContext dataType() {
-			return getRuleContext(DataTypeContext.class,0);
-		}
-		public SimpleDeclContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_simpleDecl; }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ProgramVisitor ) return ((ProgramVisitor<? extends T>)visitor).visitSimpleDecl(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final SimpleDeclContext simpleDecl() throws RecognitionException {
-		SimpleDeclContext _localctx = new SimpleDeclContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_simpleDecl);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(92); ((SimpleDeclContext)_localctx).varType = dataType();
-			setState(93); ((SimpleDeclContext)_localctx).varName = match(ID);
-			setState(94); match(22);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1832,7 +1832,7 @@ public class ProgramParser extends Parser {
 		"%\13\3\3\3\7\3(\n\3\f\3\16\3+\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\64"+
 		"\n\4\f\4\16\4\67\13\4\3\4\7\4:\n\4\f\4\16\4=\13\4\3\4\3\4\5\4A\n\4\3\4"+
 		"\3\4\3\4\3\5\3\5\3\5\7\5I\n\5\f\5\16\5L\13\5\5\5N\n\5\3\6\3\6\3\6\3\6"+
-		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6]\n\6\3\7\3\7\3\7\3\7\3\b\3\b"+
+		"\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7a\n\7\3\b\3\b"+
 		"\3\b\3\b\3\b\3\b\3\b\5\bj\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
 		"\3\t\7\tw\n\t\f\t\16\tz\13\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\7\t\u0084"+
 		"\n\t\f\t\16\t\u0087\13\t\3\t\3\t\3\t\3\t\7\t\u008d\n\t\f\t\16\t\u0090"+
@@ -1848,21 +1848,21 @@ public class ProgramParser extends Parser {
 		"\r\3\r\3\r\5\r\u0115\n\r\3\16\3\16\3\16\7\16\u011a\n\16\f\16\16\16\u011d"+
 		"\13\16\5\16\u011f\n\16\3\17\3\17\3\17\5\17\u0124\n\17\3\17\2\4\24\26\20"+
 		"\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\2\u0146\2\36\3\2\2\2\4#\3\2\2\2"+
-		"\6,\3\2\2\2\bM\3\2\2\2\n\\\3\2\2\2\f^\3\2\2\2\16i\3\2\2\2\20\u00bc\3\2"+
+		"\6,\3\2\2\2\bM\3\2\2\2\nO\3\2\2\2\f`\3\2\2\2\16i\3\2\2\2\20\u00bc\3\2"+
 		"\2\2\22\u00c0\3\2\2\2\24\u00cb\3\2\2\2\26\u0101\3\2\2\2\30\u0114\3\2\2"+
-		"\2\32\u011e\3\2\2\2\34\u0123\3\2\2\2\36\37\5\4\3\2\37\3\3\2\2\2 \"\5\n"+
-		"\6\2! \3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$)\3\2\2\2%#\3\2\2\2&(\5"+
+		"\2\32\u011e\3\2\2\2\34\u0123\3\2\2\2\36\37\5\4\3\2\37\3\3\2\2\2 \"\5\f"+
+		"\7\2! \3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$)\3\2\2\2%#\3\2\2\2&(\5"+
 		"\6\4\2\'&\3\2\2\2(+\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*\5\3\2\2\2+)\3\2\2\2"+
 		",-\5\34\17\2-.\7\"\2\2./\7\7\2\2/\60\5\b\5\2\60\61\7\23\2\2\61\65\7\16"+
 		"\2\2\62\64\5\16\b\2\63\62\3\2\2\2\64\67\3\2\2\2\65\63\3\2\2\2\65\66\3"+
 		"\2\2\2\66;\3\2\2\2\67\65\3\2\2\28:\5\20\t\298\3\2\2\2:=\3\2\2\2;9\3\2"+
 		"\2\2;<\3\2\2\2<>\3\2\2\2=;\3\2\2\2>@\7\26\2\2?A\5\22\n\2@?\3\2\2\2@A\3"+
-		"\2\2\2AB\3\2\2\2BC\7\30\2\2CD\7\20\2\2D\7\3\2\2\2EJ\5\f\7\2FG\7\3\2\2"+
-		"GI\5\f\7\2HF\3\2\2\2IL\3\2\2\2JH\3\2\2\2JK\3\2\2\2KN\3\2\2\2LJ\3\2\2\2"+
-		"ME\3\2\2\2MN\3\2\2\2N\t\3\2\2\2O]\5\f\7\2PQ\5\34\17\2QR\7\"\2\2RS\7\27"+
-		"\2\2ST\7#\2\2TU\7\30\2\2U]\3\2\2\2VW\5\34\17\2WX\7\"\2\2XY\7\27\2\2YZ"+
-		"\7$\2\2Z[\7\30\2\2[]\3\2\2\2\\O\3\2\2\2\\P\3\2\2\2\\V\3\2\2\2]\13\3\2"+
-		"\2\2^_\5\34\17\2_`\7\"\2\2`a\7\30\2\2a\r\3\2\2\2bj\5\f\7\2cd\5\34\17\2"+
+		"\2\2\2AB\3\2\2\2BC\7\30\2\2CD\7\20\2\2D\7\3\2\2\2EJ\5\n\6\2FG\7\3\2\2"+
+		"GI\5\n\6\2HF\3\2\2\2IL\3\2\2\2JH\3\2\2\2JK\3\2\2\2KN\3\2\2\2LJ\3\2\2\2"+
+		"ME\3\2\2\2MN\3\2\2\2N\t\3\2\2\2OP\5\34\17\2PQ\7\"\2\2QR\7\30\2\2R\13\3"+
+		"\2\2\2Sa\5\n\6\2TU\5\34\17\2UV\7\"\2\2VW\7\27\2\2WX\7#\2\2XY\7\30\2\2"+
+		"Ya\3\2\2\2Z[\5\34\17\2[\\\7\"\2\2\\]\7\27\2\2]^\7$\2\2^_\7\30\2\2_a\3"+
+		"\2\2\2`S\3\2\2\2`T\3\2\2\2`Z\3\2\2\2a\r\3\2\2\2bj\5\n\6\2cd\5\34\17\2"+
 		"de\7\"\2\2ef\7\27\2\2fg\5\22\n\2gh\7\30\2\2hj\3\2\2\2ib\3\2\2\2ic\3\2"+
 		"\2\2j\17\3\2\2\2kl\7\"\2\2lm\7\27\2\2mn\5\22\n\2no\7\30\2\2o\u00bd\3\2"+
 		"\2\2pq\7\b\2\2qr\7\7\2\2rs\5\26\f\2st\7\23\2\2tx\7\16\2\2uw\5\20\t\2v"+
@@ -1925,7 +1925,7 @@ public class ProgramParser extends Parser {
 		"\2\2\u011c\u011f\3\2\2\2\u011d\u011b\3\2\2\2\u011e\u0116\3\2\2\2\u011e"+
 		"\u011f\3\2\2\2\u011f\33\3\2\2\2\u0120\u0124\7\21\2\2\u0121\u0124\7\n\2"+
 		"\2\u0122\u0124\7\r\2\2\u0123\u0120\3\2\2\2\u0123\u0121\3\2\2\2\u0123\u0122"+
-		"\3\2\2\2\u0124\35\3\2\2\2\34#)\65;@JM\\ix\u0085\u008e\u009b\u00a5\u00bc"+
+		"\3\2\2\2\u0124\35\3\2\2\2\34#)\65;@JM`ix\u0085\u008e\u009b\u00a5\u00bc"+
 		"\u00c0\u00cb\u00d9\u00db\u0101\u0109\u010b\u0114\u011b\u011e\u0123";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

@@ -26,22 +26,22 @@ program
     ;
 
 function 
-    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' localDelaration+=localDecl* (statements+=stmnt)* 'return' returnExpr=expr? ';' '}'
+    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' (localDelaration+=localDecl)* (statements+=stmnt)* 'return' returnExpr=expr? ';' '}'
     ;
 
 paramList 
     : (declarations+=simpleDecl (',' declarations+=simpleDecl)*)?
     ;
 
-globalDecl
-	: simpleDecl #GlobalDeclaration
-        | varType=dataType varName=ID '=' value=BOOLVALUE ';' #GlobalDeclarationAssignmentBool
-        | varType=dataType varName=ID '=' value=NUMBER ';' #GlobalDeclarationAssignmentInt
-	;
-
 simpleDecl
     : varType=dataType varName=ID';'
     ;
+
+globalDecl
+	: simpleDecl #GlobalDeclaration
+        | varType=dataType varName=ID '=' varValue=BOOLVALUE ';' #GlobalDeclarationAssignmentBool
+        | varType=dataType varName=ID '=' varValue=NUMBER ';' #GlobalDeclarationAssignmentInt
+	;
 
 localDecl
     : simpleDecl #LocalDeclaration 
