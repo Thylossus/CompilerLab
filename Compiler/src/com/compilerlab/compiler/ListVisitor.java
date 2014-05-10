@@ -1,6 +1,7 @@
 package com.compilerlab.compiler;
 
 import com.compilerlab.parser.ProgramBaseVisitor;
+import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Compilable;
 import com.compilerlab.program.values.Value;
 import java.util.Collection;
@@ -18,6 +19,11 @@ public class ListVisitor extends ProgramBaseVisitor<Collection<? extends Compila
     public ListVisitor(HashMap<String, Value> globalVariables, Set<String> declaredFunctions) {
         this.globalVariables = globalVariables;
         this.declaredFunctions = declaredFunctions;
+    }
+
+    @Override
+    public Collection<? extends Compilable> visitFunction(ProgramParser.FunctionContext ctx) {
+        return super.visitFunction(ctx); //To change body of generated methods, choose Tools | Templates.
     }
     
     

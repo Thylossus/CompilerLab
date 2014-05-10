@@ -330,7 +330,9 @@ public class ProgramParser extends Parser {
 	}
 
 	public static class GlobalDeclContext extends ParserRuleContext {
-		public DataTypeContext varName;
+		public DataTypeContext type;
+		public Token identifier;
+		public Token value;
 		public TerminalNode ID() { return getToken(ProgramParser.ID, 0); }
 		public TerminalNode NUMBER() { return getToken(ProgramParser.NUMBER, 0); }
 		public TerminalNode BOOLVALUE() { return getToken(ProgramParser.BOOLVALUE, 0); }
@@ -355,17 +357,18 @@ public class ProgramParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(76); ((GlobalDeclContext)_localctx).varName = dataType();
-			setState(77); match(ID);
+			setState(76); ((GlobalDeclContext)_localctx).type = dataType();
+			setState(77); ((GlobalDeclContext)_localctx).identifier = match(ID);
 			setState(80);
 			_la = _input.LA(1);
 			if (_la==21) {
 				{
 				setState(78); match(21);
 				setState(79);
+				((GlobalDeclContext)_localctx).value = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==BOOLVALUE || _la==NUMBER) ) {
-				_errHandler.recoverInline(this);
+					((GlobalDeclContext)_localctx).value = (Token)_errHandler.recoverInline(this);
 				}
 				consume();
 				}
