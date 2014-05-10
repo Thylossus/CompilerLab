@@ -24,6 +24,7 @@ import org.junit.runners.Parameterized;
 /**
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 @RunWith(Parameterized.class)
 public class ParserTest {
@@ -78,8 +79,6 @@ public class ParserTest {
     }
 
     private String compileAndRun(String code) throws Exception {
-        
-        
         //code = Main.compile(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
         classFile.readJasmin(new StringReader(code), "", false);
@@ -93,7 +92,7 @@ public class ParserTest {
     }
 
     private String runJavaClass(Path dir, String className) throws Exception {
-        Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
+        Process process = Runtime.getRuntime().exec(new String[]{"java", "-jar",  "/usr/local/lib/antlr-4.1-complete.jar", ""});
 
         try (InputStream in = process.getInputStream()) {
             return new Scanner(in).useDelimiter("\\A").next();

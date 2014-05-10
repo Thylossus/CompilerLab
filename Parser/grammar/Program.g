@@ -26,7 +26,7 @@ program
     ;
 
 function 
-    : dataType ID '(' paramList ')' '{' decl* (stmnt)* 'return' expr? ';''}'
+    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' decl* (stmnt)* 'return' returnExpr=expr? ';' '}'
     ;
 
 paramList 
@@ -34,20 +34,22 @@ paramList
     ;
 
 globalDecl
-	: varName=dataType ID ('=' (BOOLVALUE | NUMBER))? ';'
+	: varType=dataType varName=ID ';' #GlobalDeclaration
+        | varType=dataType varName=ID '=' (BOOLVALUE | NUMBER) ';' #GlobalDeclarationAssignment
 	;
 
 decl
-    : varName=dataType ID ('=' varExpr=expr)? ';'  
+    : varType=dataType varName=ID';' #LocalDeclaration 
+    | varType=dataType varName=ID '=' varExpr=expr ';' #LocalDeclarationAssignment 
     ;
 
 stmnt 
-    : ID '=' expr ';' #Assignment  
+    : varName=ID '=' varExpr=expr ';' #Assignment  
     | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' #If
     | 'if' '(' ifCondition=boolExpr ')' '{' (stmnt)* '}' 'else' '{' (stmnt)* '}' #IfElse
     | 'while' '(' whileCondition=boolExpr ')' '{' (stmnt)* '}' #While
     | 'do' '{' (stmnt)* '}' 'while' '(' doWhileCondition=boolExpr ')' ';' #DoWhile
-    | 'return' expr ';' #Return
+    | 'return' returnExpr=expr ';' #Return
     | 'println' '(' argument=expr ')' ';' #Println
     | expr ';' #ExprCall
     ;
@@ -63,7 +65,7 @@ intExpr
 	| leftAddition=intExpr '+' rightAddition=intExpr #Addition
 	| leftSubstraction=intExpr '-' rightSubstraction=intExpr #Substraction
 	| '(int)' castValue=boolExpr #IntCast
-	| '(' intExpr ')' #IntBrackets
+	| '(' bracketsExpr=intExpr ')' #IntBrackets
 	| value=NUMBER #NumericValue
         | generalExpr #generalExprCallInt
 	;
@@ -80,7 +82,7 @@ boolExpr
     | leftOr=boolExpr '||' rightOr=boolExpr #Or
     | '(boolean)' castValue=intExpr #BoolCast
     | '(' boolExpr ')' #BoolBrackets
-    | BOOLVALUE #BoolValue
+    | value=BOOLVALUE #BoolValue
     | generalExpr #generalExprCallBool
     ;
 
