@@ -33,6 +33,10 @@ paramList
     : (dataType ID (',' dataType ID)*)?
     ;
 
+//variable fuer dataType sollte nicht varName sein, sondern z.B. type
+//ID ist der Name der Variablen. Folglich sollte varName fuer ID verwendet werden
+//Schau mal, ob es moeglich ist (BOOLVALUE | NUMBER) einer variablen zuzuwiesen,
+//damit man im Finder darauf zugreifen kann.
 globalDecl
 	: varName=dataType ID ('=' (BOOLVALUE | NUMBER))? ';'
 	;
