@@ -27,8 +27,8 @@ public class IfElse extends Statement {
     private final Collection<Statement> ifStatements;
     private final Collection<Statement> elseStatements;
 
-    public IfElse(Expression condition, Collection<Statement> ifStatements, Collection<Statement> elseStatements, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public IfElse(Expression condition, Collection<Statement> ifStatements, Collection<Statement> elseStatements, HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.condition = condition;
         this.ifStatements = ifStatements;
         this.elseStatements = elseStatements;

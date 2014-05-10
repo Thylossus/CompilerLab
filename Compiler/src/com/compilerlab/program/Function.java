@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class Function implements Compilable {
 
-    private final HashMap<String, Value> globalVariables;
     private final Class<? extends Value> returnType;
     private final String identifier;
     private final HashMap<String, Class<? extends Value>> parameters;
@@ -38,15 +37,13 @@ public class Function implements Compilable {
 
     /**
      * Create a new function
-     * @param globalVariables the global variables of the program.
      * @param returnType either Bool.class or Int.class or null, if no return value is given.
      * @param identifier a string that identifies the function.
      * @param parameters a list of parameters for the function, which can also be empty.
      * @param delarations a list of declarations made in the function, which can also be empty.
      * @param statements a list of statements.
      */
-    public Function(HashMap<String, Value> globalVariables, Class<? extends Value> returnType, String identifier, HashMap<String, Class<? extends Value>> parameters, List<Declaration> delarations, List<Statement> statements) {
-        this.globalVariables = globalVariables;
+    public Function(Class<? extends Value> returnType, String identifier, HashMap<String, Class<? extends Value>> parameters, List<Declaration> delarations, List<Statement> statements) {
         this.returnType = returnType;
         this.identifier = identifier;
         this.parameters = parameters;
@@ -68,9 +65,9 @@ public class Function implements Compilable {
         //Calculate limit local and set local variables
         for (String param : this.parameters.keySet()) {
             if (this.parameters.get(param) == Bool.class) {
-                localVariables.put(param, new Bool(this.globalVariables, localVariables, limitLocals));
+                localVariables.put(param, new Bool(localVariables, limitLocals));
             } else {
-                localVariables.put(param, new Int(this.globalVariables, localVariables, limitLocals));
+                localVariables.put(param, new Int(localVariables, limitLocals));
             }
             
             limitLocals++;
@@ -78,9 +75,9 @@ public class Function implements Compilable {
         
         for (Declaration declaration : this.delarations) {
             if (declaration.getType() == Bool.class) {
-                localVariables.put(declaration.getIdentifier(), new Bool(this.globalVariables, localVariables, limitLocals, ((Bool)declaration.getValue()).getBooleanValue()));
+                localVariables.put(declaration.getIdentifier(), new Bool(localVariables, limitLocals, ((Bool)declaration.getValue()).getBooleanValue()));
             } else {
-                localVariables.put(declaration.getIdentifier(), new Int(this.globalVariables, localVariables, limitLocals, ((Int)declaration.getValue()).getIntValue()));
+                localVariables.put(declaration.getIdentifier(), new Int(localVariables, limitLocals, ((Int)declaration.getValue()).getIntValue()));
             }
             
             limitLocals++;

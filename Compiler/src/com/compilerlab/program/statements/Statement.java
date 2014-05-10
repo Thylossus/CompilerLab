@@ -16,11 +16,9 @@ import java.util.HashMap;
  * @version
  */
 public abstract class Statement implements Compilable {
-    protected final HashMap<String, Value> globalVariables;
     protected final HashMap<String, Value> localVariables;
     
-    protected Statement(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        this.globalVariables = globalVariables;
+    protected Statement(HashMap<String, Value> localVariables) {
         this.localVariables = localVariables;
     }
 }

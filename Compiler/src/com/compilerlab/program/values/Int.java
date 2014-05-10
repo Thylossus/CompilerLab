@@ -19,49 +19,47 @@ public class Int extends Value {
     /**
      * Default initilization. Value is initialized with 0.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      *
      */
-    public Int(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Int(HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.intValue = 0;
     }
 
     /**
      * Initilization with index. Value is initialized with 0.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      * @param index index of the variable.
      */
-    public Int(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, int index) {
-        super(globalVariables, localVariables, index);
+    public Int(HashMap<String, Value> localVariables, int index) {
+        super(localVariables, index);
         this.intValue = 0;
     }
 
     /**
      * Initilization with value assignment.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      * @param value value stored in the variable.
      */
-    public Int(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Integer value) {
-        super(globalVariables, localVariables);
+    public Int(HashMap<String, Value> localVariables, Integer value) {
+        super(localVariables);
         this.intValue = value;
     }
 
     /**
      * Initilization with index and value assignment.
      *
-     * @param globalVariables global variables.
+     *
+     *
      * @param localVariables local variables.
      * @param index index of the variable.
      * @param value value stored in the variable.
      */
-    public Int(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, int index, int value) {
-        super(globalVariables, localVariables, index);
+    public Int(HashMap<String, Value> localVariables, int index, int value) {
+        super(localVariables, index);
         this.intValue = value;
     }
 

@@ -24,16 +24,16 @@ public class Variable extends Expression {
 
     private final String identifier;
 
-    public Variable(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, String identifier) {
-        super(globalVariables, localVariables);
+    public Variable(HashMap<String, Value> localVariables, String identifier) {
+        super(localVariables);
         this.identifier = identifier;
         
         if (this.localVariables.get(this.identifier) != null) {
             //Variable is within local variables
             this.value = this.localVariables.get(this.identifier);
-        } else if (this.globalVariables.get(this.identifier) != null) {
+        } else if (Program.getProgram().getGlobalVariables().get(this.identifier) != null) {
             //Variable is not a local variable, but a global variable
-            this.value = this.globalVariables.get(this.identifier);
+            this.value = Program.getProgram().getGlobalVariables().get(this.identifier);
         } else {
             //Variable is not defined
             //TODO (optional): replace by useful error message!
@@ -48,7 +48,7 @@ public class Variable extends Expression {
         if (this.localVariables.get(this.identifier) != null) {
             //Variable is within local variables
             commands.add(new ILOAD(this.localVariables.get(this.identifier).getIndex()));
-        } else if (this.globalVariables.get(this.identifier) != null) {
+        } else if (Program.getProgram().getGlobalVariables().get(this.identifier) != null) {
             //Variable is not a local variable, but a global variable
             commands.add(new GETSTATIC(Program.getProgram().getProgramName(), this.identifier));
         } else {

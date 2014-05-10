@@ -21,13 +21,13 @@ public abstract class Value extends Expression {
 
     private int index;
 
-    protected Value(HashMap<String,Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    protected Value(HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.index = -1;
     }
 
-    protected Value(HashMap<String,Value> globalVariables, HashMap<String, Value> localVariables, int index) {
-        super(globalVariables, localVariables);
+    protected Value(HashMap<String, Value> localVariables, int index) {
+        super(localVariables);
         this.index = index;
     }
 

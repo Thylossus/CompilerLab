@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class Difference extends IntExpression{
 
-    public Difference(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables, left, right);
+    public Difference(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables, left, right);
         
         //Typechecking and calculation of result
         if (this.typechecking()) {
@@ -32,7 +32,7 @@ public class Difference extends IntExpression{
                 throw new RuntimeException("Integer out of bounds (signed integers are not supported)!");
             }
             
-            this.value = new Int(globalVariables, localVariables, result);
+            this.value = new Int(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

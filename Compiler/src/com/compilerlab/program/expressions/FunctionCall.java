@@ -25,17 +25,17 @@ public class FunctionCall extends Expression {
     private final String identifier;
     private final List<Expression> parameters;
     
-    public FunctionCall(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, String identifier, List<Expression> parameters) {
-        super(globalVariables, localVariables);
+    public FunctionCall(HashMap<String, Value> localVariables, String identifier, List<Expression> parameters) {
+        super(localVariables);
         this.identifier = identifier;
         this.parameters = parameters;
         
         //Set value for typechecking
         if (Program.getProgram().getFunctionDefinitions().get(this.identifier) != null) {
             if (Program.getProgram().getFunctionDefinitions().get(this.identifier) == Int.class) {
-                this.value = new Int(globalVariables, localVariables);
+                this.value = new Int(localVariables);
             } else {
-                this.value = new Bool(globalVariables, localVariables);
+                this.value = new Bool(localVariables);
             }
         } else {
             this.value = null;

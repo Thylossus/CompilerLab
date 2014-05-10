@@ -21,14 +21,14 @@ import java.util.List;
  */
 public class Product extends IntExpression{
 
-    public Product(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables, left, right);
+    public Product(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables, left, right);
         
         //Typechecking and calculation of result
         if (this.typechecking()) {
             Integer result = this.left.getValue().toInteger() * this.left.getValue().toInteger();
             
-            this.value = new Int(globalVariables, localVariables, result);
+            this.value = new Int(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

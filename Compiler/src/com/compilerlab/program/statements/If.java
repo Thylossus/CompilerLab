@@ -25,8 +25,8 @@ public class If extends Statement {
     private final Expression condition;
     private final Collection<Statement> statements;
 
-    public If(Expression condition, Collection<Statement> statements, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public If(Expression condition, Collection<Statement> statements, HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.condition = condition;
         this.statements = statements;
 

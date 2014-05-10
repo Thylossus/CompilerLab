@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class Quotient extends IntExpression{
 
-    public Quotient(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables, left, right);
+    public Quotient(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables, left, right);
         
         //Typechecking and calculation of result
         if (this.typechecking()) {
@@ -32,7 +32,7 @@ public class Quotient extends IntExpression{
             
             Integer result = this.left.getValue().toInteger() / this.left.getValue().toInteger();
             
-            this.value = new Int(globalVariables, localVariables, result);
+            this.value = new Int(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

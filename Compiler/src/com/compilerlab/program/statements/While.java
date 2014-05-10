@@ -26,8 +26,8 @@ public class While extends Statement {
     private final Expression condition;
     private final Collection<Statement> statements;
 
-    public While(Expression condition, Collection<Statement> statements, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public While(Expression condition, Collection<Statement> statements, HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.condition = condition;
         this.statements = statements;
     }

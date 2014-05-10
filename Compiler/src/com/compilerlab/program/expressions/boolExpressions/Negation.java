@@ -22,15 +22,15 @@ import java.util.List;
  */
 public class Negation extends BoolExpression {
 
-    public Negation(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression expression) {
+    public Negation(HashMap<String, Value> localVariables, Expression expression) {
         //Only the "left" expression is used
-        super(globalVariables, localVariables, expression, null);
+        super(localVariables, expression, null);
 
         //Typechecking and calculation of result
         if (this.typechecking()) {
             boolean result = !this.left.getValue().toBoolean();
 
-            this.value = new Bool(globalVariables, localVariables, result);
+            this.value = new Bool(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

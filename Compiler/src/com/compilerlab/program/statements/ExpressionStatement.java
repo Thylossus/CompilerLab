@@ -21,8 +21,8 @@ public class ExpressionStatement extends Statement {
 
     private final Expression expression;
     
-    public ExpressionStatement(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression expression) {
-        super(globalVariables, localVariables);
+    public ExpressionStatement(HashMap<String, Value> localVariables, Expression expression) {
+        super(localVariables);
         this.expression = expression;
     }
 

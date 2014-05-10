@@ -25,14 +25,14 @@ import java.util.List;
  */
 public class Inequation extends BoolExpression {
 
-    public Inequation(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables, left, right);
+    public Inequation(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables, left, right);
 
         //Typechecking and calculation of result
         if (this.typechecking()) {
             boolean result = this.left.getValue().toBoolean() && this.right.getValue().toBoolean();
 
-            this.value = new Bool(globalVariables, localVariables, result);
+            this.value = new Bool(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

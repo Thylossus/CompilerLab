@@ -18,8 +18,8 @@ public abstract class BoolExpression extends Expression {
     protected final Expression left;
     protected final Expression right;
 
-    protected BoolExpression(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables);
+    protected BoolExpression(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables);
         this.left = left;
         this.right = right;
     }

@@ -25,15 +25,15 @@ public class Assign extends Statement {
     private String identifier;
     private Expression expression;
     
-    public Assign(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Assign(HashMap<String, Value> localVariables) {
+        super(localVariables);
         
         if (this.localVariables.containsKey(this.identifier)) {
             if (!(this.localVariables.get(this.identifier).getClass() == this.expression.getValue().getClass())) {
                 throw new RuntimeException("Type mismatch!");
             }
-        } else if (this.globalVariables.containsKey(this.identifier)) {
-            if (!(this.globalVariables.get(this.identifier).getClass() == this.expression.getValue().getClass())) {
+        } else if (Program.getProgram().getGlobalVariables().containsKey(this.identifier)) {
+            if (!(Program.getProgram().getGlobalVariables().get(this.identifier).getClass() == this.expression.getValue().getClass())) {
                 throw new RuntimeException("Type mismatch!");
             }
         } else {
@@ -49,7 +49,7 @@ public class Assign extends Statement {
             //Store new value in local variable
             commands.add(new ISTORE(this.localVariables.get(this.identifier).getIndex()));
             
-        } else if (this.globalVariables.containsKey(this.identifier)) {
+        } else if (Program.getProgram().getGlobalVariables().containsKey(this.identifier)) {
             //Store value in global variables
             commands.add(new PUTSTATIC(Program.getProgram().getProgramName(), this.identifier));
         } else {

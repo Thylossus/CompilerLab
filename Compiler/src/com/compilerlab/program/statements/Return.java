@@ -23,13 +23,13 @@ public class Return extends Statement {
 
     private final Expression expression;
     
-    public Return(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Return(HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.expression = null;
     }
 
-    public Return(Expression expression, HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Return(Expression expression, HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.expression = expression;
     }
 

@@ -14,8 +14,8 @@ public abstract class IntExpression extends Expression{
     protected final Expression left;
     protected final Expression right;
     
-    protected IntExpression(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables);
+    protected IntExpression(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables);
         this.left = left;
         this.right = right;
     }

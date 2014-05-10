@@ -19,21 +19,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Evaluate the boolean expression "left < right" @aut
+ * Evaluate the boolean expression "left &lt; right"
  *
  *
- * hor Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
 public class LessThan extends BoolExpression {
 
-    public LessThan(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables, left, right);
+    public LessThan(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables, left, right);
 
         //Typechecking and calculation of result
         if (this.typechecking()) {
             boolean result = this.left.getValue().toBoolean() && this.right.getValue().toBoolean();
 
-            this.value = new Bool(globalVariables, localVariables, result);
+            this.value = new Bool(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

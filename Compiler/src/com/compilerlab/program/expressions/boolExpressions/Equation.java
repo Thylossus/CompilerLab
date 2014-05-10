@@ -26,14 +26,14 @@ import java.util.List;
  */
 public class Equation extends BoolExpression {
 
-    public Equation(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, Expression left, Expression right) {
-        super(globalVariables, localVariables, left, right);
+    public Equation(HashMap<String, Value> localVariables, Expression left, Expression right) {
+        super(localVariables, left, right);
         
         //Typechecking and calculation of result
         if (this.typechecking()) {
             boolean result = this.left.getValue().toInteger() == this.right.getValue().toInteger();
             
-            this.value = new Bool(globalVariables, localVariables, result);
+            this.value = new Bool(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
         }

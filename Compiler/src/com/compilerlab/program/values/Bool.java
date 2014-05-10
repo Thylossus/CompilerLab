@@ -19,48 +19,44 @@ public class Bool extends Value {
     /**
      * Default initilization. The value is initialized with false.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      */
-    public Bool(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables) {
-        super(globalVariables, localVariables);
+    public Bool(HashMap<String, Value> localVariables) {
+        super(localVariables);
         this.booleanValue = false;
     }
-    
+
     /**
      * Initilization with index.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      * @param index index of the variable. The value is initialized with false.
      */
-    public Bool(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables,int index) {
-        super(globalVariables, localVariables, index);
+    public Bool(HashMap<String, Value> localVariables, int index) {
+        super(localVariables, index);
         this.booleanValue = false;
     }
-    
+
     /**
      * Initilization with value assignment.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      * @param value value stored in the variable.
      */
-    public Bool(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, boolean value) {
-        super(globalVariables, localVariables);
+    public Bool(HashMap<String, Value> localVariables, boolean value) {
+        super(localVariables);
         this.booleanValue = value;
     }
 
     /**
      * Initilization with index and value assignment.
      *
-     * @param globalVariables global variables.
      * @param localVariables local variables.
      * @param index index of the variable.
      * @param value value stored in the variable.
      */
-    public Bool(HashMap<String, Value> globalVariables, HashMap<String, Value> localVariables, int index, boolean value) {
-        super(globalVariables, localVariables, index);
+    public Bool(HashMap<String, Value> localVariables, int index, boolean value) {
+        super(localVariables, index);
         this.booleanValue = value;
     }
 
@@ -76,7 +72,7 @@ public class Bool extends Value {
     public String toString() {
         return Boolean.toString(this.booleanValue);
     }
-    
+
     @Override
     public int toInteger() {
         return this.booleanValue ? 1 : 0;
@@ -86,6 +82,5 @@ public class Bool extends Value {
     public boolean toBoolean() {
         return this.booleanValue;
     }
-    
-    
+
 }

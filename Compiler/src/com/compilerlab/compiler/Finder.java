@@ -11,7 +11,6 @@ import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
@@ -52,10 +51,10 @@ public class Finder {
 
                 switch (type) {
                     case "boolean":
-                        val = new Bool(null, null, this.index);
+                        val = new Bool(null, this.index);
                         break;
                     case "int":
-                        val = new Int(null, null);
+                        val = new Int(null, this.index);
                         break;
                     case "void":
                         throw new RuntimeException("Unvalid data type in this context.");
@@ -75,7 +74,7 @@ public class Finder {
                 String identifier = ctx.varName.getText();
                 String value = ctx.value.getText();
 
-                globalVariables.put(identifier, new Bool(null, null, this.index, Boolean.valueOf(value)));
+                globalVariables.put(identifier, new Bool(null, this.index, Boolean.valueOf(value)));
 
                 this.index++;
 
@@ -87,7 +86,7 @@ public class Finder {
                 String identifier = ctx.varName.getText();
                 String value = ctx.value.getText();
 
-                globalVariables.put(identifier, new Int(null, null, this.index, Integer.valueOf(value)));
+                globalVariables.put(identifier, new Int(null, this.index, Integer.valueOf(value)));
 
                 this.index++;
                 
