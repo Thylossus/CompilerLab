@@ -41,7 +41,10 @@ public class Println extends FunctionCall{
         List<Command> commands = new LinkedList<>();
         
         commands.add(new GETSTATIC());
-        commands.addAll(this.parameters.get(0).compile());
+        if(parameters != null)
+        {
+            commands.addAll(this.parameters.get(0).compile());
+        }
         commands.add(new PRINTLN());
         
         return commands;
