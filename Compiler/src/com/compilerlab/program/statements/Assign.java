@@ -8,7 +8,6 @@ package com.compilerlab.program.statements;
 
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.ISTORE;
-import com.compilerlab.jasmin.POP;
 import com.compilerlab.jasmin.PUTSTATIC;
 import com.compilerlab.program.Program;
 import com.compilerlab.program.expressions.Expression;
@@ -22,11 +21,13 @@ import java.util.List;
  */
 public class Assign extends Statement {
 
-    private String identifier;
-    private Expression expression;
+    private final String identifier;
+    private final Expression expression;
     
-    public Assign(HashMap<String, Value> localVariables) {
+    public Assign(HashMap<String, Value> localVariables, String identifier, Expression expression) {
         super(localVariables);
+        this.identifier = identifier;
+        this.expression = expression;
         
         if (this.localVariables.containsKey(this.identifier)) {
             if (!(this.localVariables.get(this.identifier).getClass() == this.expression.getValue().getClass())) {

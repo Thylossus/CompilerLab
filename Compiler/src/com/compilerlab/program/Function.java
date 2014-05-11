@@ -11,6 +11,7 @@ import com.compilerlab.jasmin.LIMIT;
 import com.compilerlab.jasmin.METHOD_FOOTER;
 import com.compilerlab.jasmin.METHOD_HEAD;
 import com.compilerlab.jasmin.RETURN;
+import com.compilerlab.program.statements.Assign;
 import com.compilerlab.program.statements.Statement;
 import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Int;
@@ -37,10 +38,14 @@ public class Function implements Compilable {
 
     /**
      * Create a new function
-     * @param returnType either Bool.class or Int.class or null, if no return value is given.
+     *
+     * @param returnType either Bool.class or Int.class or null, if no return
+     * value is given.
      * @param identifier a string that identifies the function.
-     * @param parameters a list of parameters for the function, which can also be empty.
-     * @param delarations a list of declarations made in the function, which can also be empty.
+     * @param parameters a list of parameters for the function, which can also
+     * be empty.
+     * @param delarations a list of declarations made in the function, which can
+     * also be empty.
      * @param statements a list of statements.
      */
     public Function(Class<? extends Value> returnType, String identifier, HashMap<String, Class<? extends Value>> parameters, List<Declaration> delarations, List<Statement> statements) {
@@ -59,9 +64,8 @@ public class Function implements Compilable {
         //Fast search is not required for the list of commands, thus the Array List is not required.
         //Source: http://beginnersbook.com/2013/12/difference-between-arraylist-and-linkedlist-in-java/
         List<Command> commands = new LinkedList<>();
-        
+
         //Print new line for better formating? TODO: decide!
-        
         //Calculate limit local and set local variables
         for (String param : this.parameters.keySet()) {
             if (this.parameters.get(param) == Bool.class) {
@@ -69,45 +73,52 @@ public class Function implements Compilable {
             } else {
                 localVariables.put(param, new Int(localVariables, limitLocals));
             }
-            
+
             limitLocals++;
         }
-        
+
         for (Declaration declaration : this.delarations) {
             if (declaration.getType() == Bool.class) {
-                localVariables.put(declaration.getIdentifier(), new Bool(localVariables, limitLocals, ((Bool)declaration.getValue()).getBooleanValue()));
+                localVariables.put(declaration.getIdentifier(), new Bool(localVariables, limitLocals));
             } else {
-                localVariables.put(declaration.getIdentifier(), new Int(localVariables, limitLocals, ((Int)declaration.getValue()).getIntValue()));
+                localVariables.put(declaration.getIdentifier(), new Int(localVariables, limitLocals));
             }
-            
+
             limitLocals++;
         }
-        
+
         //Calculate limit stack
         for (Statement statement : this.statements) {
             limitStack = Math.max(limitStack, statement.getStackSize());
         }
-        
+
         //Build commands
         Command cmdMethodHead = new METHOD_HEAD(this.identifier, this.parameters.size(), this.returnType != null);
         Command cmdLimitLocals = new LIMIT("locals", limitLocals);
         Command cmdLimitStack = new LIMIT("stack", limitStack);
-        
+
         commands.add(cmdMethodHead);
         commands.add(cmdLimitLocals);
         commands.add(cmdLimitStack);
+
+        //Add assignments for declarations with assigments
+        for (Declaration declaration : this.delarations) {
+            if (declaration.getExpression() != null) {
+                commands.addAll(new Assign(localVariables, declaration.getIdentifier(), declaration.getExpression()).compile());
+            }
+        }
         
         //Build each statement
         for (Statement statement : this.statements) {
             commands.addAll(statement.compile());
         }
-        
+
         Command cmdReturn = this.returnType != null ? new IRETURN() : new RETURN();
         Command cmdMethodFooter = new METHOD_FOOTER();
-        
+
         commands.add(cmdReturn);
         commands.add(cmdMethodFooter);
-        
+
         return commands;
     }
 
@@ -122,30 +133,56 @@ public class Function implements Compilable {
 
     @Override
     public String toString() {
-        String dataType = this.returnType != null ? this.returnType.getName() : "void";
+        String dataType = this.returnType != null ? this.returnType.getSimpleName() : "void";
         StringBuilder sb = new StringBuilder();
-        Iterator iter = this.parameters.keySet().iterator();
-        
-        while (iter.hasNext()) {
-            sb.append(iter.next());
-            if (iter.hasNext()) {
-                sb.append(", ");
+        String parameterList = "";
+        String declarationList = "";
+        String statementList = "";
+        String parameter;
+        if (this.parameters != null) {
+            Iterator<String> iter = this.parameters.keySet().iterator();
+
+            while (iter.hasNext()) {
+                parameter = iter.next();
+                sb.append(this.parameters.get(parameter).getSimpleName());
+                sb.append(" ");
+                sb.append(parameter);
+                if (iter.hasNext()) {
+                    sb.append(", ");
+                }
             }
+
+            parameterList = sb.toString();
+
         }
         
-        String parameterList = sb.toString();
-        
-        sb = new StringBuilder();
-        
-        for (Statement statement : this.statements) {
-            sb.append("\t");
-            sb.append(statement.toString());
-            sb.append("\n");
+        if (this.delarations != null) {
+            sb = new StringBuilder();
+            
+            for(Declaration declaration : this.delarations) {
+                sb.append("\t");
+                sb.append(declaration.toString());
+                sb.append("\n");
+            }
+            
+            declarationList = sb.toString();
         }
-        
-        String statementList = sb.toString();
-        
+
+        if (this.statements != null) {
+            sb = new StringBuilder();
+
+            for (Statement statement : this.statements) {
+                sb.append("\t");
+                sb.append(statement.toString());
+                sb.append("\n");
+            }
+
+            statementList = sb.toString();
+
+        }
+
         return dataType + " " + this.identifier + "(" + parameterList + ") {\n"
+                + declarationList
                 + statementList
                 + "}";
     }

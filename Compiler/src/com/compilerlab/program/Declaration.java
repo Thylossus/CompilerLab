@@ -6,6 +6,7 @@
 package com.compilerlab.program;
 
 import com.compilerlab.jasmin.Command;
+import com.compilerlab.program.expressions.Expression;
 import com.compilerlab.program.values.Value;
 import java.util.List;
 
@@ -19,28 +20,28 @@ public class Declaration implements Compilable {
 
     private final Class<? extends Value> type;
     private final String identifier;
-    private final Value value;
+    private final Expression expression;
 
     public Declaration(Class<? extends Value> type, String identifier) {
         this(type, identifier, null);
     }
 
-    public Declaration(Class<? extends Value> type, String identifier, Value value) {
+    public Declaration(Class<? extends Value> type, String identifier, Expression expression) {
         this.type = type;
         this.identifier = identifier;
-        this.value = value;
+        this.expression = expression;
     }
 
     public Class<? extends Value> getType() {
-        return type;
+        return this.type;
     }
 
     public String getIdentifier() {
-        return identifier;
+        return this.identifier;
     }
-
-    public Value getValue() {
-        return value;
+    
+    public Expression getExpression() {
+        return this.expression;
     }
 
     @Override
@@ -55,10 +56,10 @@ public class Declaration implements Compilable {
 
     @Override
     public String toString() {
-        String dataType = this.type != null ? this.type.getName() : "void";
-        String assignment = this.value != null ? " = " + this.value.toString() : "";
+        String dataType = this.type != null ? this.type.getSimpleName() : "void";
+        String assignment = this.expression != null ? " = " + this.expression.toString() : "";
 
-        return dataType + " " + this.identifier + assignment;
+        return dataType + " " + this.identifier + assignment + ";";
     }
 
 }

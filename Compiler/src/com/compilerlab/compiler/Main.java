@@ -20,7 +20,14 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ANTLRInputStream input = new ANTLRFileStream("test_source.txt");
+        ANTLRInputStream input = new ANTLRInputStream(
+                "boolean main() {return true;}"
+                + "int text(int hello, boolean bye) {"
+                + "     int a = 10 - (4 + 2);"
+                + "     int b = 1;"
+                + "     return 0;"
+                + "}"
+        );
 
         System.out.println(compile(input));
 
@@ -39,7 +46,9 @@ public class Main {
         Collection<Function> functionList = (Collection<Function>) new ListVisitor(globalVariables, functionDefinitions.keySet()).visit(tree);
 
         Program program = new Program(globalVariables, functionList, functionDefinitions);
+        System.out.println(program);
 
-        return program.compile();
+        //return program.compile();
+        return "";
     }
 }
