@@ -10,6 +10,6 @@ public class PRINTLNBOOL extends Command {
 
     @Override
     public String toString() {
-        return "invokevirtual java/io/PrintStream/println(Ljava/lang/String)V";
+        return "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V";
     }
 }
