@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class FunctionCall extends Expression {
 
-    private final String identifier;
-    private final List<Expression> parameters;
+    protected final String identifier;
+    protected final List<Expression> parameters;
     
     public FunctionCall(HashMap<String, Value> localVariables, String identifier, List<Expression> parameters) {
         super(localVariables);
