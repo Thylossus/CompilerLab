@@ -29,7 +29,7 @@ public class LDC extends Command {
         }
         else
         {
-            return "ldc " + this.stringValue;
+            return "ldc \"" + this.stringValue + "\"";
         }
     }
 }

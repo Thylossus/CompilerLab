@@ -26,6 +26,7 @@ import com.compilerlab.jasmin.LDC;
 import com.compilerlab.jasmin.PRINTLNBOOL;
 import com.compilerlab.jasmin.PRINTLNINT;
 import com.compilerlab.jasmin.PRINTLNVOID;
+import com.compilerlab.program.Program;
 import com.compilerlab.program.values.*;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -53,7 +54,23 @@ public class Println extends FunctionCall{
         
         if(value != null)
         {
-            if(value instanceof Bool)
+            boolean boolVariable = false;
+            
+            if (this.parameters.get(0) instanceof Variable) {
+                Variable var = (Variable) this.parameters.get(0);
+                
+                if (this.localVariables.containsKey(var.getIdentifier())) {
+                    if (this.localVariables.get(var.getIdentifier()) instanceof Bool) {
+                        boolVariable = true;
+                    }
+                } else {
+                    if (Program.getProgram().getGlobalVariables().get(var.getIdentifier()) instanceof Bool) {
+                        boolVariable = true;
+                    }
+                }
+            }
+            
+            if(value instanceof Bool || boolVariable)
             {
                 LABEL falseLabel = new LABEL();
                 LABEL nextLabel = new LABEL();
@@ -85,15 +102,15 @@ public class Println extends FunctionCall{
     
     @Override
     public int getStackSize() {
-        int stackSize = 0;
+        int stackSize = 1;
         
         if(value != null)
         {
-            for (int i = 0; i < this.parameters.size(); i++) {
-                stackSize = Math.max(stackSize, i + parameters.get(i).getStackSize());
-            }
+            //Required stack size for parameter and one frame for print stream object
+            stackSize = parameters.get(0).getStackSize() + 1;
+            
         }
-        return Math.max(stackSize, 1);
+        return stackSize;
     }
 
 }

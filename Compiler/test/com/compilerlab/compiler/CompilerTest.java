@@ -68,7 +68,7 @@ public class CompilerTest {
                 + "		} \n"
                 + "	}\n"
                 + "     return true;"
-                + "}", "true" + System.lineSeparator() + "1" + System.lineSeparator() + "true"},
+                + "}", "true" + System.lineSeparator() + "1" + System.lineSeparator() + "true" + System.lineSeparator()},
             {"TC4", "boolean main() { \n"
                 + "	boolean i = false; \n"
                 + "	int j; \n"

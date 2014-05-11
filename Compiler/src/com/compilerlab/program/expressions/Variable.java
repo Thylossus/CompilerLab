@@ -26,25 +26,29 @@ public class Variable extends Expression {
     public Variable(HashMap<String, Value> localVariables, String identifier) {
         super(localVariables);
         this.identifier = identifier;
-        
+
         /* rendered useless by visitor
-        if (this.localVariables.get(this.identifier) != null) {
-            //Variable is within local variables
-            this.value = this.localVariables.get(this.identifier);
-        } else if (Program.getProgram().getGlobalVariables().get(this.identifier) != null) {
-            //Variable is not a local variable, but a global variable
-            this.value = Program.getProgram().getGlobalVariables().get(this.identifier);
-        } else {
-            //Variable is not defined
-            //TODO (optional): replace by useful error message!
-            throw new RuntimeException("Variable <" + this.identifier + "> is undefined!");
-        }*/
+         if (this.localVariables.get(this.identifier) != null) {
+         //Variable is within local variables
+         this.value = this.localVariables.get(this.identifier);
+         } else if (Program.getProgram().getGlobalVariables().get(this.identifier) != null) {
+         //Variable is not a local variable, but a global variable
+         this.value = Program.getProgram().getGlobalVariables().get(this.identifier);
+         } else {
+         //Variable is not defined
+         //TODO (optional): replace by useful error message!
+         throw new RuntimeException("Variable <" + this.identifier + "> is undefined!");
+         }*/
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     @Override
     public List<Command> compile() {
         List<Command> commands = new LinkedList<>();
-        
+
         if (this.localVariables.get(this.identifier) != null) {
             //Variable is within local variables
             commands.add(new ILOAD(this.localVariables.get(this.identifier).getIndex()));
@@ -56,7 +60,7 @@ public class Variable extends Expression {
             //TODO (optional): replace by useful error message!
             throw new RuntimeException("Variable <" + this.identifier + "> is undefined!");
         }
-        
+
         return commands;
     }
 

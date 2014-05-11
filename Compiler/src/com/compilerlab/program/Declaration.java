@@ -51,6 +51,9 @@ public class Declaration implements Compilable {
 
     @Override
     public int getStackSize() {
+        if (this.expression != null) {
+            return this.expression.getStackSize();
+        }
         return 0;
     }
 

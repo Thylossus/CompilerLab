@@ -19,26 +19,38 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ANTLRInputStream input = new ANTLRInputStream(
-                "int a;"
-                + "boolean main() {"
-                + "     1+1;"
-                + "     text(0,0);"
-                + "     return true;"
-                + "}"
-                + "void nothing(){"
-                + "     1+1;"
+//        ANTLRInputStream input = new ANTLRInputStream(
+//                "int a;"
+//                + "boolean main() {"
+//                + "     1+1;"
+//                + "     text(0,0);"
+//                + "     return true;"
+//                + "}"
+//                + "void nothing(){"
+//                + "     1+1;"
+//                + "     return;"
+//                + "}"
+//                + "int text(int hello, boolean bye) {"
+//                + "     int a = 10 - 4 + 2;"
+//                + "     int b = 1;"
+//                + "     int c = a/b;"
+//                + "     println(1);"
+//                + "     a = a + 1;"
+//                + "     return 0;"
+//                + "}"
+//        );
+
+        ANTLRInputStream input = new ANTLRInputStream("int i = 5; \n"
+                + "boolean main() {\n"
+                + "	int i = 1; \n"
+                + "	helper(); \n"
+                + "	println(i); \n"
+                + "	return true; \n"
+                + "} \n"
+                + "void helper() {\n"
+                + "	println(i); \n"
                 + "     return;"
-                + "}"
-                + "int text(int hello, boolean bye) {"
-                + "     int a = 10 - 4 + 2;"
-                + "     int b = 1;"
-                + "     int c = a/b;"
-                + "     println(1);"
-                + "     a = a + 1;"
-                + "     return 0;"
-                + "}"
-        );
+                + "}");
 
         System.out.println(compile(input));
 

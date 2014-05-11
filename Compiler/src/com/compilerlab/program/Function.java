@@ -92,6 +92,9 @@ public class Function implements Compilable {
         }*/
 
         //Calculate limit stack
+        for (Declaration declaration : this.delarations) {
+            limitStack = Math.max(limitStack, declaration.getStackSize());
+        }
         for (Statement statement : this.statements) {
             limitStack = Math.max(limitStack, statement.getStackSize());
         }

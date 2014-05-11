@@ -18,7 +18,7 @@ public class GETSTATIC extends Command {
     public GETSTATIC() {
         this.className = "java/lang/System";
         this.fieldName = "out";
-        this.descriptor = "Ljava/io/PrintStream";
+        this.descriptor = "Ljava/io/PrintStream;";
     }
 
     public GETSTATIC(String className, String fieldName) {
@@ -31,6 +31,6 @@ public class GETSTATIC extends Command {
 
     @Override
     public String toString() {
-        return "getstatic " + this.className + "/" + this.fieldName + " " + this.descriptor + ";";
+        return "getstatic " + this.className + "/" + this.fieldName + " " + this.descriptor;
     }
 }
