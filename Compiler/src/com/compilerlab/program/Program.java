@@ -26,7 +26,7 @@ import java.util.List;
 public class Program {
 
     private final HashMap<String, Value> globalVariables;
-    private final Collection<Function> functions;
+    private Collection<Function> functions;
     private final HashMap<String, Class<? extends Value>> functionDefinitions;
     private final String programName;
     private static Program program;
@@ -35,20 +35,22 @@ public class Program {
         return Program.program;
     }
 
-    public Program(HashMap<String, Value> globalVariables, Collection<Function> functions, HashMap<String, Class<? extends Value>> functionDefinitions) {
+    public Program(HashMap<String, Value> globalVariables, HashMap<String, Class<? extends Value>> functionDefinitions) {
         this.globalVariables = globalVariables;
-        this.functions = functions;
         this.functionDefinitions = functionDefinitions;
         this.programName = "Program";
         this.init();
     }
 
-    public Program(HashMap<String, Value> globalVariables, Collection<Function> functions, HashMap<String, Class<? extends Value>> functionDefinitions, String programName) {
+    public Program(HashMap<String, Value> globalVariables, HashMap<String, Class<? extends Value>> functionDefinitions, String programName) {
         this.globalVariables = globalVariables;
-        this.functions = functions;
         this.functionDefinitions = functionDefinitions;
         this.programName = programName;
         this.init();
+    }
+    
+    public void setFunctions(Collection<Function> functions) {
+        this.functions = functions;
     }
 
     private void init() {

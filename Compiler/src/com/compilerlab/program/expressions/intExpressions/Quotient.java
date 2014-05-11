@@ -26,13 +26,16 @@ public class Quotient extends IntExpression{
         
         //Typechecking and calculation of result
         if (this.typechecking()) {
+            /*******************
+             * Calculation not required anymore
+             * 
             if (this.left.getValue().toInteger() == 0) {
                 throw new RuntimeException("Dividing by zero!");
             }
             
             Integer result = this.left.getValue().toInteger() / this.left.getValue().toInteger();
             
-            this.value = new Int(localVariables, result);
+            this.value = new Int(localVariables, result);*/
         } else {
             throw new RuntimeException("Type mismatch!");
         }
