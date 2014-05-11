@@ -6,10 +6,10 @@ package com.compilerlab.jasmin;
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
-public class PRINTLN extends Command {
+public class PRINTLNBOOL extends Command {
 
     @Override
     public String toString() {
-        return "invokevirtual java/io/PrintStream/println(I)V";
+        return "invokevirtual java/io/PrintStream/println(Ljava/lang/String)V";
     }
 }

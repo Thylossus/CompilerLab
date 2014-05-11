@@ -19,8 +19,14 @@ package com.compilerlab.program.expressions;
 
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.GETSTATIC;
-import com.compilerlab.jasmin.PRINTLN;
-import com.compilerlab.program.values.Value;
+import com.compilerlab.jasmin.GOTO;
+import com.compilerlab.jasmin.IFEQ;
+import com.compilerlab.jasmin.LABEL;
+import com.compilerlab.jasmin.LDC;
+import com.compilerlab.jasmin.PRINTLNBOOL;
+import com.compilerlab.jasmin.PRINTLNINT;
+import com.compilerlab.jasmin.PRINTLNVOID;
+import com.compilerlab.program.values.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,8 +38,11 @@ import java.util.List;
  */
 public class Println extends FunctionCall{
 
-    public Println(HashMap<String, Value> localVariables, List<Expression> parameters) {
+    Value value;
+    
+    public Println(HashMap<String, Value> localVariables, List<Expression> parameters, Value value) {
         super(localVariables, "println", parameters);
+        this.value = value;
     }
     
     @Override
@@ -41,10 +50,50 @@ public class Println extends FunctionCall{
         List<Command> commands = new LinkedList<>();
         
         commands.add(new GETSTATIC());
-        commands.addAll(this.parameters.get(0).compile());
-        commands.add(new PRINTLN());
         
+        if(value != null)
+        {
+            if(value instanceof Bool)
+            {
+                LABEL falseLabel = new LABEL();
+                LABEL nextLabel = new LABEL();
+                commands.addAll(this.parameters.get(0).compile());
+                commands.add(new IFEQ(falseLabel.getLabel()));
+                commands.add(new LDC("true"));
+                commands.add(new GOTO(nextLabel.getLabel()));
+                commands.add(falseLabel);
+                commands.add(new LDC("false"));
+                commands.add(nextLabel);
+                commands.add(new PRINTLNBOOL());
+            }
+            else if(value instanceof Int)
+            {
+                commands.addAll(this.parameters.get(0).compile());
+                commands.add(new PRINTLNINT());
+            }
+            else
+            {
+                throw new RuntimeException("Unknown type!");
+            }
+        }
+        else
+        {
+            commands.add(new PRINTLNVOID());
+        }
         return commands;
+    }
+    
+    @Override
+    public int getStackSize() {
+        int stackSize = 0;
+        
+        if(value != null)
+        {
+            for (int i = 0; i < this.parameters.size(); i++) {
+                stackSize = Math.max(stackSize, i + parameters.get(i).getStackSize());
+            }
+        }
+        return Math.max(stackSize, 1);
     }
 
 }

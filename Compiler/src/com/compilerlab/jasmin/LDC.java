@@ -7,14 +7,29 @@ package com.compilerlab.jasmin;
  */
 public class LDC extends Command {
 
-    private final int value;
+    private final int intValue;
+    private final String stringValue;
 
     public LDC(int value) {
-        this.value = value;
+        this.intValue = value;
+        this.stringValue = null;
+    }
+    
+    public LDC(String value) 
+    {
+        this.intValue = -1;
+        this.stringValue = value;
     }
 
     @Override
     public String toString() {
-        return "ldc " + this.value;
+        if(intValue != -1)
+        {
+            return "ldc " + this.intValue;
+        }
+        else
+        {
+            return "ldc " + this.stringValue;
+        }
     }
 }

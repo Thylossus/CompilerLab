@@ -12,13 +12,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#Println}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrintln(@NotNull ProgramParser.PrintlnContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#FunctionDefinitionWithoutReturnValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -115,6 +108,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitGeneralExprCallBool(@NotNull ProgramParser.GeneralExprCallBoolContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#PrintlnBool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintlnBool(@NotNull ProgramParser.PrintlnBoolContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#While}.
@@ -236,6 +236,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitNot(@NotNull ProgramParser.NotContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ProgramParser#PrintlnInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintlnInt(@NotNull ProgramParser.PrintlnIntContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ProgramParser#IfElse}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -257,18 +264,18 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitIntCast(@NotNull ProgramParser.IntCastContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#program}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProgram(@NotNull ProgramParser.ProgramContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Substraction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSubstraction(@NotNull ProgramParser.SubstractionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(@NotNull ProgramParser.ProgramContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Or}.
@@ -311,6 +318,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEquals(@NotNull ProgramParser.EqualsContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#PrintlnVoid}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintlnVoid(@NotNull ProgramParser.PrintlnVoidContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#simpleDecl}.
