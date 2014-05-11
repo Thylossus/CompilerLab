@@ -57,7 +57,7 @@ public class Return extends Statement {
 
     @Override
     public String toString() {
-        return "return " + (this.expression != null ? this.expression.toString() : "") + ";";
+        return "return" + (this.expression != null ? " " + this.expression.toString() : "") + ";";
     }
     
 

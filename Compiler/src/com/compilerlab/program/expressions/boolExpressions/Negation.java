@@ -26,6 +26,7 @@ public class Negation extends BoolExpression {
         //Only the "left" expression is used
         super(localVariables, expression, null);
 
+        /* deprecated
         //Typechecking and calculation of result
         if (this.typechecking()) {
             boolean result = !this.left.getValue().toBoolean();
@@ -33,7 +34,7 @@ public class Negation extends BoolExpression {
             this.value = new Bool(localVariables, result);
         } else {
             throw new RuntimeException("Type mismatch!");
-        }
+        } */
     }
 
     @Override
@@ -63,9 +64,10 @@ public class Negation extends BoolExpression {
         return "!" + this.left.toString();
     }
 
+    /* deprecated
     @Override
     protected final boolean typechecking() {
         return this.left.getValue() instanceof Bool && this.right.getValue() instanceof Bool;
-    }
+    } */
 
 }

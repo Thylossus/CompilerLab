@@ -30,58 +30,60 @@ public class If extends Statement {
         this.condition = condition;
         this.statements = statements;
 
-        if (!(this.condition.getValue() instanceof Bool)) {
-            throw new RuntimeException("Type mismatch!");
-        }
+        /* deprecated
+         if (!(this.condition.getValue() instanceof Bool)) {
+         throw new RuntimeException("Type mismatch!");
+         }
+         */
     }
 
     @Override
     public List<Command> compile() {
         //Evaluate condition
         List<Command> commands = this.condition.compile();
-        
+
         LABEL cmdLabelElse = new LABEL();
         //Check evaluated condition
         //ifeq jups to the specified label if the top of the stack is 0!
         IFEQ cmdIfeq = new IFEQ(cmdLabelElse.getLabel());
-        
+
         commands.add(cmdIfeq);
-        
+
         for (Statement statement : this.statements) {
             commands.addAll(statement.compile());
         }
-        
+
         commands.add(cmdLabelElse);
-        
+
         return commands;
     }
 
     @Override
     public int getStackSize() {
         int stackSize = 0;
-        
+
         for (Statement statement : this.statements) {
             stackSize = Math.max(stackSize, statement.getStackSize());
         }
-        
+
         return Math.max(stackSize, this.condition.getStackSize());
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("if (");
         sb.append(this.condition.toString());
         sb.append(") {\n");
-        
+
         for (Statement statement : this.statements) {
             sb.append(statement.toString());
             sb.append("\n");
         }
-        
+
         sb.append("}");
-        
+
         return sb.toString();
     }
 

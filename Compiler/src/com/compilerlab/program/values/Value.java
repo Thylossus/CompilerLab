@@ -59,9 +59,11 @@ public abstract class Value extends Expression {
         );
     }
     
+     /* deprecated
     @Override
     public Value getValue() {
         return this;
     }
+    */
 
 }

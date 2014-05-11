@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.expressions.intExpressions;
 
 import com.compilerlab.jasmin.Command;
@@ -17,21 +16,24 @@ import java.util.List;
 
 /**
  * Calculate the sum "left + right"
+ *
  * @author Tobias Kahse <tobias.kahse@outlook.com>version
  */
-public class Sum extends IntExpression{
+public class Sum extends IntExpression {
 
     public Sum(HashMap<String, Value> localVariables, Expression left, Expression right) {
         super(localVariables, left, right);
-        
-        //Typechecking and calculation of result
-        if (this.typechecking()) {
-            Integer result = this.left.getValue().toInteger() + this.left.getValue().toInteger();
+
+        /* deprecated
+         //Typechecking and calculation of result
+         if (this.typechecking()) {
+         Integer result = this.left.getValue().toInteger() + this.left.getValue().toInteger();
             
-            this.value = new Int(localVariables, result);
-        } else {
-            throw new RuntimeException("Type mismatch!");
-        }
+         this.value = new Int(localVariables, result);
+         } else {
+         throw new RuntimeException("Type mismatch!");
+         }
+         */
     }
 
     @Override
@@ -39,9 +41,9 @@ public class Sum extends IntExpression{
         List<Command> commands = new LinkedList<>();
         commands.addAll(this.left.compile());
         commands.addAll(this.right.compile());
-        
+
         commands.add(new IADD());
-        
+
         return commands;
     }
 
@@ -49,7 +51,7 @@ public class Sum extends IntExpression{
     public int getStackSize() {
         return Math.max(this.left.getStackSize(), this.right.getStackSize() + 1);
     }
-    
+
     @Override
     public String toString() {
         return this.left.toString() + " + " + this.right.toString();
