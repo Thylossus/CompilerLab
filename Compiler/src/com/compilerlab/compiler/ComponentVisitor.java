@@ -17,14 +17,20 @@ import com.compilerlab.program.expressions.intExpressions.Product;
 import com.compilerlab.program.expressions.intExpressions.Quotient;
 import com.compilerlab.program.expressions.intExpressions.Sum;
 import com.compilerlab.program.statements.Assign;
+import com.compilerlab.program.statements.DoWhile;
 import com.compilerlab.program.statements.ExpressionStatement;
+import com.compilerlab.program.statements.If;
+import com.compilerlab.program.statements.IfElse;
 import com.compilerlab.program.statements.Return;
 import com.compilerlab.program.statements.Statement;
+import com.compilerlab.program.statements.While;
 import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Visit a single program component.
@@ -140,22 +146,56 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
 
     @Override
     public Compilable visitIf(ProgramParser.IfContext ctx) {
-        return super.visitIf(ctx); //To change body of generated methods, choose Tools | Templates.
+        Expression condition = (Expression)this.visit(ctx.ifCondition);
+        List<Statement> statements = new LinkedList<>();
+        
+        for (ProgramParser.StmntContext stmtCtx : ctx.ifStatements) {
+            statements.add((Statement)this.visit(stmtCtx));
+        }
+        
+        return new If(condition, statements, this.localVariables);
     }
 
     @Override
     public Compilable visitIfElse(ProgramParser.IfElseContext ctx) {
-        return super.visitIfElse(ctx); //To change body of generated methods, choose Tools | Templates.
+        Expression condition = (Expression)this.visit(ctx.ifCondition);
+        List<Statement> ifStatements = new LinkedList<>();
+        List<Statement> elseStatements = new LinkedList<>();
+        
+        //Get if block statements
+        for (ProgramParser.StmntContext stmtCtx : ctx.ifStatements) {
+            ifStatements.add((Statement)this.visit(stmtCtx));
+        }
+        //Get else block statements
+        for (ProgramParser.StmntContext stmtCtx : ctx.elseStatements) {
+            elseStatements.add((Statement)this.visit(stmtCtx));
+        }
+        
+        return new IfElse(condition, ifStatements, elseStatements, this.localVariables);
     }
 
     @Override
     public Compilable visitWhile(ProgramParser.WhileContext ctx) {
-        return super.visitWhile(ctx); //To change body of generated methods, choose Tools | Templates.
+        Expression condition = (Expression)this.visit(ctx.whileCondition);
+        List<Statement> statements = new LinkedList<>();
+        
+        for (ProgramParser.StmntContext stmtCtx : ctx.whileStatements) {
+            statements.add((Statement)this.visit(stmtCtx));
+        }
+        
+        return new While(condition, statements, this.localVariables);
     }
 
     @Override
     public Compilable visitDoWhile(ProgramParser.DoWhileContext ctx) {
-        return super.visitDoWhile(ctx); //To change body of generated methods, choose Tools | Templates.
+        Expression condition = (Expression)this.visit(ctx.doWhileCondition);
+        List<Statement> statements = new LinkedList<>();
+        
+        for (ProgramParser.StmntContext stmtCtx : ctx.doWhileStatements) {
+            statements.add((Statement)this.visit(stmtCtx));
+        }
+        
+        return new DoWhile(condition, statements, this.localVariables);
     }
 
     @Override
