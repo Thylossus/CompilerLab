@@ -38,7 +38,7 @@ public class FIELD_DIRECTIVE extends Command{
     
     @Override
     public String toString() {
-        return ".field private static " + this.identifier + " I" + this.value != null ? " = " + this.value : "";
+        return ".field private static " + this.identifier + " I" + (this.value != null ? " = " + this.value : "");
     }
 
 }

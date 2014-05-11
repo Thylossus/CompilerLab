@@ -85,7 +85,6 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
 
         //Return
         statements.add(new Return((Expression) new ComponentVisitor(localVariables, returnType).visit(ctx.returnExpr), localVariables));
-        
 
         Function function = new Function(returnType, ctx.functionName.getText(), parameters, declarations, statements, localVariables);
 
@@ -132,8 +131,10 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
             statements.add((Statement) new ComponentVisitor(localVariables, null).visit(stmtCtx));
         }
 
-        //return
-        statements.add(new Return(localVariables));
+        //Return if not already returned:
+        if (statements.isEmpty() || !(statements.get(statements.size() - 1) instanceof Return)) {
+            statements.add(new Return(localVariables));
+        }
 
         Function function = new Function(null, ctx.functionName.getText(), parameters, declarations, statements, localVariables);
 

@@ -20,11 +20,14 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         ANTLRInputStream input = new ANTLRInputStream(
-                "boolean main() {"
+                "int a;"
+                + "boolean main() {"
                 + "     1+1;"
+                + "     text(0,0);"
                 + "     return true;"
                 + "}"
                 + "void nothing(){"
+                + "     1+1;"
                 + "     return;"
                 + "}"
                 + "int text(int hello, boolean bye) {"

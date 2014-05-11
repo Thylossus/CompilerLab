@@ -8,8 +8,6 @@ package com.compilerlab.program.expressions;
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.INVOKE;
 import com.compilerlab.program.Program;
-import com.compilerlab.program.values.Bool;
-import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,6 +41,10 @@ public class FunctionCall extends Expression {
         } */
     }
 
+    public String getIdentifier() {
+        return this.identifier;
+    }
+
     @Override
     public List<Command> compile() {
         List<Command> commands = new LinkedList<>();
@@ -53,14 +55,9 @@ public class FunctionCall extends Expression {
         sb.append(this.identifier);
         sb.append("(");
         
-        Iterator<Expression> paramIterator = this.parameters.iterator();
-        
-        while (paramIterator.hasNext()) {
-            commands.addAll(paramIterator.next().compile());
+        for (Expression parameter : this.parameters) {
+            commands.addAll(parameter.compile());
             sb.append("I");
-            if (paramIterator.hasNext()) {
-                sb.append(",");
-            }
         }
         
         sb.append(")");

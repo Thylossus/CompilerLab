@@ -10,6 +10,7 @@ import com.compilerlab.jasmin.FIELD_DIRECTIVE;
 import com.compilerlab.jasmin.INVOKE;
 import com.compilerlab.jasmin.LIMIT;
 import com.compilerlab.jasmin.METHOD_FOOTER;
+import com.compilerlab.jasmin.METHOD_HEAD;
 import com.compilerlab.jasmin.METHOD_HEAD_MAIN;
 import com.compilerlab.jasmin.RETURN;
 import com.compilerlab.program.values.Value;
@@ -90,7 +91,7 @@ public class Program {
         //Build main method
         Command cmdMethodHeadMain = new METHOD_HEAD_MAIN();
         //TODO: check limit and stack calculation.
-        Command cmdLimitLocals = new LIMIT("locals", 0);
+        Command cmdLimitLocals = new LIMIT("locals", 1);
         Command cmdLimitStack = new LIMIT("stack", 1);
 
         //Invoke programmer's main method.
@@ -130,6 +131,9 @@ public class Program {
         sb.append(".end method\n\n");
 
         for (Command command : commands) {
+            if (!(command instanceof METHOD_HEAD) && !(command instanceof METHOD_FOOTER)) {
+                sb.append("\t");
+            }
             sb.append(command.toString());
             sb.append("\n");
         }
@@ -140,6 +144,18 @@ public class Program {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        for (String var : this.globalVariables.keySet()) {
+            
+            sb.append(this.globalVariables.get(var).getClass().getSimpleName());
+            sb.append(" ");
+            sb.append(var);
+            //Even if the value is not set explicitly, there is an implicit default value for each data type.
+            sb.append(" = ");
+            sb.append(this.globalVariables.get(var).toString());
+            
+            sb.append(";\n");
+        }
+        
         for (Function function : this.functions) {
             sb.append("\n");
             sb.append(function.toString());

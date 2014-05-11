@@ -64,7 +64,7 @@ public class Finder {
 
             @Override
             public Void visitGlobalDeclaration(ProgramParser.GlobalDeclarationContext ctx) {
-                String type = ctx.simpleDecl().varName.getText();
+                String type = ctx.simpleDecl().varType.getText();
                 String identifier = ctx.simpleDecl().varName.getText();
 
                 Value val;

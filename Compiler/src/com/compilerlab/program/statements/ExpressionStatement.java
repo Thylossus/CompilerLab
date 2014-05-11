@@ -8,7 +8,9 @@ package com.compilerlab.program.statements;
 
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.POP;
+import com.compilerlab.program.Program;
 import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.expressions.FunctionCall;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,18 @@ public class ExpressionStatement extends Statement {
     @Override
     public List<Command> compile() {
         List<Command> commands = this.expression.compile();
+        //Check if expression is a function call without return value!
+        if (this.expression instanceof FunctionCall) {
+            String function = ((FunctionCall)this.expression).getIdentifier();
+        
+            if (function.equals("println")) {
+                return commands;
+            }
+            
+            if (Program.getProgram().getFunctionDefinitions().get(function) == null) {
+                return commands;
+            }
+        }
         commands.add(new POP());
         return commands;
     }
