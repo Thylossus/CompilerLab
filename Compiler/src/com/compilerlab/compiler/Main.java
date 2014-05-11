@@ -26,6 +26,7 @@ public class Main {
                 + "     int a = 10 - (4 + 2);"
                 + "     int b = 1;"
                 + "     int c = a/b;"
+                + "     println(1);"
                 + "     return 0;"
                 + "}"
         );

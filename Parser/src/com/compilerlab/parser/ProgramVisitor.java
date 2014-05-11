@@ -166,6 +166,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitExprList(@NotNull ProgramParser.ExprListContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ProgramParser#EmptyReturn}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyReturn(@NotNull ProgramParser.EmptyReturnContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Multiplication}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

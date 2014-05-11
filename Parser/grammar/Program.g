@@ -55,6 +55,7 @@ stmnt
     | 'while' '(' whileCondition=boolExpr ')' '{' (whileStatements+=stmnt)* '}' #While
     | 'do' '{' (doWhileStatements+=stmnt)* '}' 'while' '(' doWhileCondition=boolExpr ')' ';' #DoWhile
     | 'return' returnExpr=expr ';' #Return
+    | 'return;' #EmptyReturn
     | 'println' '(' argument=expr ')' ';' #Println
     | expr ';' #ExprCall
     ;

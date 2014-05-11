@@ -10,14 +10,20 @@ import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Compilable;
 import com.compilerlab.program.Declaration;
 import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.expressions.Println;
 import com.compilerlab.program.expressions.Variable;
 import com.compilerlab.program.expressions.intExpressions.Difference;
 import com.compilerlab.program.expressions.intExpressions.Product;
 import com.compilerlab.program.expressions.intExpressions.Quotient;
 import com.compilerlab.program.expressions.intExpressions.Sum;
+import com.compilerlab.program.statements.Assign;
+import com.compilerlab.program.statements.ExpressionStatement;
+import com.compilerlab.program.statements.Return;
+import com.compilerlab.program.statements.Statement;
 import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -34,6 +40,7 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         this.localVariables = localVariables;
     }
 
+    //Expressions
     @Override
     public Compilable visitLocalDeclaration(ProgramParser.LocalDeclarationContext ctx) {
         Class<? extends Value> type;
@@ -57,7 +64,7 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
             throw new RuntimeException("Variable <" + identifier + "> already defined!");
         }
         this.localVariables.put(identifier, var);
-        
+
         return new Declaration(type, identifier);
     }
 
@@ -86,7 +93,7 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
             throw new RuntimeException("Variable <" + identifier + "> already defined!");
         }
         this.localVariables.put(identifier, var);
-        
+
         return new Declaration(type, identifier, expression);
     }
 
@@ -130,8 +137,55 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         return new Variable(this.localVariables, ctx.variableName.getText());
     }
 
-    
+    //Statements
+    @Override
+    public Compilable visitAssignment(ProgramParser.AssignmentContext ctx) {
+        return new Assign(this.localVariables, ctx.varName.getText(), (Expression) this.visit(ctx.varExpr));
+    }
 
+    @Override
+    public Compilable visitIf(ProgramParser.IfContext ctx) {
+        return super.visitIf(ctx); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Compilable visitIfElse(ProgramParser.IfElseContext ctx) {
+        return super.visitIfElse(ctx); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Compilable visitWhile(ProgramParser.WhileContext ctx) {
+        return super.visitWhile(ctx); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Compilable visitDoWhile(ProgramParser.DoWhileContext ctx) {
+        return super.visitDoWhile(ctx); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Compilable visitReturn(ProgramParser.ReturnContext ctx) {
+        return new Return((Expression) this.visit(ctx.returnExpr), this.localVariables);
+    }
+
+    @Override
+    public Compilable visitEmptyReturn(ProgramParser.EmptyReturnContext ctx) {
+        return new Return(this.localVariables);
+    }
+
+    @Override
+    public Compilable visitPrintln(ProgramParser.PrintlnContext ctx) {
+        Println println = new Println(this.localVariables, Collections.singletonList((Expression) this.visit(ctx.argument)));
+        Statement callToPrintln = new ExpressionStatement(this.localVariables, println);
+        return callToPrintln;
+    }
+
+    @Override
+    public Compilable visitExprCall(ProgramParser.ExprCallContext ctx) {
+        return new ExpressionStatement(this.localVariables, (Expression) this.visit(ctx.expr())); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    //Finish
     @Override
     protected Compilable aggregateResult(Compilable aggregate, Compilable nextResult) {
         if (aggregate == null) {

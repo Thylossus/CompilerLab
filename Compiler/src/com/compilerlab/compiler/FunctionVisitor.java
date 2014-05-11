@@ -82,7 +82,7 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
         
         List<Statement> statements = new LinkedList<>();
         for(ProgramParser.StmntContext stmtCtx : ctx.statements) {
-            
+            statements.add((Statement)new ComponentVisitor(localVariables).visit(stmtCtx));
         }
 
         Function function = new Function(returnType, ctx.functionName.getText(), parameters, declarations, statements, localVariables);
