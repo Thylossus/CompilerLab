@@ -25,6 +25,7 @@ public class Main {
                 + "int text(int hello, boolean bye) {"
                 + "     int a = 10 - (4 + 2);"
                 + "     int b = 1;"
+                + "     int c = a/b;"
                 + "     return 0;"
                 + "}"
         );
@@ -43,9 +44,10 @@ public class Main {
         //Find global Variables and definitions
         HashMap<String, Value> globalVariables = Finder.findGlobalVariables(tree);
         HashMap<String, Class<? extends Value>> functionDefinitions = Finder.findFunctionDefinitions(tree);
-        Collection<Function> functionList = (Collection<Function>) new ListVisitor(globalVariables, functionDefinitions.keySet()).visit(tree);
+        Program program = new Program(globalVariables, functionDefinitions);
+        Collection<Function> functionList = (Collection<Function>) new FunctionVisitor(globalVariables, functionDefinitions.keySet()).visit(tree);
 
-        Program program = new Program(globalVariables, functionList, functionDefinitions);
+        program.setFunctions(functionList);
         System.out.println(program);
 
         //return program.compile();

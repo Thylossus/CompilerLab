@@ -5,6 +5,7 @@ import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Compilable;
 import com.compilerlab.program.Declaration;
 import com.compilerlab.program.Function;
+import com.compilerlab.program.statements.Statement;
 import com.compilerlab.program.values.Bool;
 import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
@@ -20,18 +21,21 @@ import java.util.Set;
  *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
-public class ListVisitor extends ProgramBaseVisitor<Collection<? extends Compilable>> {
+public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Compilable>> {
 
     private final HashMap<String, Value> globalVariables;
     private final Set<String> declaredFunctions;
 
-    public ListVisitor(HashMap<String, Value> globalVariables, Set<String> declaredFunctions) {
+    public FunctionVisitor(HashMap<String, Value> globalVariables, Set<String> declaredFunctions) {
         this.globalVariables = globalVariables;
         this.declaredFunctions = declaredFunctions;
     }
 
     @Override
     public Collection<? extends Compilable> visitFunction(ProgramParser.FunctionContext ctx) {
+        int localVariableCounter = 0;
+        HashMap<String, Value> localVariables = new HashMap<>();
+        
         Class<? extends Value> returnType;
         switch (ctx.returnType.getText()) {
             case "boolean":
@@ -50,28 +54,38 @@ public class ListVisitor extends ProgramBaseVisitor<Collection<? extends Compila
         //Parse parameters
         HashMap<String, Class<? extends Value>> parameters = new HashMap<>();
         Class<? extends Value> paramType;
+        Value var;
         for (ProgramParser.SimpleDeclContext declCtx : ctx.parameter.declarations) {
             switch (declCtx.varType.getText()) {
                 case "boolean":
                     paramType = Bool.class;
+                    var = new Bool(localVariables, localVariableCounter);
                     break;
                 case "int":
                     paramType = Int.class;
+                    var = new Int(localVariables, localVariableCounter);
                     break;
                 default:
                     throw new RuntimeException("Unsupported data type!");
             }
             
             parameters.put(declCtx.varName.getText(), paramType);
+            localVariables.put(declCtx.varName.getText(), var);
+            localVariableCounter++;
         }
         
         //Parse declarations
         List<Declaration> declarations = new LinkedList<>();
         for(ProgramParser.LocalDeclContext localDeclCtx : ctx.localDelaration) {
-            declarations.add((Declaration)new ComponentVisitor().visit(localDeclCtx));
+            declarations.add((Declaration)new ComponentVisitor(localVariables).visit(localDeclCtx));
+        }
+        
+        List<Statement> statements = new LinkedList<>();
+        for(ProgramParser.StmntContext stmtCtx : ctx.statements) {
+            
         }
 
-        Function function = new Function(returnType, ctx.functionName.getText(), parameters, declarations, null);
+        Function function = new Function(returnType, ctx.functionName.getText(), parameters, declarations, statements, localVariables);
 
         return (Collection<? extends Compilable>) Collections.singletonList(function);
     }

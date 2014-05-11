@@ -35,6 +35,7 @@ public class Function implements Compilable {
     private final HashMap<String, Class<? extends Value>> parameters;
     private final List<Declaration> delarations;
     private final List<Statement> statements;
+    private final HashMap<String, Value> localVariables;
 
     /**
      * Create a new function
@@ -48,28 +49,31 @@ public class Function implements Compilable {
      * also be empty.
      * @param statements a list of statements.
      */
-    public Function(Class<? extends Value> returnType, String identifier, HashMap<String, Class<? extends Value>> parameters, List<Declaration> delarations, List<Statement> statements) {
+    public Function(Class<? extends Value> returnType, String identifier, HashMap<String, Class<? extends Value>> parameters, List<Declaration> delarations, List<Statement> statements, HashMap<String, Value> localVariables) {
         this.returnType = returnType;
         this.identifier = identifier;
         this.parameters = parameters;
         this.delarations = delarations;
         this.statements = statements;
+        this.localVariables = localVariables;
     }
 
     @Override
     public List<Command> compile() {
-        HashMap<String, Value> localVariables = new HashMap<>();
-        int limitLocals = 0, limitStack = 0;
+        int limitStack = 0;
         //Use LinkedList instead of ArrayList because of higher insertion performance. 
         //Fast search is not required for the list of commands, thus the Array List is not required.
         //Source: http://beginnersbook.com/2013/12/difference-between-arraylist-and-linkedlist-in-java/
         List<Command> commands = new LinkedList<>();
 
+        /**********************
+         * Remove because not necessary any longer. local variables will be constructed during parsing.
+         * 
         //Print new line for better formating? TODO: decide!
         //Calculate limit local and set local variables
         for (String param : this.parameters.keySet()) {
             if (this.parameters.get(param) == Bool.class) {
-                localVariables.put(param, new Bool(localVariables, limitLocals));
+                localVariables.put(param, new Bool(this.localVariables, limitLocals));
             } else {
                 localVariables.put(param, new Int(localVariables, limitLocals));
             }
@@ -85,7 +89,7 @@ public class Function implements Compilable {
             }
 
             limitLocals++;
-        }
+        }*/
 
         //Calculate limit stack
         for (Statement statement : this.statements) {
@@ -94,7 +98,7 @@ public class Function implements Compilable {
 
         //Build commands
         Command cmdMethodHead = new METHOD_HEAD(this.identifier, this.parameters.size(), this.returnType != null);
-        Command cmdLimitLocals = new LIMIT("locals", limitLocals);
+        Command cmdLimitLocals = new LIMIT("locals", this.localVariables.size());
         Command cmdLimitStack = new LIMIT("stack", limitStack);
 
         commands.add(cmdMethodHead);
@@ -104,7 +108,7 @@ public class Function implements Compilable {
         //Add assignments for declarations with assigments
         for (Declaration declaration : this.delarations) {
             if (declaration.getExpression() != null) {
-                commands.addAll(new Assign(localVariables, declaration.getIdentifier(), declaration.getExpression()).compile());
+                commands.addAll(new Assign(this.localVariables, declaration.getIdentifier(), declaration.getExpression()).compile());
             }
         }
         
