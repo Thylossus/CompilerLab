@@ -96,13 +96,16 @@ public class FunctionCall extends Expression {
         sb.append(this.identifier);
         sb.append("(");
         
-        Iterator<Expression> paramIterator = this.parameters.iterator();
-        
-        while (paramIterator.hasNext()) {
-            sb.append(paramIterator.next().toString());
-            
-            if (paramIterator.hasNext()) {
-                sb.append(", ");
+        if(parameters != null)
+        {
+            Iterator<Expression> paramIterator = this.parameters.iterator();
+
+            while (paramIterator.hasNext()) {
+                sb.append(paramIterator.next().toString());
+
+                if (paramIterator.hasNext()) {
+                    sb.append(", ");
+                }
             }
         }
         
