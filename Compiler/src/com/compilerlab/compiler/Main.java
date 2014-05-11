@@ -52,7 +52,6 @@ public class Main {
         program.setFunctions(functionList);
         System.out.println(program);
 
-        //return program.compile();
-        return "";
+        return program.compile();
     }
 }

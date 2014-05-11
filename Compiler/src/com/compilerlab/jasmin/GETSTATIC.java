@@ -31,6 +31,6 @@ public class GETSTATIC extends Command {
 
     @Override
     public String toString() {
-        return "getstatic " + this.className + "/" + this.fieldName + " " + this.descriptor;
+        return "getstatic " + this.className + "/" + this.fieldName + " " + this.descriptor + ";";
     }
 }

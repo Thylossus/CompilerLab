@@ -13,6 +13,7 @@ import com.compilerlab.program.Program;
 import com.compilerlab.program.expressions.Expression;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -30,13 +31,15 @@ public class Assign extends Statement {
         this.expression = expression;
         
         if (this.localVariables.containsKey(this.identifier)) {
+            /* TODO: Check whether required.
             if (!(this.localVariables.get(this.identifier).getClass() == this.expression.getValue().getClass())) {
                 throw new RuntimeException("Type mismatch!");
-            }
+            }*/
         } else if (Program.getProgram().getGlobalVariables().containsKey(this.identifier)) {
+            /* TODO: Check whether required.
             if (!(Program.getProgram().getGlobalVariables().get(this.identifier).getClass() == this.expression.getValue().getClass())) {
                 throw new RuntimeException("Type mismatch!");
-            }
+            }*/
         } else {
             throw new RuntimeException("Variable <" + this.identifier + "> undefined!");
         }
@@ -44,7 +47,8 @@ public class Assign extends Statement {
 
     @Override
     public List<Command> compile() {
-        List<Command> commands = this.expression.compile();
+        List<Command> commands = new LinkedList<>();
+        commands.addAll(this.expression.compile());
         
         if (this.localVariables.containsKey(this.identifier)) {
             //Store new value in local variable
