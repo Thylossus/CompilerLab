@@ -34,17 +34,17 @@ paramList
     ;
 
 simpleDecl
-    : varType=dataType varName=ID';'
+    : varType=dataType varName=ID
     ;
 
 globalDecl
-	: simpleDecl #GlobalDeclaration
+	: simpleDecl';' #GlobalDeclaration
         | varType=dataType varName=ID '=' varValue=BOOLVALUE ';' #GlobalDeclarationAssignmentBool
         | varType=dataType varName=ID '=' varValue=NUMBER ';' #GlobalDeclarationAssignmentInt
 	;
 
 localDecl
-    : simpleDecl #LocalDeclaration 
+    : simpleDecl';' #LocalDeclaration 
     | varType=dataType varName=ID '=' varExpr=expr ';' #LocalDeclarationAssignment 
     ;
 
