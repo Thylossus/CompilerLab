@@ -7,7 +7,6 @@ import com.compilerlab.program.Program;
 import com.compilerlab.program.values.Value;
 import java.util.Collection;
 import java.util.HashMap;
-import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -21,7 +20,13 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         ANTLRInputStream input = new ANTLRInputStream(
-                "boolean main() {return true;}"
+                "boolean main() {"
+                + "     1+1;"
+                + "     return true;"
+                + "}"
+                + "void nothing(){"
+                + "     return;"
+                + "}"
                 + "int text(int hello, boolean bye) {"
                 + "     int a = 10 - (4 + 2);"
                 + "     int b = 1;"

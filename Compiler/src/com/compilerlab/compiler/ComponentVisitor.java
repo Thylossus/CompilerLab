@@ -22,6 +22,7 @@ import com.compilerlab.parser.ProgramBaseVisitor;
 import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Compilable;
 import com.compilerlab.program.Declaration;
+import com.compilerlab.program.Program;
 import com.compilerlab.program.expressions.*;
 import com.compilerlab.program.expressions.boolExpressions.*;
 import com.compilerlab.program.expressions.intExpressions.*;
@@ -41,9 +42,11 @@ import java.util.List;
 public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
 
     private final HashMap<String, Value> localVariables;
+    private final Class<? extends Value> returnType;
 
-    public ComponentVisitor(HashMap<String, Value> localVariables) {
+    public ComponentVisitor(HashMap<String, Value> localVariables, Class<? extends Value> returnType) {
         this.localVariables = localVariables;
+        this.returnType = returnType;
     }
 
     //Expressions
@@ -195,11 +198,17 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
 
     @Override
     public Compilable visitReturn(ProgramParser.ReturnContext ctx) {
+        if (this.returnType == null) {
+            throw new RuntimeException("Tried to return a value in a function of type void!");
+        }
         return new Return((Expression) this.visit(ctx.returnExpr), this.localVariables);
     }
 
     @Override
     public Compilable visitEmptyReturn(ProgramParser.EmptyReturnContext ctx) {
+        if (this.returnType != null) {
+            throw new RuntimeException("Tried to return from a function with return value without providing a return value!");
+        }
         return new Return(this.localVariables);
     }
 
@@ -281,13 +290,17 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
 
     @Override
     public Compilable visitFunctionCall(ProgramParser.FunctionCallContext ctx) {
+        if (!Program.getProgram().getFunctionDefinitions().containsKey(ctx.functionName.getText())) {
+            throw new RuntimeException("Called undefined function <" + ctx.functionName.getText() + ">.");
+        }
+        
         List<Expression> arguments = new LinkedList<>();
 
         for (ProgramParser.ExprContext exprCtx : ctx.arguments.expressions) {
             arguments.add((Expression) this.visit(exprCtx));
         }
 
-        return new FunctionCall(localVariables, ctx.functionName.getText(), arguments);
+        return new FunctionCall(this.localVariables, ctx.functionName.getText(), arguments);
     }
 
     @Override
