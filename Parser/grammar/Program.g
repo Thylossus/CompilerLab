@@ -93,9 +93,9 @@ boolExpr
     ;
 
 generalExpr
-    : 'println' '('')' ';' #PrintlnVoid
-    | 'println' '(' argument=intExpr ')' ';' #PrintlnInt
-    | 'println' '(' argument=boolExpr ')' ';' #PrintlnBool
+    : 'println' '('')' #PrintlnVoid
+    | 'println' '(' argument=intExpr ')' #PrintlnInt
+    | 'println' '(' argument=boolExpr ')' #PrintlnBool
     | functionName=ID '(' arguments=exprList ')' #FunctionCall
     | variableName=ID #Variable
     ;
