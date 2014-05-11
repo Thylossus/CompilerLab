@@ -7,7 +7,7 @@ boolean main() {
 		//and assign return value to r
 		
 	println(r);								
-		//Print r to stdout; output: 1
+		//Print r to stdout; output: 120
 	emptyLine();							
 		//Print empty line to stdout
 	
