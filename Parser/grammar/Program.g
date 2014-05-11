@@ -61,7 +61,7 @@ stmnt
     ;
 
 expr
-    : intExpr 
+    : intExpr
     | boolExpr
     ;
 
@@ -80,7 +80,7 @@ boolExpr
     : leftEquals=intExpr '==' rightEquals=intExpr #Equals     
     | leftUnequals=intExpr '!=' rightUnequals=intExpr #Unequal    
     | leftLessEqual=intExpr '<=' rightLessEqual=intExpr #LessEqual    
-    | rightBiggerEqual=intExpr '>=' rightBiggerEqual=intExpr #BiggerEqual    
+    | leftBiggerEqual=intExpr '>=' rightBiggerEqual=intExpr #BiggerEqual    
     | leftLessThan=intExpr '<'  rightLessThan=intExpr #LessThan     
     | leftBiggerThan=intExpr '>'  rightLessThan=intExpr #BiggerThan    
     | '!' notValue=boolExpr #Not            

@@ -21,4 +21,9 @@ public abstract class Expression implements Compilable{
         return this.value;
     }
     
+    public void setValue(Value value)
+    {
+        this.value = value;
+    }
+    
 }

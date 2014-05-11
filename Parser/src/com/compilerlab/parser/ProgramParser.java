@@ -1,4 +1,4 @@
-// Generated from Program.g by ANTLR 4.2.1
+// Generated from /Uni/4. Semester/CompilerLab/CompilerLab/Parser/grammar/Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -1358,6 +1358,7 @@ public class ProgramParser extends Parser {
 		}
 	}
 	public static class BiggerEqualContext extends BoolExprContext {
+		public IntExprContext leftBiggerEqual;
 		public IntExprContext rightBiggerEqual;
 		public IntExprContext intExpr(int i) {
 			return getRuleContext(IntExprContext.class,i);
@@ -1477,7 +1478,7 @@ public class ProgramParser extends Parser {
 				_localctx = new BiggerEqualContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(239); ((BiggerEqualContext)_localctx).rightBiggerEqual = intExpr(0);
+				setState(239); ((BiggerEqualContext)_localctx).leftBiggerEqual = intExpr(0);
 				setState(240); match(29);
 				setState(241); ((BiggerEqualContext)_localctx).rightBiggerEqual = intExpr(0);
 				}

@@ -1,32 +1,33 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014
+ *  Tobias Kahse <tobias.kahse@outlook.com>
+ *  Frank Steiler <frank@steiler.eu>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.compilerlab.compiler;
 
 import com.compilerlab.parser.ProgramBaseVisitor;
 import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Compilable;
 import com.compilerlab.program.Declaration;
-import com.compilerlab.program.expressions.Expression;
-import com.compilerlab.program.expressions.Println;
-import com.compilerlab.program.expressions.Variable;
-import com.compilerlab.program.expressions.intExpressions.Difference;
-import com.compilerlab.program.expressions.intExpressions.Product;
-import com.compilerlab.program.expressions.intExpressions.Quotient;
-import com.compilerlab.program.expressions.intExpressions.Sum;
-import com.compilerlab.program.statements.Assign;
-import com.compilerlab.program.statements.DoWhile;
-import com.compilerlab.program.statements.ExpressionStatement;
-import com.compilerlab.program.statements.If;
-import com.compilerlab.program.statements.IfElse;
-import com.compilerlab.program.statements.Return;
-import com.compilerlab.program.statements.Statement;
-import com.compilerlab.program.statements.While;
-import com.compilerlab.program.values.Bool;
-import com.compilerlab.program.values.Int;
-import com.compilerlab.program.values.Value;
+import com.compilerlab.program.expressions.*;
+import com.compilerlab.program.expressions.boolExpressions.*;
+import com.compilerlab.program.expressions.intExpressions.*;
+import com.compilerlab.program.statements.*;
+import com.compilerlab.program.values.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,25 +35,27 @@ import java.util.List;
 
 /**
  * Visit a single program component.
- *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
- * @version
+ * @author Frank Steiler <frank@steiler.eu>
  */
 public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
 
     private final HashMap<String, Value> localVariables;
 
-    public ComponentVisitor(HashMap<String, Value> localVariables) {
+    public ComponentVisitor(HashMap<String, Value> localVariables) 
+    {
         this.localVariables = localVariables;
     }
 
     //Expressions
     @Override
-    public Compilable visitLocalDeclaration(ProgramParser.LocalDeclarationContext ctx) {
+    public Compilable visitLocalDeclaration(ProgramParser.LocalDeclarationContext ctx) 
+    {
         Class<? extends Value> type;
         int index = this.localVariables.size();
         Value var;
-        switch (ctx.simpleDecl().varType.getText()) {
+        switch (ctx.simpleDecl().varType.getText()) 
+        {
             case "int":
                 type = Int.class;
                 var = new Int(this.localVariables, index);
@@ -66,7 +69,8 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         }
         String identifier = ctx.simpleDecl().varName.getText();
         //Add declared variable to local variables
-        if (this.localVariables.containsKey(identifier)) {
+        if (this.localVariables.containsKey(identifier)) 
+        {
             throw new RuntimeException("Variable <" + identifier + "> already defined!");
         }
         this.localVariables.put(identifier, var);
@@ -75,7 +79,8 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
-    public Compilable visitLocalDeclarationAssignment(ProgramParser.LocalDeclarationAssignmentContext ctx) {
+    public Compilable visitLocalDeclarationAssignment(ProgramParser.LocalDeclarationAssignmentContext ctx) 
+    {
         Class<? extends Value> type;
         int index = this.localVariables.size();
         Value var;
@@ -95,7 +100,8 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         Expression expression = (Expression) this.visit(ctx.varExpr);
 
         //Add declared variable to local variables
-        if (this.localVariables.containsKey(identifier)) {
+        if (this.localVariables.containsKey(identifier)) 
+        {
             throw new RuntimeException("Variable <" + identifier + "> already defined!");
         }
         this.localVariables.put(identifier, var);
@@ -104,52 +110,56 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
-    public Compilable visitDivision(ProgramParser.DivisionContext ctx) {
+    public Compilable visitDivision(ProgramParser.DivisionContext ctx) 
+    {
         return new Quotient(this.localVariables, (Expression) this.visit(ctx.leftDivision), (Expression) this.visit(ctx.rightDivision));
     }
 
     @Override
-    public Compilable visitMultiplication(ProgramParser.MultiplicationContext ctx) {
+    public Compilable visitMultiplication(ProgramParser.MultiplicationContext ctx) 
+    {
         return new Product(this.localVariables, (Expression) this.visit(ctx.leftMultiplication), (Expression) this.visit(ctx.rightMultiplication));
     }
 
     @Override
-    public Compilable visitAddition(ProgramParser.AdditionContext ctx) {
+    public Compilable visitAddition(ProgramParser.AdditionContext ctx) 
+    {
         return new Sum(this.localVariables, (Expression) this.visit(ctx.leftAddition), (Expression) this.visit(ctx.rightAddition));
     }
 
     @Override
-    public Compilable visitSubstraction(ProgramParser.SubstractionContext ctx) {
+    public Compilable visitSubstraction(ProgramParser.SubstractionContext ctx) 
+    {
         return new Difference(this.localVariables, (Expression) this.visit(ctx.leftSubstraction), (Expression) this.visit(ctx.rightSubstraction));
     }
-
+    
     @Override
-    public Compilable visitIntCast(ProgramParser.IntCastContext ctx) {
-        return super.visitIntCast(ctx); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Compilable visitNumericValue(ProgramParser.NumericValueContext ctx) {
+    public Compilable visitNumericValue(ProgramParser.NumericValueContext ctx) 
+    {
         return new Int(this.localVariables, Integer.valueOf(ctx.value.getText()));
     }
 
     @Override
-    public Compilable visitVariable(ProgramParser.VariableContext ctx) {
+    public Compilable visitVariable(ProgramParser.VariableContext ctx) 
+    {
         return new Variable(this.localVariables, ctx.variableName.getText());
     }
 
     //Statements
     @Override
-    public Compilable visitAssignment(ProgramParser.AssignmentContext ctx) {
+    public Compilable visitAssignment(ProgramParser.AssignmentContext ctx) 
+    {
         return new Assign(this.localVariables, ctx.varName.getText(), (Expression) this.visit(ctx.varExpr));
     }
 
     @Override
-    public Compilable visitIf(ProgramParser.IfContext ctx) {
+    public Compilable visitIf(ProgramParser.IfContext ctx) 
+    {
         Expression condition = (Expression)this.visit(ctx.ifCondition);
         List<Statement> statements = new LinkedList<>();
         
-        for (ProgramParser.StmntContext stmtCtx : ctx.ifStatements) {
+        for (ProgramParser.StmntContext stmtCtx : ctx.ifStatements) 
+        {
             statements.add((Statement)this.visit(stmtCtx));
         }
         
@@ -157,17 +167,20 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
-    public Compilable visitIfElse(ProgramParser.IfElseContext ctx) {
+    public Compilable visitIfElse(ProgramParser.IfElseContext ctx) 
+    {
         Expression condition = (Expression)this.visit(ctx.ifCondition);
         List<Statement> ifStatements = new LinkedList<>();
         List<Statement> elseStatements = new LinkedList<>();
         
         //Get if block statements
-        for (ProgramParser.StmntContext stmtCtx : ctx.ifStatements) {
+        for (ProgramParser.StmntContext stmtCtx : ctx.ifStatements) 
+        {
             ifStatements.add((Statement)this.visit(stmtCtx));
         }
         //Get else block statements
-        for (ProgramParser.StmntContext stmtCtx : ctx.elseStatements) {
+        for (ProgramParser.StmntContext stmtCtx : ctx.elseStatements) 
+        {
             elseStatements.add((Statement)this.visit(stmtCtx));
         }
         
@@ -175,11 +188,13 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
-    public Compilable visitWhile(ProgramParser.WhileContext ctx) {
+    public Compilable visitWhile(ProgramParser.WhileContext ctx) 
+    {
         Expression condition = (Expression)this.visit(ctx.whileCondition);
         List<Statement> statements = new LinkedList<>();
         
-        for (ProgramParser.StmntContext stmtCtx : ctx.whileStatements) {
+        for (ProgramParser.StmntContext stmtCtx : ctx.whileStatements) 
+        {
             statements.add((Statement)this.visit(stmtCtx));
         }
         
@@ -187,11 +202,13 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
-    public Compilable visitDoWhile(ProgramParser.DoWhileContext ctx) {
+    public Compilable visitDoWhile(ProgramParser.DoWhileContext ctx) 
+    {
         Expression condition = (Expression)this.visit(ctx.doWhileCondition);
         List<Statement> statements = new LinkedList<>();
         
-        for (ProgramParser.StmntContext stmtCtx : ctx.doWhileStatements) {
+        for (ProgramParser.StmntContext stmtCtx : ctx.doWhileStatements) 
+        {
             statements.add((Statement)this.visit(stmtCtx));
         }
         
@@ -199,35 +216,133 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
-    public Compilable visitReturn(ProgramParser.ReturnContext ctx) {
+    public Compilable visitReturn(ProgramParser.ReturnContext ctx) 
+    {
         return new Return((Expression) this.visit(ctx.returnExpr), this.localVariables);
     }
 
     @Override
-    public Compilable visitEmptyReturn(ProgramParser.EmptyReturnContext ctx) {
+    public Compilable visitEmptyReturn(ProgramParser.EmptyReturnContext ctx) 
+    {
         return new Return(this.localVariables);
     }
 
     @Override
-    public Compilable visitPrintln(ProgramParser.PrintlnContext ctx) {
+    public Compilable visitPrintln(ProgramParser.PrintlnContext ctx) 
+    {
         Println println = new Println(this.localVariables, Collections.singletonList((Expression) this.visit(ctx.argument)));
         Statement callToPrintln = new ExpressionStatement(this.localVariables, println);
         return callToPrintln;
     }
  
     @Override
-    public Compilable visitExprCall(ProgramParser.ExprCallContext ctx) {
-        return new ExpressionStatement(this.localVariables, (Expression) this.visit(ctx.expr())); //To change body of generated methods, choose Tools | Templates.
+    public Compilable visitExprCall(ProgramParser.ExprCallContext ctx) 
+    {
+        return new ExpressionStatement(this.localVariables, (Expression) this.visit(ctx.expr()));
+    }
+    
+    @Override
+    public Compilable visitEquals(ProgramParser.EqualsContext ctx)
+    {
+        return new Equation(localVariables, (Expression) this.visit(ctx.leftEquals), (Expression) this.visit(ctx.rightEquals));
+    }
+    
+    @Override
+    public Compilable visitUnequal(ProgramParser.UnequalContext ctx)
+    {
+        return new Inequation(localVariables, (Expression) this.visit(ctx.leftUnequals), (Expression) this.visit(ctx.rightUnequals));
     }
 
+    @Override
+    public Compilable visitAnd(ProgramParser.AndContext ctx) 
+    {
+        return new Conjunction(localVariables, (Expression) this.visit(ctx.leftAnd), (Expression) this.visit(ctx.rightAnd));
+    }
+
+    @Override
+    public Compilable visitOr(ProgramParser.OrContext ctx) 
+    {
+        return new Disjunction(localVariables, (Expression) this.visit(ctx.leftOr), (Expression) this.visit(ctx.rightOr));
+    }
+
+    @Override
+    public Compilable visitNot(ProgramParser.NotContext ctx) 
+    {
+        return new Negation(localVariables, (Expression) this.visit(ctx.notValue));
+    }
+
+    @Override
+    public Compilable visitBiggerEqual(ProgramParser.BiggerEqualContext ctx) 
+    {
+        return new GreaterEqual(localVariables, (Expression) this.visit(ctx.leftBiggerEqual), (Expression) this.visit(ctx.rightBiggerEqual));
+    }
+
+    @Override
+    public Compilable visitLessEqual(ProgramParser.LessEqualContext ctx) 
+    {
+        return new LessEqual(localVariables, (Expression) this.visit(ctx.leftLessEqual), (Expression) this.visit(ctx.rightLessEqual));
+    }
+
+    @Override
+    public Compilable visitBiggerThan(ProgramParser.BiggerThanContext ctx) 
+    {
+        return new GreaterThan(localVariables, (Expression) this.visit(ctx.leftBiggerThan), (Expression) this.visit(ctx.rightLessThan));
+    }
+
+    @Override
+    public Compilable visitLessThan(ProgramParser.LessThanContext ctx) 
+    {
+        return new LessThan(localVariables, (Expression) this.visit(ctx.leftLessThan), (Expression) this.visit(ctx.rightLessThan));
+    }
+
+    @Override
+    public Compilable visitFunctionCall(ProgramParser.FunctionCallContext ctx) 
+    {
+        List<Expression> arguments= new LinkedList<>();        
+        
+        for (ProgramParser.ExprContext exprCtx : ctx.arguments.expressions) 
+        {
+            arguments.add((Expression)this.visit(exprCtx));
+        }    
+            
+        return new FunctionCall(localVariables, ctx.functionName.getText(), arguments);
+    }
+    
+    //
+    //
+    //
+    //Tobi: Sind die Cast Funktionen richtig??
+    //
+    //
+    //
+    @Override
+    public Compilable visitIntCast(ProgramParser.IntCastContext ctx) 
+    {
+        Expression castExpression = (Expression)visit(ctx.castValue);
+        castExpression.setValue(new Int(localVariables, castExpression.getValue().getIndex(), castExpression.getValue().toInteger()));
+        return castExpression;
+    }
+
+    @Override
+    public Compilable visitBoolCast(ProgramParser.BoolCastContext ctx) 
+    {
+        Expression castExpression = (Expression)visit(ctx.castValue);
+        castExpression.setValue(new Bool(localVariables, castExpression.getValue().getIndex(), castExpression.getValue().toBoolean()));
+        return castExpression;
+    }
+    
+    
     //Finish
     @Override
-    protected Compilable aggregateResult(Compilable aggregate, Compilable nextResult) {
-        if (nextResult == null) {
+    protected Compilable aggregateResult(Compilable aggregate, Compilable nextResult) 
+    {
+        if (nextResult == null) 
+        {
             return aggregate;
-        } else {
+        } 
+        else 
+        {
             return nextResult;
         }
     }
-
 }
