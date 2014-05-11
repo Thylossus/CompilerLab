@@ -266,7 +266,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNot(@NotNull ProgramParser.NotContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrintlnInt(@NotNull ProgramParser.PrintlnIntContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -274,7 +274,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrintlnInt(@NotNull ProgramParser.PrintlnIntContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNot(@NotNull ProgramParser.NotContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -298,7 +298,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntCast(@NotNull ProgramParser.IntCastContext ctx) { return visitChildren(ctx); }
+	@Override public T visitProgram(@NotNull ProgramParser.ProgramContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -314,7 +314,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProgram(@NotNull ProgramParser.ProgramContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntCast(@NotNull ProgramParser.IntCastContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -362,7 +362,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEquals(@NotNull ProgramParser.EqualsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrintlnVoid(@NotNull ProgramParser.PrintlnVoidContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -370,7 +370,7 @@ public class ProgramBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrintlnVoid(@NotNull ProgramParser.PrintlnVoidContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEquals(@NotNull ProgramParser.EqualsContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

@@ -229,18 +229,18 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitGlobalDeclarationAssignmentInt(@NotNull ProgramParser.GlobalDeclarationAssignmentIntContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#Not}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNot(@NotNull ProgramParser.NotContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#PrintlnInt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPrintlnInt(@NotNull ProgramParser.PrintlnIntContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Not}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNot(@NotNull ProgramParser.NotContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#IfElse}.
@@ -257,11 +257,11 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStart(@NotNull ProgramParser.StartContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#IntCast}.
+	 * Visit a parse tree produced by {@link ProgramParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntCast(@NotNull ProgramParser.IntCastContext ctx);
+	T visitProgram(@NotNull ProgramParser.ProgramContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Substraction}.
@@ -271,11 +271,11 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSubstraction(@NotNull ProgramParser.SubstractionContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#program}.
+	 * Visit a parse tree produced by {@link ProgramParser#IntCast}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProgram(@NotNull ProgramParser.ProgramContext ctx);
+	T visitIntCast(@NotNull ProgramParser.IntCastContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Or}.
@@ -313,18 +313,18 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitLocalDeclarationAssignment(@NotNull ProgramParser.LocalDeclarationAssignmentContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#Equals}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEquals(@NotNull ProgramParser.EqualsContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#PrintlnVoid}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPrintlnVoid(@NotNull ProgramParser.PrintlnVoidContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#Equals}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquals(@NotNull ProgramParser.EqualsContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#simpleDecl}.

@@ -57,9 +57,6 @@ stmnt
     | 'do' '{' (doWhileStatements+=stmnt)* '}' 'while' '(' doWhileCondition=boolExpr ')' ';' #DoWhile
     | 'return' returnExpr=expr ';' #Return
     | 'return;' #EmptyReturn
-    | 'println' '('')' ';' #PrintlnVoid
-    | 'println' '(' argument=intExpr ')' ';' #PrintlnInt
-    | 'println' '(' (argument=boolExpr)? ')' ';' #PrintlnBool
     | expr ';' #ExprCall
     ;
 
@@ -71,8 +68,8 @@ expr
 intExpr
 	: leftDivision=intExpr '/' rightDivision=intExpr #Division
         | leftMultiplication=intExpr '*' rightMultiplication=intExpr #Multiplication
+        | leftSubstraction=intExpr '-' rightSubstraction=intExpr #Substraction
 	| leftAddition=intExpr '+' rightAddition=intExpr #Addition
-	| leftSubstraction=intExpr '-' rightSubstraction=intExpr #Substraction
 	| '(' newType='int' ')' castValue=boolExpr #IntCast
 	| '(' bracketsExpr=intExpr ')' #IntBrackets
 	| value=NUMBER #NumericValue
@@ -96,7 +93,10 @@ boolExpr
     ;
 
 generalExpr
-    : functionName=ID '(' arguments=exprList ')' #FunctionCall
+    : 'println' '('')' ';' #PrintlnVoid
+    | 'println' '(' argument=intExpr ')' ';' #PrintlnInt
+    | 'println' '(' argument=boolExpr ')' ';' #PrintlnBool
+    | functionName=ID '(' arguments=exprList ')' #FunctionCall
     | variableName=ID #Variable
     ;
 

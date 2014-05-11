@@ -31,7 +31,7 @@ public class Main {
                 + "     return;"
                 + "}"
                 + "int text(int hello, boolean bye) {"
-                + "     int a = 10 - (4 + 2);"
+                + "     int a = 10 - 4 + 2;"
                 + "     int b = 1;"
                 + "     int c = a/b;"
                 + "     println(1);"
