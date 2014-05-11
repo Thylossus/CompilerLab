@@ -117,10 +117,10 @@ public class Function implements Compilable {
             commands.addAll(statement.compile());
         }
 
-        Command cmdReturn = this.returnType != null ? new IRETURN() : new RETURN();
+        //old: Command cmdReturn = this.returnType != null ? new IRETURN() : new RETURN();
         Command cmdMethodFooter = new METHOD_FOOTER();
 
-        commands.add(cmdReturn);
+        //old: commands.add(cmdReturn);
         commands.add(cmdMethodFooter);
 
         return commands;

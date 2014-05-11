@@ -27,6 +27,7 @@ public class Variable extends Expression {
         super(localVariables);
         this.identifier = identifier;
         
+        /* rendered useless by visitor
         if (this.localVariables.get(this.identifier) != null) {
             //Variable is within local variables
             this.value = this.localVariables.get(this.identifier);
@@ -37,7 +38,7 @@ public class Variable extends Expression {
             //Variable is not defined
             //TODO (optional): replace by useful error message!
             throw new RuntimeException("Variable <" + this.identifier + "> is undefined!");
-        }
+        }*/
     }
 
     @Override

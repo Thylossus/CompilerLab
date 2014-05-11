@@ -8,13 +8,9 @@ package com.compilerlab.program.expressions.boolExpressions;
 import com.compilerlab.jasmin.BIPUSH;
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.GOTO;
-import com.compilerlab.jasmin.IAND;
-import com.compilerlab.jasmin.IF_ICMPGE;
 import com.compilerlab.jasmin.IF_ICMPGT;
 import com.compilerlab.jasmin.LABEL;
 import com.compilerlab.program.expressions.Expression;
-import com.compilerlab.program.values.Bool;
-import com.compilerlab.program.values.Int;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -30,14 +26,15 @@ public class GreaterThan extends BoolExpression {
     public GreaterThan(HashMap<String, Value> localVariables, Expression left, Expression right) {
         super(localVariables, left, right);
 
-        //Typechecking and calculation of result
-        if (this.typechecking()) {
-            boolean result = this.left.getValue().toBoolean() && this.right.getValue().toBoolean();
+        /* deprecated
+         //Typechecking and calculation of result
+         if (this.typechecking()) {
+         boolean result = this.left.getValue().toBoolean() && this.right.getValue().toBoolean();
 
-            this.value = new Bool(localVariables, result);
-        } else {
-            throw new RuntimeException("Type mismatch!");
-        }
+         this.value = new Bool(localVariables, result);
+         } else {
+         throw new RuntimeException("Type mismatch!");
+         }*/
     }
 
     @Override
@@ -83,9 +80,10 @@ public class GreaterThan extends BoolExpression {
         return this.left.toString() + " > " + this.right.toString();
     }
 
-    @Override
-    protected final boolean typechecking() {
-        return this.left.getValue() instanceof Int && this.right.getValue() instanceof Int;
-    }
-
+    /* deprecated
+     @Override
+     protected final boolean typechecking() {
+     return this.left.getValue() instanceof Int && this.right.getValue() instanceof Int;
+     }
+     */
 }

@@ -133,6 +133,10 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
 
     @Override
     public Compilable visitVariable(ProgramParser.VariableContext ctx) {
+        if (!this.localVariables.containsKey(ctx.variableName.getText()) &&
+                !Program.getProgram().getGlobalVariables().containsKey(ctx.variableName.getText())) {
+            throw new RuntimeException("Variable <" + ctx.variableName.getText() + "> undefined.");
+        }
         return new Variable(this.localVariables, ctx.variableName.getText());
     }
 

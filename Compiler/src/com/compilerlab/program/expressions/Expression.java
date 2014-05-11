@@ -11,12 +11,15 @@ import java.util.HashMap;
 public abstract class Expression implements Compilable{
 
     protected final HashMap<String, Value> localVariables;
+    /* deprecated
     protected Value value;
+    */
     
     protected Expression(HashMap<String, Value> localVariables) {
         this.localVariables = localVariables;
     }
     
+    /* deprecated
     public Value getValue() {
         return this.value;
     }
@@ -24,6 +27,6 @@ public abstract class Expression implements Compilable{
     public void setValue(Value value)
     {
         this.value = value;
-    }
+    } */
     
 }

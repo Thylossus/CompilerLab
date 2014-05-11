@@ -30,6 +30,7 @@ public class FunctionCall extends Expression {
         this.identifier = identifier;
         this.parameters = parameters;
         
+        /* deprecated
         //Set value for typechecking
         if (Program.getProgram().getFunctionDefinitions().get(this.identifier) != null) {
             if (Program.getProgram().getFunctionDefinitions().get(this.identifier) == Int.class) {
@@ -39,7 +40,7 @@ public class FunctionCall extends Expression {
             }
         } else {
             this.value = null;
-        }
+        } */
     }
 
     @Override

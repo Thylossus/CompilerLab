@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.compilerlab.program.expressions.intExpressions;
 
 import com.compilerlab.jasmin.Command;
@@ -17,25 +16,28 @@ import java.util.List;
 
 /**
  * Calculate the difference "left - right"
+ *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  */
-public class Difference extends IntExpression{
+public class Difference extends IntExpression {
 
     public Difference(HashMap<String, Value> localVariables, Expression left, Expression right) {
         super(localVariables, left, right);
-        
-        //Typechecking and calculation of result
-        if (this.typechecking()) {
-            Integer result = this.left.getValue().toInteger() - this.left.getValue().toInteger();
+
+        /* deprecated
+         //Typechecking and calculation of result
+         if (this.typechecking()) {
+         Integer result = this.left.getValue().toInteger() - this.left.getValue().toInteger();
             
-            if (result < 0) {
-                throw new RuntimeException("Integer out of bounds (signed integers are not supported)!");
-            }
+         if (result < 0) {
+         throw new RuntimeException("Integer out of bounds (signed integers are not supported)!");
+         }
             
-            this.value = new Int(localVariables, result);
-        } else {
-            throw new RuntimeException("Type mismatch!");
-        }
+         this.value = new Int(localVariables, result);
+         } else {
+         throw new RuntimeException("Type mismatch!");
+         }
+         */
     }
 
     @Override
@@ -43,9 +45,9 @@ public class Difference extends IntExpression{
         List<Command> commands = new LinkedList<>();
         commands.addAll(this.left.compile());
         commands.addAll(this.right.compile());
-        
+
         commands.add(new ISUB());
-        
+
         return commands;
     }
 
@@ -53,7 +55,7 @@ public class Difference extends IntExpression{
     public int getStackSize() {
         return Math.max(this.left.getStackSize(), this.right.getStackSize() + 1);
     }
-    
+
     @Override
     public String toString() {
         return this.left.toString() + " - " + this.right.toString();

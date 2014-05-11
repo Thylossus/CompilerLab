@@ -24,6 +24,7 @@ public abstract class BoolExpression extends Expression {
         this.right = right;
     }
 
-    protected abstract boolean typechecking();
-
+    /* deprecated
+     protected abstract boolean typechecking();
+     */
 }

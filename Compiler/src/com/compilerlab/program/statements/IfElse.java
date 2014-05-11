@@ -33,9 +33,11 @@ public class IfElse extends Statement {
         this.ifStatements = ifStatements;
         this.elseStatements = elseStatements;
 
-        if (!(this.condition.getValue() instanceof Bool)) {
-            throw new RuntimeException("Type mismatch!");
-        }
+        /* deprecated
+         if (!(this.condition.getValue() instanceof Bool)) {
+         throw new RuntimeException("Type mismatch!");
+         }
+         */
     }
 
     @Override
@@ -98,7 +100,7 @@ public class IfElse extends Statement {
         }
 
         sb.append("}");
-        
+
         sb.append(" else {\n");
 
         for (Statement statement : this.elseStatements) {
