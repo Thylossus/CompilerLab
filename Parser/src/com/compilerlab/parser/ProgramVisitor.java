@@ -1,4 +1,4 @@
-// Generated from Program.g by ANTLR 4.2.1
+// Generated from /Uni/4. Semester/CompilerLab/CompilerLab/Parser/grammar/Program.g by ANTLR 4.2.1
 package com.compilerlab.parser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -17,6 +17,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPrintln(@NotNull ProgramParser.PrintlnContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#FunctionDefinitionWithoutReturnValue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionDefinitionWithoutReturnValue(@NotNull ProgramParser.FunctionDefinitionWithoutReturnValueContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#DoWhile}.
@@ -89,13 +96,6 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitIntDataType(@NotNull ProgramParser.IntDataTypeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#function}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction(@NotNull ProgramParser.FunctionContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#ExprCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -122,13 +122,6 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitWhile(@NotNull ProgramParser.WhileContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link ProgramParser#VoidDataType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVoidDataType(@NotNull ProgramParser.VoidDataTypeContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#BiggerEqual}.
@@ -257,6 +250,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStart(@NotNull ProgramParser.StartContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ProgramParser#IntCast}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntCast(@NotNull ProgramParser.IntCastContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ProgramParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -271,13 +271,6 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSubstraction(@NotNull ProgramParser.SubstractionContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link ProgramParser#IntCast}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIntCast(@NotNull ProgramParser.IntCastContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Or}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -290,6 +283,13 @@ public interface ProgramVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDivision(@NotNull ProgramParser.DivisionContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ProgramParser#FunctionDefinitionWithReturnValue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionDefinitionWithReturnValue(@NotNull ProgramParser.FunctionDefinitionWithReturnValueContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ProgramParser#Return}.

@@ -26,7 +26,8 @@ program
     ;
 
 function 
-    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' (localDelaration+=localDecl)* (statements+=stmnt)* 'return' returnExpr=expr? ';' '}'
+    : returnType=dataType functionName=ID '(' parameter=paramList ')' '{' (localDelaration+=localDecl)* (statements+=stmnt)* 'return' returnExpr=expr ';' '}' #FunctionDefinitionWithReturnValue
+    | 'void' functionName=ID '(' parameter=paramList ')' '{' (localDelaration+=localDecl)* (statements+=stmnt)* '}' #FunctionDefinitionWithoutReturnValue
     ;
 
 paramList 
@@ -104,7 +105,6 @@ exprList
 dataType
 	: 'boolean' #BooleanDataType
 	| 'int' #IntDataType
-	| 'void'#VoidDataType
 	;
 	
 
