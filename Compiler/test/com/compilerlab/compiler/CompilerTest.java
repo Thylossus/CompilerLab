@@ -35,7 +35,7 @@ public class CompilerTest {
     @Parameterized.Parameters
     public static Collection<Object[]> provide_code_expectedText() {
         return Arrays.asList(new Object[][]{
-            {"int main(){println(42); return;}", "42" + System.lineSeparator()},
+            {"boolean main(){println(42); return;}", "42" + System.lineSeparator()},
             {"boolean main() {\n"
                 + "	int a = 5;					\n"
                 + "		//Assign 5 to the variable a\n"
