@@ -5,7 +5,12 @@
  */
 package com.compilerlab.program.values;
 
+import com.compilerlab.jasmin.BIPUSH;
+import com.compilerlab.jasmin.Command;
+import com.compilerlab.jasmin.LDC;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Representation of a boolean value.
@@ -82,5 +87,16 @@ public class Bool extends Value {
     public boolean toBoolean() {
         return this.booleanValue;
     }
+
+    @Override
+    public List<Command> compile() {
+        //Load integer representation of the boolean onto the stack
+        //Use BIPUSH because boolean values are only 0 or 1 and thus bipush is more efficient
+        return Collections.singletonList(
+                (Command) new BIPUSH(this.toInteger())
+        );
+    }
+    
+    
 
 }

@@ -80,6 +80,7 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
             declarations.add((Declaration)new ComponentVisitor(localVariables).visit(localDeclCtx));
         }
         
+        //Parse statements
         List<Statement> statements = new LinkedList<>();
         for(ProgramParser.StmntContext stmtCtx : ctx.statements) {
             statements.add((Statement)new ComponentVisitor(localVariables).visit(stmtCtx));

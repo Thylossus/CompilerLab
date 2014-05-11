@@ -86,7 +86,7 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
                 throw new RuntimeException("Unsupported data type!");
         }
         String identifier = ctx.varName.getText();
-        Expression expression = (Expression) this.visitExpr(ctx.varExpr);
+        Expression expression = (Expression) this.visit(ctx.varExpr);
 
         //Add declared variable to local variables
         if (this.localVariables.containsKey(identifier)) {
@@ -95,11 +95,6 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         this.localVariables.put(identifier, var);
 
         return new Declaration(type, identifier, expression);
-    }
-
-    @Override
-    public Compilable visitExpr(ProgramParser.ExprContext ctx) {
-        return this.visitChildren(ctx);
     }
 
     @Override
@@ -188,10 +183,10 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     //Finish
     @Override
     protected Compilable aggregateResult(Compilable aggregate, Compilable nextResult) {
-        if (aggregate == null) {
-            return nextResult;
-        } else {
+        if (nextResult == null) {
             return aggregate;
+        } else {
+            return nextResult;
         }
     }
 

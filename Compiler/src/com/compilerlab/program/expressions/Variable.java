@@ -8,7 +8,6 @@ package com.compilerlab.program.expressions;
 import com.compilerlab.jasmin.Command;
 import com.compilerlab.jasmin.GETSTATIC;
 import com.compilerlab.jasmin.ILOAD;
-import com.compilerlab.jasmin.LDC;
 import com.compilerlab.program.Program;
 import com.compilerlab.program.values.Value;
 import java.util.HashMap;
