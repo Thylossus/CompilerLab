@@ -27,6 +27,7 @@ public class Main {
                 + "     int b = 1;"
                 + "     int c = a/b;"
                 + "     println(1);"
+                + "     a = a + 1;"
                 + "     return 0;"
                 + "}"
         );
