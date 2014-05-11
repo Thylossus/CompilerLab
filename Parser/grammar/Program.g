@@ -70,7 +70,7 @@ intExpr
         | leftMultiplication=intExpr '*' rightMultiplication=intExpr #Multiplication
 	| leftAddition=intExpr '+' rightAddition=intExpr #Addition
 	| leftSubstraction=intExpr '-' rightSubstraction=intExpr #Substraction
-	| '(int)' castValue=boolExpr #IntCast
+	| '(' newType='int' ')' castValue=boolExpr #IntCast
 	| '(' bracketsExpr=intExpr ')' #IntBrackets
 	| value=NUMBER #NumericValue
         | generalExpr #generalExprCallInt
@@ -86,7 +86,7 @@ boolExpr
     | '!' notValue=boolExpr #Not            
     | leftAnd=boolExpr '&&' rightAnd=boolExpr #And
     | leftOr=boolExpr '||' rightOr=boolExpr #Or
-    | '(boolean)' castValue=intExpr #BoolCast
+    | '(' newType='boolean' ')' castValue=intExpr #BoolCast
     | '(' bracketsExpr=boolExpr ')' #BoolBrackets
     | value=BOOLVALUE #BoolValue
     | generalExpr #generalExprCallBool
@@ -107,8 +107,9 @@ dataType
 	| 'void'#VoidDataType
 	;
 	
-ID          : [a-zA-Z][a-zA-Z_0-9]*;
+
 BOOLVALUE   : 'false' | 'true';
 NUMBER      : '0'|[1-9][0-9]*;
+ID          : [a-zA-Z][a-zA-Z_0-9]*;
 COMMENT     : '//' ~('\n')* -> skip;
 WS          : [ \v\t\n\r] -> skip;
