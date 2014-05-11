@@ -5,6 +5,8 @@ import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Compilable;
 import com.compilerlab.program.Declaration;
 import com.compilerlab.program.Function;
+import com.compilerlab.program.expressions.Expression;
+import com.compilerlab.program.statements.Return;
 import com.compilerlab.program.statements.Statement;
 import com.compilerlab.program.values.*;
 import java.util.Collection;
@@ -33,7 +35,7 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
     public Collection<? extends Compilable> visitFunction(ProgramParser.FunctionContext ctx) {
         int localVariableCounter = 0;
         HashMap<String, Value> localVariables = new HashMap<>();
-        
+
         Class<? extends Value> returnType;
         switch (ctx.returnType.getText()) {
             case "boolean":
@@ -66,22 +68,29 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
                 default:
                     throw new RuntimeException("Unsupported data type!");
             }
-            
+
             parameters.put(declCtx.varName.getText(), paramType);
             localVariables.put(declCtx.varName.getText(), var);
             localVariableCounter++;
         }
-        
+
         //Parse declarations
         List<Declaration> declarations = new LinkedList<>();
-        for(ProgramParser.LocalDeclContext localDeclCtx : ctx.localDelaration) {
-            declarations.add((Declaration)new ComponentVisitor(localVariables).visit(localDeclCtx));
+        for (ProgramParser.LocalDeclContext localDeclCtx : ctx.localDelaration) {
+            declarations.add((Declaration) new ComponentVisitor(localVariables).visit(localDeclCtx));
         }
-        
+
         //Parse statements
         List<Statement> statements = new LinkedList<>();
-        for(ProgramParser.StmntContext stmtCtx : ctx.statements) {
-            statements.add((Statement)new ComponentVisitor(localVariables).visit(stmtCtx));
+        for (ProgramParser.StmntContext stmtCtx : ctx.statements) {
+            statements.add((Statement) new ComponentVisitor(localVariables).visit(stmtCtx));
+        }
+
+        //Return
+        if (ctx.returnExpr != null) {
+            statements.add(new Return((Expression) new ComponentVisitor(localVariables).visit(ctx.returnExpr), localVariables));
+        } else {
+            statements.add(new Return(localVariables));
         }
 
         Function function = new Function(returnType, ctx.functionName.getText(), parameters, declarations, statements, localVariables);

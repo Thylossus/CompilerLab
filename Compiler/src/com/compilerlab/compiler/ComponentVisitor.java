@@ -261,6 +261,11 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     }
 
     @Override
+    public Compilable visitBoolValue(ProgramParser.BoolValueContext ctx) {
+        return new Bool(this.localVariables, Boolean.valueOf(ctx.value.getText()));
+    }
+
+    @Override
     public Compilable visitFunctionCall(ProgramParser.FunctionCallContext ctx) {
         List<Expression> arguments = new LinkedList<>();
 

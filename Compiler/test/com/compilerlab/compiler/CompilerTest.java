@@ -31,12 +31,13 @@ public class CompilerTest {
     private Path tempDir;
     private String code;
     private String expectedText;
+    private String testCase;
 
     @Parameterized.Parameters
     public static Collection<Object[]> provide_code_expectedText() {
         return Arrays.asList(new Object[][]{
-            {"boolean main(){println(42); return;}", "42" + System.lineSeparator()},
-            {"boolean main() {\n"
+            {"TC1", "boolean main(){println(42); return;}", "42" + System.lineSeparator()},
+            {"TC2", "boolean main() {\n"
                 + "	int a = 5;					\n"
                 + "		//Assign 5 to the variable a\n"
                 + "	int b = 2;					\n"
@@ -60,7 +61,7 @@ public class CompilerTest {
                 + "	return true;				\n"
                 + "		//Returns true (successful execution)\n"
                 + "}", "15" + System.lineSeparator() + "true" + System.lineSeparator() + "false" + System.lineSeparator()},
-            {"boolean main() {\n"
+            {"TC3", "boolean main() {\n"
                 + "	int a = 1;					\n"
                 + "		//Assign 1 to variable a\n"
                 + "	boolean b = true;			\n"
@@ -106,7 +107,7 @@ public class CompilerTest {
                 + "	return true;				\n"
                 + "		//Return true (successful execution)\n"
                 + "}", "true" + System.lineSeparator() + "1" + System.lineSeparator() + "true"},
-            {"boolean main() {\n"
+            {"TC4", "boolean main() {\n"
                 + "	boolean i = false;			\n"
                 + "		//Assign false to i\n"
                 + "	int j;						\n"
@@ -138,7 +139,7 @@ public class CompilerTest {
                 + "	return true;				\n"
                 + "		//Returns true (successful execution)\n"
                 + "}", "0" + System.lineSeparator() + "1" + System.lineSeparator() + "2" + System.lineSeparator() + "3" + System.lineSeparator() + "4" + System.lineSeparator()},
-            {"boolean main() {\n"
+            {"TC5", "boolean main() {\n"
                 + "	int r;									\n"
                 + "		//Declare variable r\n"
                 + "	\n"
@@ -185,7 +186,7 @@ public class CompilerTest {
                 + "}											\n"
                 + "	//End of function body\n"
                 + "", "120" + System.lineSeparator() + System.lineSeparator()},
-            {"int i = 5;				\n"
+            {"TC6", "int i = 5;				\n"
                 + "	//Assign 5 to (global) variable i\n"
                 + "\n"
                 + "boolean main() {\n"
@@ -206,7 +207,7 @@ public class CompilerTest {
                 + "		//Print (global) variable i to stdout; output = 5\n"
                 + "     return;"
                 + "}", "5" + System.lineSeparator() + "1" + System.lineSeparator()},
-            {"boolean main() {\n"
+            {"TC7", "boolean main() {\n"
                 + "	int a = 2;				\n"
                 + "		//Assign 2 to a\n"
                 + "	boolean b = (boolean)a;	\n"
@@ -223,7 +224,7 @@ public class CompilerTest {
                 + "	return true;			\n"
                 + "		//Returns true (successful execution)\n"
                 + "}", "1" + System.lineSeparator() + "true" + System.lineSeparator()},
-            {"boolean main() {\n"
+            {"TC8", "boolean main() {\n"
                 + "	int i = 3;					\n"
                 + "		//Assign 3 to variable i\n"
                 + "	int j;						\n"
@@ -281,7 +282,8 @@ public class CompilerTest {
         });
     }
 
-    public CompilerTest(String code, String expectedText) {
+    public CompilerTest(String testCase, String code, String expectedText) {
+        this.testCase = testCase;
         this.code = code;
         this.expectedText = expectedText;
     }
@@ -322,7 +324,7 @@ public class CompilerTest {
     private String compileAndRun(String code) throws Exception {
         code = Main.compile(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
-        classFile.readJasmin(new StringReader(code), "", false);
+        classFile.readJasmin(new StringReader(code), this.testCase, false);
         Path outputPath = this.tempDir.resolve(classFile.getClassName() + ".class");
 
         try (OutputStream out = Files.newOutputStream(outputPath)) {
