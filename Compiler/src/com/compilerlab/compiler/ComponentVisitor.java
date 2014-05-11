@@ -174,7 +174,7 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         Statement callToPrintln = new ExpressionStatement(this.localVariables, println);
         return callToPrintln;
     }
-
+ 
     @Override
     public Compilable visitExprCall(ProgramParser.ExprCallContext ctx) {
         return new ExpressionStatement(this.localVariables, (Expression) this.visit(ctx.expr())); //To change body of generated methods, choose Tools | Templates.
