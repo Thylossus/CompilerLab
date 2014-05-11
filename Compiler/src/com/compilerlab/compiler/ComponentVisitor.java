@@ -219,22 +219,19 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     @Override
     public Compilable visitPrintlnVoid(ProgramParser.PrintlnVoidContext ctx) {
         Println println = new Println(this.localVariables, null, null);
-        Statement callToPrintln = new ExpressionStatement(this.localVariables, println);
-        return callToPrintln;
+        return println;
     }
 
     @Override
     public Compilable visitPrintlnInt(ProgramParser.PrintlnIntContext ctx) {
         Println println = new Println(this.localVariables, Collections.singletonList((Expression) this.visit(ctx.argument)), new Int(localVariables));
-        Statement callToPrintln = new ExpressionStatement(this.localVariables, println);
-        return callToPrintln;
+        return println;
     }
 
     @Override
     public Compilable visitPrintlnBool(ProgramParser.PrintlnBoolContext ctx) {
         Println println = new Println(this.localVariables, Collections.singletonList((Expression) this.visit(ctx.argument)), new Bool(localVariables));
-        Statement callToPrintln = new ExpressionStatement(this.localVariables, println);
-        return callToPrintln;
+        return println;
     }
 
     @Override
