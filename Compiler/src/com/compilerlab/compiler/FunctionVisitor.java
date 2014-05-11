@@ -32,7 +32,7 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
     }
 
     @Override
-    public Collection<? extends Compilable> visitFunction(ProgramParser.FunctionContext ctx) {
+    public Collection<? extends Compilable> visitFunctionDefinitionWithReturnValue(ProgramParser.FunctionDefinitionWithReturnValueContext ctx) {
         int localVariableCounter = 0;
         HashMap<String, Value> localVariables = new HashMap<>();
 
@@ -43,9 +43,6 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
                 break;
             case "int":
                 returnType = Int.class;
-                break;
-            case "void":
-                returnType = null;
                 break;
             default:
                 throw new RuntimeException("Unsupported data type!");
@@ -77,23 +74,68 @@ public class FunctionVisitor extends ProgramBaseVisitor<Collection<? extends Com
         //Parse declarations
         List<Declaration> declarations = new LinkedList<>();
         for (ProgramParser.LocalDeclContext localDeclCtx : ctx.localDelaration) {
-            declarations.add((Declaration) new ComponentVisitor(localVariables).visit(localDeclCtx));
+            declarations.add((Declaration) new ComponentVisitor(localVariables, returnType).visit(localDeclCtx));
         }
 
         //Parse statements
         List<Statement> statements = new LinkedList<>();
         for (ProgramParser.StmntContext stmtCtx : ctx.statements) {
-            statements.add((Statement) new ComponentVisitor(localVariables).visit(stmtCtx));
+            statements.add((Statement) new ComponentVisitor(localVariables, returnType).visit(stmtCtx));
         }
 
         //Return
-        if (ctx.returnExpr != null) {
-            statements.add(new Return((Expression) new ComponentVisitor(localVariables).visit(ctx.returnExpr), localVariables));
-        } else {
-            statements.add(new Return(localVariables));
-        }
+        statements.add(new Return((Expression) new ComponentVisitor(localVariables, returnType).visit(ctx.returnExpr), localVariables));
+        
 
         Function function = new Function(returnType, ctx.functionName.getText(), parameters, declarations, statements, localVariables);
+
+        return (Collection<? extends Compilable>) Collections.singletonList(function);
+    }
+
+    @Override
+    public Collection<? extends Compilable> visitFunctionDefinitionWithoutReturnValue(ProgramParser.FunctionDefinitionWithoutReturnValueContext ctx) {
+        int localVariableCounter = 0;
+        HashMap<String, Value> localVariables = new HashMap<>();
+
+        //Parse parameters
+        HashMap<String, Class<? extends Value>> parameters = new HashMap<>();
+        Class<? extends Value> paramType;
+        Value var;
+        for (ProgramParser.SimpleDeclContext declCtx : ctx.parameter.declarations) {
+            switch (declCtx.varType.getText()) {
+                case "boolean":
+                    paramType = Bool.class;
+                    var = new Bool(localVariables, localVariableCounter);
+                    break;
+                case "int":
+                    paramType = Int.class;
+                    var = new Int(localVariables, localVariableCounter);
+                    break;
+                default:
+                    throw new RuntimeException("Unsupported data type!");
+            }
+
+            parameters.put(declCtx.varName.getText(), paramType);
+            localVariables.put(declCtx.varName.getText(), var);
+            localVariableCounter++;
+        }
+
+        //Parse declarations
+        List<Declaration> declarations = new LinkedList<>();
+        for (ProgramParser.LocalDeclContext localDeclCtx : ctx.localDelaration) {
+            declarations.add((Declaration) new ComponentVisitor(localVariables, null).visit(localDeclCtx));
+        }
+
+        //Parse statements
+        List<Statement> statements = new LinkedList<>();
+        for (ProgramParser.StmntContext stmtCtx : ctx.statements) {
+            statements.add((Statement) new ComponentVisitor(localVariables, null).visit(stmtCtx));
+        }
+
+        //return
+        statements.add(new Return(localVariables));
+
+        Function function = new Function(null, ctx.functionName.getText(), parameters, declarations, statements, localVariables);
 
         return (Collection<? extends Compilable>) Collections.singletonList(function);
     }

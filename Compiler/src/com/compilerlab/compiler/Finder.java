@@ -26,8 +26,28 @@ public class Finder {
         new ProgramBaseVisitor<Void>() {
 
             @Override
-            public Void visitFunction(ProgramParser.FunctionContext ctx) {
-                return super.visitFunction(ctx); //To change body of generated methods, choose Tools | Templates.
+            public Void visitFunctionDefinitionWithReturnValue(ProgramParser.FunctionDefinitionWithReturnValueContext ctx) {
+                Class<? extends Value> returnType;
+                switch (ctx.returnType.getText()) {
+                    case "boolean":
+                        returnType = Bool.class;
+                        break;
+                    case "int":
+                        returnType = Int.class;
+                        break;
+                    default:
+                        throw new RuntimeException("Unsupported data type!");
+                }
+                
+                definedFunctions.put(ctx.functionName.getText(), returnType);
+                
+                return null;
+            }
+
+            @Override
+            public Void visitFunctionDefinitionWithoutReturnValue(ProgramParser.FunctionDefinitionWithoutReturnValueContext ctx) {
+                definedFunctions.put(ctx.functionName.getText(), null);
+                return null;
             }
 
         }.visit(tree);
@@ -89,7 +109,7 @@ public class Finder {
                 globalVariables.put(identifier, new Int(null, this.index, Integer.valueOf(value)));
 
                 this.index++;
-                
+
                 return null;
             }
 
