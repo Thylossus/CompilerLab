@@ -235,7 +235,7 @@ public class CompilerTest {
      */
     private String compileAndRun(String code) throws Exception 
     {
-        code = Main.compile(new ANTLRInputStream(code));
+        code = Main.createJavaAssemblyCode(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
         classFile.readJasmin(new StringReader(code), this.testCase, false);
         Path outputPath = this.tempDir.resolve(classFile.getClassName() + ".class");

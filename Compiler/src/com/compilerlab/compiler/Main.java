@@ -23,8 +23,15 @@ import com.compilerlab.parser.ProgramParser;
 import com.compilerlab.program.Function;
 import com.compilerlab.program.Program;
 import com.compilerlab.program.values.Value;
+import jasmin.ClassFile;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Scanner;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -37,25 +44,88 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class Main {
 
     /**
-     * The main function of the compiler.
+     * The name of the program that is going to be compiled.
+     */
+    private static String programName;
+    
+    private static boolean run = false;
+    private static boolean debug = false;
+    
+    /**
+     * The main function of the compiler. It accepts a source file and creates a .class file. Optionally it runs the .class program (argument '-run') or prints out the java assembly code (argument '-debug').
      * @param args Arguments from the console.
      * @throws Exception If an error occurs.
      */
     public static void main(String[] args) throws Exception 
     {
-        ANTLRInputStream input = new ANTLRInputStream("int i = 5; \n"
-                + "boolean main() {\n"
-                + "	int i = 1; \n"
-                + "	helper(); \n"
-                + "	println(i); \n"
-                + "	return true; \n"
-                + "} \n"
-                + "void helper() {\n"
-                + "	println(i); \n"
-                + "     return;"
-                + "}");
-
-        System.out.println(compile(input));
+        String className;
+        System.err.println();
+        System.err.println("---------------------------------------------------------------");
+        System.err.println("SimplifiedC compiler created by Tobias Kahse and Frank Steiler.");
+        System.err.println("---------------------------------------------------------------");
+        System.err.println();
+        if(args.length > 0)
+        {
+            for(String argument: args)
+            {
+                switch(argument)
+                {
+                    case "-run":
+                        run = true;
+                        break;
+                    case "-debug":
+                        debug = true;
+                        break;
+                    default: 
+                        if(args[0].equals(argument))
+                        {
+                            programName = argument;
+                        }
+                        else
+                        {
+                            System.out.println("Please provide a source file that can be compiled.\n\nUse '-run' to start the program after compiling.\nUse '-debug' to get a detailed output.");
+                            return;
+                        }
+                        break;
+                }
+            }
+            programName = args[0];
+            FileInputStream inputFile = new FileInputStream(programName);
+            ANTLRInputStream input = new ANTLRInputStream(inputFile);
+            programName = (programName.split("\\.(?=[^\\.]+$)"))[0];
+            
+            if(!debug)
+            {
+                className = createJavaClass(createJavaAssemblyCode(input));
+            }
+            else
+            {
+                String assemblyCode = createJavaAssemblyCode(input);
+                System.err.println("---------------------------------------------------------------");
+                System.err.println("The created java assemby code:");
+                System.err.println("---------------------------------------------------------------");
+                System.out.println(assemblyCode);
+                className = createJavaClass(assemblyCode);
+                System.err.println("---------------------------------------------------------------");
+                System.err.println("Successfully created " + className + ".class");
+                System.err.println("---------------------------------------------------------------");
+            }
+            if(run)
+            {
+                Process process = Runtime.getRuntime().exec(new String[]{"java", className});
+                try (InputStream in = process.getInputStream()) 
+                {
+                    System.err.println("---------------------------------------------------------------");
+                    System.err.println("Program running:");
+                    System.err.println("---------------------------------------------------------------");
+                    System.out.println(new Scanner(in).useDelimiter("\\A").next());
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Please provide a source file that can be compiled.\n\nUse '-run' to start the program after compiling.\nUse '-debug' to get a detailed output.");
+        }
     }
 
     /**
@@ -63,7 +133,7 @@ public class Main {
      * @param input The source code.
      * @return The java assembly code.
      */
-    public static String compile(ANTLRInputStream input) 
+    public static String createJavaAssemblyCode(ANTLRInputStream input) 
     {
         ProgramLexer lexer = new ProgramLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -74,12 +144,36 @@ public class Main {
         //Find global Variables and definitions
         HashMap<String, Value> globalVariables = Finder.findGlobalVariables(tree);
         HashMap<String, Class<? extends Value>> functionDefinitions = Finder.findFunctionDefinitions(tree);
-        Program program = new Program(globalVariables, functionDefinitions);
+        Program program = new Program(globalVariables, functionDefinitions, programName);
         Collection<Function> functionList = (Collection<Function>) new FunctionVisitor(globalVariables, functionDefinitions.keySet()).visit(tree);
 
         program.setFunctions(functionList);
-        System.out.println(program);
+        
+        if(debug)
+        {
+            System.err.println("---------------------------------------------------------------");
+            System.err.println("The parsed program:");
+            System.err.println("---------------------------------------------------------------");            
+            System.out.println(program);
+        }
 
         return program.compile();
+    }
+    
+    /**
+     * This function compiles the java assembly code into an executable java class file and saves the file into the working directory.
+     * @param assemblyInstructions The assembly instructions that are going to be compiled.
+     * @return The class name of the created class file.
+     * @throws Exception If an error occurs.
+     */
+    public static String createJavaClass(String assemblyInstructions) throws Exception
+    {
+        ClassFile classFile = new ClassFile();
+        classFile.readJasmin(new StringReader(assemblyInstructions), "SimplifiedC", false);
+        try (OutputStream out = new FileOutputStream(classFile.getClassName() + ".class")) 
+        {
+            classFile.write(out);
+        }
+        return classFile.getClassName();
     }
 }
