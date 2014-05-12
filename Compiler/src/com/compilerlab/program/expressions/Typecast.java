@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2014 Tobias Kahse <tobias.kahse@outlook.com>
+ * Copyright (C) 2014
+ *  Tobias Kahse <tobias.kahse@outlook.com>
+ *  Frank Steiler <frank@steiler.eu>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,27 +30,47 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Represents a typecast from boolean to int or int to boolean.
- *
+ * This class represents a typecast from boolean to int or int to boolean.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 public class Typecast extends Expression {
 
+    /**
+     * The expression is going to be casted into that type.
+     */
     private final Class<? extends Value> newType;
+    /**
+     * The expression that needs to be casted.
+     */
     private final Expression castExpression;
 
-    public Typecast(Class<? extends Value> newType, Expression castExpression, HashMap<String, Value> localVariables) {
+    /**
+     * Default initialization of a variable call.
+     * @param newType
+     * @param castExpression
+     * @param localVariables 
+     */
+    public Typecast(Class<? extends Value> newType, Expression castExpression, HashMap<String, Value> localVariables) 
+    {
         super(localVariables);
         this.newType = newType;
         this.castExpression = castExpression;
     }
 
+    /**
+     * This function returns the list of commands needed for the assembler execution.
+     * @return The list of commands.
+     */
     @Override
-    public List<Command> compile() {
+    public List<Command> compile() 
+    {
         List<Command> commands = new LinkedList<>();
         commands.addAll(this.castExpression.compile());
 
-        if (newType == Bool.class) {
+        if (newType == Bool.class) 
+        {
+            //Casting an integer to boolean.
             LABEL cmdLabelTrue = new LABEL();
             LABEL cmdLabelNext = new LABEL();
             GOTO cmdGoto = new GOTO(cmdLabelNext.getLabel());
@@ -65,23 +87,36 @@ public class Typecast extends Expression {
             commands.add(new BIPUSH(1));
             commands.add(cmdLabelNext);
             
-        } //else {
-            //Casting to int requires no action because the machine codes handles boolean values as integers.
-        //}
+        }
+        //Casting to int requires no action because the machine codes handles boolean values as integers
 
         return commands;
     }
 
+    /**
+     * This function returns the stack size needed for the execution of the operation. If its a cast from int to bool the stack size is the stack size of the expression increased by one (since there is an additional BIPUSH for comparisson), if its a cast from bool to int the stack size is the stack size of the expression.
+     * @return The size of the stack.
+     */
     @Override
-    public int getStackSize() {
-        //In addition to the expression's stack requirements one more frame is needed because
-        //a 0 has to be pushed onto the stack for comparison.
-        return this.castExpression.getStackSize() + 1;
+    public int getStackSize() 
+    {
+        if(newType == Bool.class)
+        {
+            return this.castExpression.getStackSize() + 1;
+        }
+        else
+        {
+            return this.castExpression.getStackSize();
+        }
     }
 
+    /**
+     * Converts the class into a string representation.
+     * @return The string representation of the class.
+     */
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "(" + this.newType.getSimpleName() + ") " + this.castExpression.toString();
     }
-
 }

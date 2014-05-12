@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2014 Tobias Kahse <tobias.kahse@outlook.com>
+ * Copyright (C) 2014
+ *  Tobias Kahse <tobias.kahse@outlook.com>
+ *  Frank Steiler <frank@steiler.eu>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +19,44 @@
 package com.compilerlab.jasmin;
 
 /**
- * Set value of object field. 
- * Uses the value on the top of the stack. 
- * http://cs.au.dk/~mis/dOvs/jvmspec/ref-putstati.html
- *
+ * This class represents the assembly instruction for the "putstatic"-command.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 public class PUTSTATIC extends Command {
 
+    /**
+     * The name of the class.
+     */
     private final String className;
+    /**
+     * The name of the static variable.
+     */
     private final String fieldName;
+    /**
+     * The datatype.
+     */
     private final String descriptor;
 
-    public PUTSTATIC(String className, String fieldName) {
+    /**
+     * Default initialization of the assembly instruction for the "putstatic"-command.
+     * @param className
+     * @param fieldName 
+     */
+    public PUTSTATIC(String className, String fieldName) 
+    {
         this.className = className;
         this.fieldName = fieldName;
         this.descriptor = "I";
     }
 
+    /**
+     * Converts the class into a string representation of its assembly instruction.
+     * @return The string representation of the assembly instruction.
+     */
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "putstatic " + this.className + "/" + this.fieldName + " " + this.descriptor;
     }
-
 }
