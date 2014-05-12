@@ -164,7 +164,9 @@ public class Program {
 
         for (Command command : commands) 
         {
-            if (!(command instanceof METHOD_HEAD) && !(command instanceof METHOD_FOOTER)) 
+            if (!(command instanceof METHOD_HEAD) 
+                    && !(command instanceof METHOD_FOOTER)
+                    && !(command instanceof METHOD_HEAD_MAIN)) 
             {
                 sb.append("\t");
             }

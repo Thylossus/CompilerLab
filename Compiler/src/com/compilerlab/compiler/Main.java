@@ -52,7 +52,7 @@ public class Main {
     private static boolean debug = false;
     
     /**
-     * The main function of the compiler. It accepts a source file and creates a .class file. Optionally it runs the .class program (argument '-run') or prints out the java assembly code (argument '-debug').
+     * The main function of the compiler. It accepts a source file and creates a .class file. Optionally it runs the .class program (argument '-run') or prints out the java assembly code (argument '-debug'). Workaround: The source file needs to be placed in the same folder as the compiler.
      * @param args Arguments from the console.
      * @throws Exception If an error occurs.
      */

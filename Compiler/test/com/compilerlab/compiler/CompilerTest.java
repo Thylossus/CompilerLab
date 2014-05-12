@@ -71,7 +71,7 @@ public class CompilerTest {
         return Arrays.asList(new Object[][]{
             {"TC1", "boolean main(){println(42); return true;}", "42" + System.lineSeparator()},
             {"TC2", "boolean main() { \n"
-                + "	int a = 5; \n"
+                + "	int a = 6; \n"
                 + "	int b = 2; \n"
                 + "	int c = a + b; \n"
                 + "	int d = a * c / b - b; \n"
@@ -81,7 +81,7 @@ public class CompilerTest {
                 + "	println(e); \n"
                 + "	println(f); \n"
                 + "	return true; \n"
-                + "}", "15" + System.lineSeparator() + "true" + System.lineSeparator() + "false" + System.lineSeparator()},
+                + "}", "22" + System.lineSeparator() + "true" + System.lineSeparator() + "false" + System.lineSeparator()},
             {"TC3", "boolean main() { \n"
                 + "	int a = 1; \n"
                 + "	boolean b = true; \n"
@@ -165,20 +165,33 @@ public class CompilerTest {
                 + "		i = i - 1; \n"
                 + "	} \n"
                 + "	return true; \n"
-                + "}", 
-                    "3" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "3" + System.lineSeparator() + 
-                    "0" + System.lineSeparator() + 
-                    "2" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "2" + System.lineSeparator() + 
-                    "0" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "0" + System.lineSeparator()
-            }
+                + "}",
+                "3" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "3" + System.lineSeparator()
+                + "0" + System.lineSeparator()
+                + "2" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "2" + System.lineSeparator()
+                + "0" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "0" + System.lineSeparator()
+            },
+            {"TC9", "boolean main() {\n"
+                + "     println(withReturn(5));\n"
+                + "     noReturn();\n"
+                + "     return true;\n"
+                + "}\n"
+                + "\n"
+                + "void noReturn() {\n"
+                + "     println(true);\n"
+                + "}\n"
+                + "\n"
+                + "int withReturn(int a) {\n"
+                + "     return a * a;\n"
+                + "}", "25" + System.lineSeparator() + "true" + System.lineSeparator()}
         });
     }
 
@@ -196,7 +209,7 @@ public class CompilerTest {
 
     /**
      * This function creates the temp directory before the execution of a test case.
-     * @throws IOException 
+     * @throws IOException
      */
     @Before
     public void setUp() throws IOException 
