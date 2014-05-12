@@ -71,7 +71,7 @@ public class CompilerTest {
         return Arrays.asList(new Object[][]{
             {"TC1", "boolean main(){println(42); return true;}", "42" + System.lineSeparator()},
             {"TC2", "boolean main() { \n"
-                + "	int a = 5; \n"
+                + "	int a = 6; \n"
                 + "	int b = 2; \n"
                 + "	int c = a + b; \n"
                 + "	int d = a * c / b - b; \n"
@@ -81,7 +81,7 @@ public class CompilerTest {
                 + "	println(e); \n"
                 + "	println(f); \n"
                 + "	return true; \n"
-                + "}", "15" + System.lineSeparator() + "true" + System.lineSeparator() + "false" + System.lineSeparator()},
+                + "}", "22" + System.lineSeparator() + "true" + System.lineSeparator() + "false" + System.lineSeparator()},
             {"TC3", "boolean main() { \n"
                 + "	int a = 1; \n"
                 + "	boolean b = true; \n"
