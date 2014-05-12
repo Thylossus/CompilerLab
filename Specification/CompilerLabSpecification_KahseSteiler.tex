@@ -130,7 +130,7 @@ Furthermore multiple boolean values or comparison results can be combined by usi
 \subsection{Functions}
 Each function consists of a function head and a function body. The function head starts with the data type of the return value. If the function is not supposed to have any return value the the key word \texttt{void} is used. The data type is followed by the function name, and a list of parameters in parenthesis. It is also possible that this list is empty.
 
-The function body is surrounded by curly braces, consists of a list of statements, and has to end with a return statement. Nevertheless, return statements can also occur within the body. However, the last statement of a function always has to be a return statement. Every function can be called within a function body. This includes the function itself (recursion). An example for functions can be found in listing \vref{cs:functions}.
+The function body is surrounded by curly braces, consists of a list of variable declarations, followed by a list of statements, and has to end with a return statement. Nevertheless, return statements can also occur within the body. However, the last statement of a function always has to be a return statement. This does not apply to functions without return value. Although these can contain return statements, they do not have to. Every function can be called within a function body. This includes the function itself (recursion). An example for functions can be found in listing \vref{cs:functions}.
 
 \lstinputlisting[caption={Code Sample: Functions},label=cs:functions]{CodeSamples/Functions.sc}
 
