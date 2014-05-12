@@ -38,7 +38,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * This class is used to test the functionality of the compiler, using different code samples.
+ * This class is used to test the functionality of the compiler, using different
+ * code samples.
+ *
  * @author Tobias Kahse <tobias.kahse@outlook.com>
  * @author Frank Steiler <frank@steiler.eu>
  */
@@ -64,6 +66,7 @@ public class CompilerTest {
 
     /**
      * This function provides the data for the test cases.
+     *
      * @return The data for the test cases.
      */
     @Parameterized.Parameters
@@ -165,25 +168,39 @@ public class CompilerTest {
                 + "		i = i - 1; \n"
                 + "	} \n"
                 + "	return true; \n"
-                + "}", 
-                    "3" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "3" + System.lineSeparator() + 
-                    "0" + System.lineSeparator() + 
-                    "2" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "2" + System.lineSeparator() + 
-                    "0" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "1" + System.lineSeparator() + 
-                    "0" + System.lineSeparator()
-            }
+                + "}",
+                "3" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "3" + System.lineSeparator()
+                + "0" + System.lineSeparator()
+                + "2" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "2" + System.lineSeparator()
+                + "0" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "1" + System.lineSeparator()
+                + "0" + System.lineSeparator()
+            },
+            {"TC9", "boolean main() {\n"
+                + "     println(withReturn(5));\n"
+                + "     noReturn();\n"
+                + "     return true;\n"
+                + "}\n"
+                + "\n"
+                + "void noReturn() {\n"
+                + "     println(true);\n"
+                + "}\n"
+                + "\n"
+                + "int withReturn(int a) {\n"
+                + "     return a * a;\n"
+                + "}", "25" + System.lineSeparator() + "true" + System.lineSeparator()}
         });
     }
 
     /**
      * Creates a new compiler test.
+     *
      * @param testCase The test case name.
      * @param code The source code of the test case.
      * @param expectedText The expected output to the stdout.
@@ -195,12 +212,13 @@ public class CompilerTest {
     }
 
     /**
-     * This function creates the temp directory before the execution of a test case.
-     * @throws IOException 
+     * This function creates the temp directory before the execution of a test
+     * case.
+     *
+     * @throws IOException
      */
     @Before
-    public void setUp() throws IOException 
-    {
+    public void setUp() throws IOException {
         this.tempDir = Files.createTempDirectory("compilerTest");
     }
 
@@ -208,18 +226,17 @@ public class CompilerTest {
      * This function deletes the temp directory after execution of a test case.
      */
     @After
-    public void tearDown() 
-    {
+    public void tearDown() {
         deleteRecursive(this.tempDir.toFile());
     }
 
     /**
      * This function tests the compiler using different source codes.
+     *
      * @throws Exception If an error occurs.
      */
     @Test
-    public void runningCode_outputsExpectedText() throws Exception 
-    {
+    public void runningCode_outputsExpectedText() throws Exception {
         //Execution
         String actualOutput = compileAndRun(this.code);
 
@@ -229,19 +246,18 @@ public class CompilerTest {
 
     /**
      * This function compiles a source code and executes the program.
+     *
      * @param code The source code of the program.
      * @return The stdout of the executed program.
      * @throws Exception If an error occurs.
      */
-    private String compileAndRun(String code) throws Exception 
-    {
+    private String compileAndRun(String code) throws Exception {
         code = Main.compile(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
         classFile.readJasmin(new StringReader(code), this.testCase, false);
         Path outputPath = this.tempDir.resolve(classFile.getClassName() + ".class");
 
-        try (OutputStream out = Files.newOutputStream(outputPath)) 
-        {
+        try (OutputStream out = Files.newOutputStream(outputPath)) {
             classFile.write(out);
         }
 
@@ -250,36 +266,32 @@ public class CompilerTest {
 
     /**
      * This function starts the execution of a java class file.
+     *
      * @param dir The path of the directory where the class file is located.
      * @param className The name of the class file.
      * @return The stdout of the execution.
      * @throws Exception If an error occurs.
      */
-    private String runJavaClass(Path dir, String className) throws Exception 
-    {
+    private String runJavaClass(Path dir, String className) throws Exception {
         Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
 
-        try (InputStream in = process.getInputStream()) 
-        {
+        try (InputStream in = process.getInputStream()) {
             return new Scanner(in).useDelimiter("\\A").next();
         }
     }
 
     /**
      * This function is used to delete a directory structure recursively.
+     *
      * @param file The directory/file that needs to be deleted.
      */
-    private void deleteRecursive(File file) 
-    {
-        if (file.isDirectory()) 
-        {
-            for (File child : file.listFiles()) 
-            {
+    private void deleteRecursive(File file) {
+        if (file.isDirectory()) {
+            for (File child : file.listFiles()) {
                 this.deleteRecursive(child);
             }
         }
-        if (!file.delete()) 
-        {
+        if (!file.delete()) {
             throw new Error("Could not delete file <" + file + ">");
         }
     }
