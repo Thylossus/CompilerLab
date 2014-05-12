@@ -48,6 +48,10 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
      * The return type.
      */
     private final Class<? extends Value> returnType;
+    /**
+     * A flag that indicates wheter an expression call is currently parsed or not.
+     */
+    private boolean expressionCall;
 
     /**
      * Default initialization of the component visitor.
@@ -58,6 +62,7 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     {
         this.localVariables = localVariables;
         this.returnType = returnType;
+        this.expressionCall = false;
     }
 
     /**
@@ -362,7 +367,14 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
     @Override
     public Compilable visitExprCall(ProgramParser.ExprCallContext ctx) 
     {
-        return new ExpressionStatement(this.localVariables, (Expression) this.visit(ctx.expr()));
+        //Set the expression call flag
+        this.expressionCall = true;
+        //Parse the underlying expression
+        Expression expr = (Expression) this.visit(ctx.expr());
+        //Reset the expression call flag
+        this.expressionCall = false;
+        
+        return new ExpressionStatement(this.localVariables, expr);
     }
 
     /**
@@ -486,6 +498,11 @@ public class ComponentVisitor extends ProgramBaseVisitor<Compilable> {
         if (!Program.getProgram().getFunctionDefinitions().containsKey(ctx.functionName.getText())) 
         {
             throw new RuntimeException("Called undefined function <" + ctx.functionName.getText() + ">.");
+        }
+        
+        //Check if a void function has been called although we are not in an expression statement.
+        if (!this.expressionCall && Program.getProgram().getFunctionDefinitions().get(ctx.functionName.getText()) == null) {
+            throw new RuntimeException("Call to a void function in a non-void context!");
         }
         
         List<Expression> arguments = new LinkedList<>();
