@@ -70,6 +70,21 @@ public class Println extends FunctionCall{
         
         if(value != null)
         {
+            /******************************************************
+             * Workaround for boolean variables:
+             * 
+             * Based on our grammar the parser cannot distinguish 
+             * between variables with boolean and variables with 
+             * integer values. 
+             * Therefore we need the following workaround, which
+             * deterimines if the expression to print is a variable
+             * and, in case it is a variable, determines whether it
+             * is a boolean variable.
+             * If the workaround finds the expression to be a 
+             * boolean variable we call the boolean println. 
+             * Otherwise the integer println is called.
+             * 
+             ******************************************************/
             boolean boolVariable = false;
             //Checks if the function needs to print a Bool expression('true' or 'false') or an Integer expression ('1', '2', ...)
             if (this.parameters.get(0) instanceof Variable) 
