@@ -1,7 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014
+ *  Tobias Kahse <tobias.kahse@outlook.com>
+ *  Frank Steiler <frank@steiler.eu>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.compilerlab.compiler;
 
@@ -14,21 +27,29 @@ import java.util.HashMap;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
- * Finds function definitions and global declarations. Works as preprocessor.
- *
+ * This class cinds function definitions and global declarations. Works as preprocessor.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 public class Finder {
-
-    public static HashMap<String, Class<? extends Value>> findFunctionDefinitions(ParseTree tree) {
+    
+    /**
+     * Finds all function definitions.
+     * @param tree The abstract syntax tree.
+     * @return A hash map with all function defintions.
+     */
+    public static HashMap<String, Class<? extends Value>> findFunctionDefinitions(ParseTree tree) 
+    {
         final HashMap<String, Class<? extends Value>> definedFunctions = new HashMap<>();
 
-        new ProgramBaseVisitor<Void>() {
-
+        new ProgramBaseVisitor<Void>() 
+        {
             @Override
-            public Void visitFunctionDefinitionWithReturnValue(ProgramParser.FunctionDefinitionWithReturnValueContext ctx) {
+            public Void visitFunctionDefinitionWithReturnValue(ProgramParser.FunctionDefinitionWithReturnValueContext ctx) 
+            {
                 Class<? extends Value> returnType;
-                switch (ctx.returnType.getText()) {
+                switch (ctx.returnType.getText()) 
+                {
                     case "boolean":
                         returnType = Bool.class;
                         break;
@@ -38,38 +59,44 @@ public class Finder {
                     default:
                         throw new RuntimeException("Unsupported data type!");
                 }
-                
                 definedFunctions.put(ctx.functionName.getText(), returnType);
                 
                 return null;
             }
 
             @Override
-            public Void visitFunctionDefinitionWithoutReturnValue(ProgramParser.FunctionDefinitionWithoutReturnValueContext ctx) {
+            public Void visitFunctionDefinitionWithoutReturnValue(ProgramParser.FunctionDefinitionWithoutReturnValueContext ctx) 
+            {
                 definedFunctions.put(ctx.functionName.getText(), null);
                 return null;
             }
-
         }.visit(tree);
 
         return definedFunctions;
     }
 
-    public static HashMap<String, Value> findGlobalVariables(ParseTree tree) {
+    /**
+     * Finds all defined global variables.
+     * @param tree The abstract syntax tree.
+     * @return A hash map with all global variables.
+     */
+    public static HashMap<String, Value> findGlobalVariables(ParseTree tree) 
+    {
         final HashMap<String, Value> globalVariables = new HashMap<>();
 
-        new ProgramBaseVisitor<Void>() {
-
+        new ProgramBaseVisitor<Void>() 
+        {
             private int index = 0;
 
             @Override
-            public Void visitGlobalDeclaration(ProgramParser.GlobalDeclarationContext ctx) {
+            public Void visitGlobalDeclaration(ProgramParser.GlobalDeclarationContext ctx) 
+            {
                 String type = ctx.simpleDecl().varType.getText();
                 String identifier = ctx.simpleDecl().varName.getText();
 
                 Value val;
-
-                switch (type) {
+                switch (type) 
+                {
                     case "boolean":
                         val = new Bool(null, this.index);
                         break;
@@ -90,7 +117,8 @@ public class Finder {
             }
 
             @Override
-            public Void visitGlobalDeclarationAssignmentBool(ProgramParser.GlobalDeclarationAssignmentBoolContext ctx) {
+            public Void visitGlobalDeclarationAssignmentBool(ProgramParser.GlobalDeclarationAssignmentBoolContext ctx) 
+            {
                 String identifier = ctx.varName.getText();
                 String value = ctx.varValue.getText();
 
@@ -102,7 +130,8 @@ public class Finder {
             }
 
             @Override
-            public Void visitGlobalDeclarationAssignmentInt(ProgramParser.GlobalDeclarationAssignmentIntContext ctx) {
+            public Void visitGlobalDeclarationAssignmentInt(ProgramParser.GlobalDeclarationAssignmentIntContext ctx) 
+            {
                 String identifier = ctx.varName.getText();
                 String value = ctx.varValue.getText();
 
@@ -112,10 +141,7 @@ public class Finder {
 
                 return null;
             }
-
         }.visit(tree);
-
         return globalVariables;
     }
-
 }
