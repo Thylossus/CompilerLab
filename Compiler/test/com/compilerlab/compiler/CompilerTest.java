@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2014
+ *  Tobias Kahse <tobias.kahse@outlook.com>
+ *  Frank Steiler <frank@steiler.eu>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.compilerlab.compiler;
 
 import jasmin.ClassFile;
@@ -14,25 +32,40 @@ import java.util.Scanner;
 import junit.framework.Assert;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- *
+ * This class is used to test the functionality of the compiler, using different code samples.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 @RunWith(Parameterized.class)
 public class CompilerTest {
 
+    /**
+     * The path to the temp directory.
+     */
     private Path tempDir;
+    /**
+     * The source code used for the testcase.
+     */
     private String code;
+    /**
+     * The expected output of the stdout.
+     */
     private String expectedText;
+    /**
+     * The name of the current test case.
+     */
     private String testCase;
 
+    /**
+     * This function provides the data for the test cases.
+     * @return The data for the test cases.
+     */
     @Parameterized.Parameters
     public static Collection<Object[]> provide_code_expectedText() {
         return Arrays.asList(new Object[][]{
@@ -149,38 +182,44 @@ public class CompilerTest {
         });
     }
 
+    /**
+     * Creates a new compiler test.
+     * @param testCase The test case name.
+     * @param code The source code of the test case.
+     * @param expectedText The expected output to the stdout.
+     */
     public CompilerTest(String testCase, String code, String expectedText) {
         this.testCase = testCase;
         this.code = code;
         this.expectedText = expectedText;
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
+    /**
+     * This function creates the temp directory before the execution of a test case.
+     * @throws IOException 
+     */
     @Before
-    public void setUp() throws IOException {
-        //Create temp dir
+    public void setUp() throws IOException 
+    {
         this.tempDir = Files.createTempDirectory("compilerTest");
     }
 
+    /**
+     * This function deletes the temp directory after execution of a test case.
+     */
     @After
-    public void tearDown() {
+    public void tearDown() 
+    {
         deleteRecursive(this.tempDir.toFile());
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    /**
+     * This function tests the compiler using different source codes.
+     * @throws Exception If an error occurs.
+     */
     @Test
-    public void runningCode_outputsExpectedText() throws Exception {
+    public void runningCode_outputsExpectedText() throws Exception 
+    {
         //Execution
         String actualOutput = compileAndRun(this.code);
 
@@ -188,34 +227,59 @@ public class CompilerTest {
         Assert.assertEquals(actualOutput, this.expectedText);
     }
 
-    private String compileAndRun(String code) throws Exception {
+    /**
+     * This function compiles a source code and executes the program.
+     * @param code The source code of the program.
+     * @return The stdout of the executed program.
+     * @throws Exception If an error occurs.
+     */
+    private String compileAndRun(String code) throws Exception 
+    {
         code = Main.compile(new ANTLRInputStream(code));
         ClassFile classFile = new ClassFile();
         classFile.readJasmin(new StringReader(code), this.testCase, false);
         Path outputPath = this.tempDir.resolve(classFile.getClassName() + ".class");
 
-        try (OutputStream out = Files.newOutputStream(outputPath)) {
+        try (OutputStream out = Files.newOutputStream(outputPath)) 
+        {
             classFile.write(out);
         }
 
         return runJavaClass(this.tempDir, classFile.getClassName());
     }
 
-    private String runJavaClass(Path dir, String className) throws Exception {
+    /**
+     * This function starts the execution of a java class file.
+     * @param dir The path of the directory where the class file is located.
+     * @param className The name of the class file.
+     * @return The stdout of the execution.
+     * @throws Exception If an error occurs.
+     */
+    private String runJavaClass(Path dir, String className) throws Exception 
+    {
         Process process = Runtime.getRuntime().exec(new String[]{"java", "-cp", dir.toString(), className});
 
-        try (InputStream in = process.getInputStream()) {
+        try (InputStream in = process.getInputStream()) 
+        {
             return new Scanner(in).useDelimiter("\\A").next();
         }
     }
 
-    private void deleteRecursive(File file) {
-        if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
+    /**
+     * This function is used to delete a directory structure recursively.
+     * @param file The directory/file that needs to be deleted.
+     */
+    private void deleteRecursive(File file) 
+    {
+        if (file.isDirectory()) 
+        {
+            for (File child : file.listFiles()) 
+            {
                 this.deleteRecursive(child);
             }
         }
-        if (!file.delete()) {
+        if (!file.delete()) 
+        {
             throw new Error("Could not delete file <" + file + ">");
         }
     }

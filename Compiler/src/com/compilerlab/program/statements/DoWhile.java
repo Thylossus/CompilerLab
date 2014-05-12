@@ -1,9 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014
+ *  Tobias Kahse <tobias.kahse@outlook.com>
+ *  Frank Steiler <frank@steiler.eu>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.compilerlab.program.statements;
 
 import com.compilerlab.jasmin.Command;
@@ -18,22 +30,41 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * This class represents a do-while statement.
  * @author Tobias Kahse <tobias.kahse@outlook.com>
+ * @author Frank Steiler <frank@steiler.eu>
  */
 public class DoWhile extends Statement {
 
+    /**
+     * The expression of the do-while-condition.
+     */
     private final Expression condition;
+    /**
+     * The list of statements within the do-while-body.
+     */
     private final Collection<Statement> statements;
 
-    public DoWhile(Expression condition, Collection<Statement> statements, HashMap<String, Value> localVariables) {
+    /**
+     * Default initialization of a do-while statement.
+     * @param condition The expression of the do-while-condition.
+     * @param statements The list of statements within the do-while-body
+     * @param localVariables The local variables hash map.
+     */
+    public DoWhile(Expression condition, Collection<Statement> statements, HashMap<String, Value> localVariables) 
+    {
         super(localVariables);
         this.condition = condition;
         this.statements = statements;
     }
 
+    /**
+     * This function returns the list of commands needed for the assembler execution.
+     * @return The list of commands.
+     */
     @Override
-    public List<Command> compile() {
+    public List<Command> compile() 
+    {
         List<Command> commands = new LinkedList<>();
         
         LABEL cmdLabelStart = new LABEL();
@@ -41,10 +72,11 @@ public class DoWhile extends Statement {
         IFEQ cmdIfeq = new IFEQ(cmdLabelEnd.getLabel());
         GOTO cmdGoto = new GOTO(cmdLabelStart.getLabel());
         
-        //Start of the loop
+        //Entry point of the do-while body
         commands.add(cmdLabelStart);
-        //Loop body
-        for (Statement statement : this.statements) {
+        //Staments within the body
+        for (Statement statement : this.statements) 
+        {
             commands.addAll(statement.compile());
         }
         
@@ -59,22 +91,34 @@ public class DoWhile extends Statement {
         return commands;
     }
 
+    /**
+     * This function returns the stack size needed for the execution of the operation. Maximum of the stack sizes of each statement within the body and the condition's stack size.
+     * @return The size of the stack.
+     */
     @Override
-    public int getStackSize() {
+    public int getStackSize() 
+    {
         int stackSize = 0;
-        for (Statement statement : this.statements) {
+        for (Statement statement : this.statements) 
+        {
             stackSize = Math.max(stackSize, statement.getStackSize());
         }
         return Math.max(stackSize, this.condition.getStackSize());
     }
-
+    
+    /**
+     * Converts the class into a string representation.
+     * @return The string representation of the class.
+     */
     @Override
-    public String toString() {
+    public String toString() 
+    {
         StringBuilder sb = new StringBuilder();
         
         sb.append("do {\n"); 
         
-        for (Statement statement : this.statements) {
+        for (Statement statement : this.statements) 
+        {
             sb.append(statement.toString());
             sb.append("\n");
         }
