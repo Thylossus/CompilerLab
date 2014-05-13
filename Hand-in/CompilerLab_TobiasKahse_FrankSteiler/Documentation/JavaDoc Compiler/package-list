@@ -1,0 +1,8 @@
+com.compilerlab.compiler
+com.compilerlab.jasmin
+com.compilerlab.program
+com.compilerlab.program.expressions
+com.compilerlab.program.expressions.boolExpressions
+com.compilerlab.program.expressions.intExpressions
+com.compilerlab.program.statements
+com.compilerlab.program.values
